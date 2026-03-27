@@ -1,11 +1,87 @@
-# Compiled class file
+# java/spring
+**/application-*.properties
+**/application-*.yml
+**/application.properties
+**/application.yml
+**/test-output/
+*.cer
 *.class
-
-# Log file
-*.log
+*.csr
+*.ctxt
+*.der
+*.jks
+*.nar
+*.nupkg
+*.o
+*.obj
+*.p12
+*.p7b
+*.p7c
+*.pfx
+*.pid
+*.pid.lock
+*.pub
+*.rar
+*.tgz
+*.truststore
+.docusaurus
+.DS_Store
+.DS_Store?
+.factorypath
+.fleet/
+.fusebox/
+.next/
+.nova/
+.nuxt/
+.parcel-cache
+.pnp.*
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.serverless/
+.Spotlight-V100
+.spring-devtools.properties
+.storybook-out/
+.stylelintcache
+.Trashes
+.vscode/
+.vscode-test/
+bower_components/
+cover/
+dependency-reduced-pom.xml
+heapdump.hprof
+hs_err_pid*
+jspm_packages/
+out/
+pom.xml.next
+pom.xml.releaseBackup
+pom.xml.tag
+pom.xml.versionsBackup
+public/
+release.properties
+storybook-static/
+test-output/
+test-reports/
+testng-results.xml
+Thumbs.db
+web_modules/
 
 # BlueJ files
 *.ctxt
+
+# Eclipse
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+.classpath
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -22,3 +98,36 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# private/security
+.env
+.env.*
+id_rsa
+*.crt
+*.key
+*.pem
+*.secret
+*.keystore
+
+# artifacts
+*.dll
+*.exe
+*.jar
+*.war
+*.lib
+*.zip
+*.tar.gz
+
+# target
+.cache/
+.gradle/
+.mvn/
+.mvn/timing.properties
+build/
+buildNumber.properties
+target/
+
+# logging
+*.log
+*.log.*
+logs/
