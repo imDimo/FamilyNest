@@ -65,6 +65,16 @@ test-reports/
 testng-results.xml
 Thumbs.db
 web_modules/
+HELP.md
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
 # BlueJ files
 *.ctxt
@@ -124,7 +134,14 @@ id_rsa
 .mvn/
 .mvn/timing.properties
 build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 buildNumber.properties
+/dist/
+/nbdist/
+/.nb-gradle/
+/nbbuild/
+/nbproject/private/
 target/
 
 # logging
