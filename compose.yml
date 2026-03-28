@@ -1,0 +1,27 @@
+services:
+  mariadb:
+    image: 'mariadb:latest'
+    environment:
+      - 'MARIADB_DATABASE=familynestdb'
+      - 'MARIADB_PASSWORD=nest'
+      - 'MARIADB_ROOT_PASSWORD=nest'
+      - 'MARIADB_USER=familynesthost'
+    ports:
+      - '3306'
+    volumes:
+      - 'mariadb:/data/mariadb'
+  
+  redis:
+    image: 'redis:latest'
+    ports:
+      - '6379'
+    volumes:
+      - 'redis:/data/redis'
+
+volumes:
+  mariadb:
+    driver:
+      local
+  redis:
+    driver:
+      local
