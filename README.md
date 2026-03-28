@@ -8,7 +8,7 @@ FamilyNest is a locally-hosted group calendar server with a web interface
 
 - [Java 21](https://www.oracle.com/java/technologies/downloads/#java21)
 
-- [Maven](https://maven.apache.org/download.cgi)
+- [Maven](https://maven.apache.org/download.cgi) (Optional)
 
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
@@ -19,6 +19,8 @@ General application settings are stored in `/src/main/resources/application.prop
 Changes to database settings should also be reflected in `/compose.yml`
 
 ## Building and Running
+
+> If you do not have Maven installed, you can use `.\mvnw.cmd` (Windows) or `./mvnw` (Linux) in place of `mvn` below
 
 Launch the calendar server by running `mvn spring-boot:run` in the project's root directory
 
