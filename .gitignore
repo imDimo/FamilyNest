@@ -131,7 +131,10 @@ id_rsa
 # target
 .cache/
 .gradle/
-.mvn/
+.mvn/*
+!.mvn/wrapper
+.mvn/wrapper/*
+!.mvn/wrapper/maven-wrapper.properties
 .mvn/timing.properties
 build/
 !**/src/main/**/build/
