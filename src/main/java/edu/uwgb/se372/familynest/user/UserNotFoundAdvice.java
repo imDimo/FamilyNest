@@ -1,4 +1,4 @@
-package edu.uwgb.group2.familynest.view;
+package edu.uwgb.se372.familynest.user;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

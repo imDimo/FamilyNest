@@ -1,4 +1,4 @@
-package edu.uwgb.group2.familynest;
+package edu.uwgb.se372.familynest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

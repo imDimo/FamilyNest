@@ -1,10 +1,7 @@
-package edu.uwgb.group2.familynest.service;
+package edu.uwgb.se372.familynest.session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import edu.uwgb.group2.familynest.db.NestSessionRepository;
-import edu.uwgb.group2.familynest.model.NestSession;
 
 @Service
 public class NestSessionService {

@@ -1,4 +1,4 @@
-package edu.uwgb.group2.familynest.model;
+package edu.uwgb.se372.familynest.user;
 
 
 import jakarta.persistence.*;

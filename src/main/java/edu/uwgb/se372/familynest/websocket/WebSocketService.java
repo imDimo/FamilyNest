@@ -1,4 +1,4 @@
-package edu.uwgb.group2.familynest.websocket;
+package edu.uwgb.se372.familynest.websocket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

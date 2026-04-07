@@ -1,4 +1,4 @@
-package edu.uwgb.group2.familynest.model;
+package edu.uwgb.se372.familynest.event;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

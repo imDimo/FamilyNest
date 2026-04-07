@@ -1,4 +1,4 @@
-package edu.uwgb.group2.familynest.model;
+package edu.uwgb.se372.familynest.session;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;

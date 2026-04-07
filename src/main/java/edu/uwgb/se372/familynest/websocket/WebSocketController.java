@@ -1,4 +1,4 @@
-package edu.uwgb.group2.familynest.websocket;
+package edu.uwgb.se372.familynest.websocket;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

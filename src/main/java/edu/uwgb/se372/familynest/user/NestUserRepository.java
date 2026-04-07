@@ -1,9 +1,7 @@
-package edu.uwgb.group2.familynest.db;
+package edu.uwgb.se372.familynest.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import edu.uwgb.group2.familynest.model.NestUser;
 
 @Repository
 public interface NestUserRepository extends JpaRepository<NestUser, Long> {}

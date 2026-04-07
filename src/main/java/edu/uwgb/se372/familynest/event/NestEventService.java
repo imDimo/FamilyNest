@@ -1,12 +1,9 @@
-package edu.uwgb.group2.familynest.service;
+package edu.uwgb.se372.familynest.event;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import edu.uwgb.group2.familynest.db.NestEventRepository;
-import edu.uwgb.group2.familynest.model.NestEvent;
 
 @Service
 public class NestEventService {

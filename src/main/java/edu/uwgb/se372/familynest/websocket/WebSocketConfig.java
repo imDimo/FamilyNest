@@ -1,4 +1,4 @@
-package edu.uwgb.group2.familynest.websocket;
+package edu.uwgb.se372.familynest.websocket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

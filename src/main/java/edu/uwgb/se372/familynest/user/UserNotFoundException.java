@@ -1,4 +1,4 @@
-package edu.uwgb.group2.familynest.view;
+package edu.uwgb.se372.familynest.user;
 
 public class UserNotFoundException extends RuntimeException {
 	public UserNotFoundException(Long id) {

@@ -1,12 +1,9 @@
-package edu.uwgb.group2.familynest.controller;
+package edu.uwgb.se372.familynest.user;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import edu.uwgb.group2.familynest.model.NestUser;
-import edu.uwgb.group2.familynest.service.UserService;
 
 @Controller
 //@RequestMapping("/api/users")
