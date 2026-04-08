@@ -4,11 +4,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestControllerAdvice
-class UserNotFoundAdvice {
+class NestUserNotFoundAdvice {
 	
-	@ExceptionHandler(UserNotFoundException.class)
+	@ExceptionHandler(NestUserNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	String userNotFoundHandler(UserNotFoundException e) {
+	String userNotFoundHandler(NestUserNotFoundException e) {
 		return e.getMessage();
 	}
 }

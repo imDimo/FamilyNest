@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 //@RequestMapping("/api/users")
-public class UserController {
+public class NestUserController {
 	
 	@Autowired
-	private UserService userService;
+	private NestUserService userService;
 	
-	@GetMapping("/users")
-	String getUsers(Model model) {
-		model.addAttribute("allusers", userService.getAllUsers());
-		return "get_users";
-	}
+//	@GetMapping("/users")
+//	String getUsers(Model model) {
+//		model.addAttribute("allusers", userService.getAllUsers());
+//		return "get_users";
+//	}
 	
 	@GetMapping("/users/add")
 	String addUser(Model model) {
@@ -25,11 +25,11 @@ public class UserController {
 		return "add_user";
 	}
 	
-	@PostMapping("/users/save")
-	String saveUser(@ModelAttribute("user") NestUser user) {
-		userService.createUser(user);
-		return "redirect:/users";
-	}
+//	@PostMapping("/users/save")
+//	String saveUser(@ModelAttribute("user") NestUser user) {
+//		userService.registerUser(user);
+//		return "redirect:/users";
+//	}
 	
 	@GetMapping("/users/delete/{id}")
 	String deleteUserById(@PathVariable(value="id") Long userId) {

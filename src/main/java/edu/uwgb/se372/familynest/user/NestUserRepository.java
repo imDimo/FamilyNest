@@ -4,4 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface NestUserRepository extends JpaRepository<NestUser, Long> {}
+public interface NestUserRepository extends JpaRepository<NestUser, Long> {
+	public NestUser findByUsername(String username);
+}

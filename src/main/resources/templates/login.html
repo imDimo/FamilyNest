@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Login</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div id="login_tile" class="centered tile">
+            <form action="/login" method="post">
+                <h1>FamilyNest</h1>
+                <input id="username" name="username" type="text" placeholder="Username">
+                <br>
+                <input id="password" name="password" type="password" placeholder="Password">
+                <br>
+                <button id="login_button" name="login" type="submit">Login</button>
+            </form>
+        </div>
+    </body>
+</html>
