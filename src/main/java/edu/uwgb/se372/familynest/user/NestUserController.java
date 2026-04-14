@@ -26,8 +26,7 @@ public class NestUserController {
 		while (rs.next()) {
 			System.out.println(rs.getString("username"));
 		}
-		//NestUser user = userService.loadUserByUsername(username);
-		//System.out.println("Got user " + user.getUsername());
+		
 		return "redirect:/calendar";
 	}
 	

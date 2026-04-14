@@ -7,13 +7,13 @@
     </head>
     <body>
         <div id="login_tile" class="centered tile">
-            <form action="/login/process" method="post">
+            <form action="#" th:action="@{/login/process}" th:object="${user}" method="post">
                 <h1>FamilyNest</h1>
-                <input id="username" name="username" type="text" placeholder="Username">
+                <input type="text" th:field="*{username}" placeholder="Username">
                 <br>
-                <input id="password" name="password" type="password" placeholder="Password">
+                <input type="password" th:field="*{password}" placeholder="Password">
                 <br>
-                <button id="login_button" name="login" type="submit">Login</button>
+                <button id="login_button" type="submit">Login</button>
             </form>
         </div>
     </body>
