@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Users</title>
+    </head>
+    <body>
+        <div>
+
+            <h3>User List</h3>
+            <a th:href="@{/users/add}">Add User</a>
+                <div>
+                    <p th:text="${user.username}"></p>
+                    <p th:text="${user.hashedPassword}"></p>
+                    <p> <a th:href="@{/users/update/{id}(id=${user.id})}">Update</a>
+                        <a th:href="@{/users/delete/{id}(id=${user.id})}">Delete</a>
+                    </p>
+                </div>
+        </div>
+    </body>
+</html>

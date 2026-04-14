@@ -9,7 +9,7 @@
             <form action="#" th:action="@{/users/save}" th:object="${user}"
                 method="POST">
                 <input type="text" th:field="*{username}" placeholder="Username"> 
-                <input type="password" th:field="*{hashedPassword}">
+                <input type="password" th:field="*{password}">
 
                 <button type="submit">Create</button>
             </form>

@@ -1,5 +1,9 @@
 package edu.uwgb.se372.familynest.user;
 
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,24 +16,34 @@ public class NestUserController {
 	@Autowired
 	private NestUserService userService;
 	
-//	@GetMapping("/users")
-//	String getUsers(Model model) {
-//		model.addAttribute("allusers", userService.getAllUsers());
-//		return "get_users";
-//	}
+	@Autowired
+	private DataSource db;
+	
+	@GetMapping("/users/query")
+	String getUsers() throws SQLException {
+		var ps = db.getConnection().prepareStatement("SELECT * FROM user");
+		var rs = ps.executeQuery();
+		while (rs.next()) {
+			System.out.println(rs.getString("username"));
+		}
+		//NestUser user = userService.loadUserByUsername(username);
+		//System.out.println("Got user " + user.getUsername());
+		return "redirect:/calendar";
+	}
 	
 	@GetMapping("/users/add")
 	String addUser(Model model) {
-		NestUser user = new NestUser();
+		NestUserDto user = new NestUserDto();
 		model.addAttribute("user", user);
 		return "add_user";
 	}
 	
-//	@PostMapping("/users/save")
-//	String saveUser(@ModelAttribute("user") NestUser user) {
-//		userService.registerUser(user);
-//		return "redirect:/users";
-//	}
+	@PostMapping("/users/save")
+	String saveUser(@ModelAttribute("user") NestUserDto user) {
+		String str = userService.create(user.getUsername(), user.getPassword(), "USER");
+		System.out.println(str);
+		return "redirect:/login";
+	}
 	
 	@GetMapping("/users/delete/{id}")
 	String deleteUserById(@PathVariable(value="id") Long userId) {

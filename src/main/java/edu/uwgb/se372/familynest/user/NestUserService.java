@@ -31,17 +31,19 @@ public class NestUserService implements UserDetailsService {
 		NestUser user = new NestUser(
 			username,
 			passwordEncoder.encode(password),
-			"user"
+			authorities
 		);
-				
+		
+		userRepository.save(user);
+		
 		return "Successfully created user";
 	}
 	
-	public NestUser updateUser(Long userId, NestUser user) {
+	public NestUser updateUser(Long userId, NestUser userdata) {
 		NestUser existingUser = userRepository.findById(userId).orElse(null);
 		if (existingUser != null) {
-			existingUser.setUsername(user.getUsername());
-			existingUser.setPassword(user.getPassword());
+			existingUser.setUsername(userdata.getUsername());
+			existingUser.setPassword(userdata.getPassword());
 			return userRepository.save(existingUser);
 		}
 		else {

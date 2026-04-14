@@ -1,4 +1,4 @@
-package edu.uwgb.se372.familynest.authentication;
+package edu.uwgb.se372.familynest.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NestUserInfoDto {
-	private Long id;
+public class NestUserDto {
 	private String username;
 	private String password;
 	
