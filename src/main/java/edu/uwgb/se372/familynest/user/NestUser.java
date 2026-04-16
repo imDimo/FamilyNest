@@ -82,7 +82,7 @@ public class NestUser implements UserDetails {
 		List<String> privilege_names = new ArrayList<>();
 		List<NestPrivilege> privileges = new ArrayList<>();
 		
-		for (NestRole role : roles) {
+		for (NestRole role : this.roles) {
 			privilege_names.add(role.getName());
 			privileges.addAll(role.getPrivileges());
 		}

@@ -1,5 +1,6 @@
 package edu.uwgb.se372.familynest.authority;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -7,7 +8,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="role")
-public class NestRole {
+public class NestRole implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -25,9 +26,14 @@ public class NestRole {
 					name="privilege_id", referencedColumnName="id"))
 	private Collection<NestPrivilege> privileges;
 	
+	public NestRole() {}
 	public NestRole(String name) {
 		this.name = name;
 		this.privileges = new ArrayList<>();
+	}
+	public NestRole(String name, Collection<NestPrivilege> privileges) {
+		this.name = name;
+		this.privileges = privileges;
 	}
 
 	public Collection<NestPrivilege> getPrivileges() {
@@ -35,7 +41,7 @@ public class NestRole {
 	}
 
 	public void setPrivileges(Collection<NestPrivilege> privileges) {
-		this.privileges = privileges;
+		this.privileges = new ArrayList<>(privileges);
 	}
 
 	public String getName() {

@@ -9,14 +9,13 @@ import org.springframework.stereotype.Service;
 public class NestRoleService {
 	
 	@Autowired
-	NestRoleRepository roleRepository;
+	private NestRoleRepository roleRepository;
 	
 	public NestRole create(String name, Collection<NestPrivilege> privileges) {
 		NestRole role = roleRepository.findByName(name);
-		if (name == null) {
-			role = new NestRole(name);
-			role.setPrivileges(privileges);
-			roleRepository.save(role);
+		if (role == null) {
+			role = new NestRole(name, privileges);
+			role = roleRepository.save(role);
 		}
 		
 		return role;

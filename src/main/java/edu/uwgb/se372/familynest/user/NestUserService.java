@@ -33,19 +33,25 @@ public class NestUserService implements UserDetailsService {
 		return userRepository.findAll();
 	}
 	
-	public List<NestUser> findUsersWithRoles(List<String> roles) {
+	public List<NestUser> findUsersWithRoles(List<NestRole> roles) {
 		
 		return userRepository.findByRolesIn(roles);
 	}
 	
 	public NestUser create(String username, String password, List<NestRole> roles) {
-		NestUser user = new NestUser(
-			username,
-			passwordEncoder.encode(password),
-			roles
-		);
 		
-		return userRepository.save(user);
+		NestUser user = userRepository.findByUsername(username);
+		
+		if (user == null) {
+			user = new NestUser(
+				username,
+				passwordEncoder.encode(password),
+				roles
+			);
+			user = userRepository.save(user);
+		}
+		
+		return user;
 	}
 	
 	public NestUser updateUser(Long userId, NestUser userdata) {
