@@ -1,6 +1,8 @@
 body {
     background-color: lightgray;
     font-family: sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 input {
@@ -13,9 +15,15 @@ input {
 button {
     border: none;
     border-radius: 4px;
-    color: white;
     margin-top: 16px;
     padding: 8px;
+    font-size: 16px;
+    background-color: green;
+    color: white;
+}
+
+button:hover {
+    background-color: darkgreen;
 }
 
 .tile {
@@ -38,8 +46,13 @@ button {
 }
 
 #login_button {
+    color: white;
     background-color: green;
     width: 64px;
+}
+
+#login_button:hover {
+    background-color: darkgreen;
 }
 
 .error {
@@ -52,4 +65,28 @@ button {
     font-size: 14px;
     height: 0px;
     margin: 0px;
+}
+
+.header {
+    margin: 0;
+    background-color: white;
+    box-shadow: 0 0 8px gray;
+    height: 64px;
+}
+
+.header ul {
+    list-style: none;
+}
+
+.header ul li {
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.inline {
+    display: inline;
+}
+
+.rightalign {
+    text-align: right;
 }

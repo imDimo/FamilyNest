@@ -9,17 +9,18 @@
         <script src="js/calendar.js" defer></script>
     </head>
     <body>
-        
-        <div class="header">
-            <ul>
-                <li><a href="/calendar">Calendar</a></li>
-                <li><a href="/gallery">Gallery</a></li>
-                <li><a href="/settings">Preferences</a></li>
-                <form action="#" th:action="@{/logout}" method="post">
-                    <button type="submit">Log Out</button>
+        <nav class="header">
+            <div class="rightalign">
+                <form action="#" th:action="@{/nav}" method="post">
+                    <ul>
+                        <li class="inline"><button type="submit" name="action" value="calendar">Calendar</button></li>
+                        <li class="inline"><button type="submit" name="action" value="gallery">Gallery</button></li>
+                        <li class="inline"><button type="submit" name="action" value="settings">Preferences</button></li>
+                        <li class="inline"><button type="submit" name="action" value="logout">Log Out</button></li>
+                    </ul>
                 </form>
-            </ul>
-        </div>
+            </div>
+        </nav>
 
         <div id="announcementArea">
             
