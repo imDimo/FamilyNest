@@ -18,41 +18,6 @@ public class FamilyNestApplication {
 	
 	private SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 	
-	@GetMapping("/")
-	String home() {
-		return "index";
-	}
-	
-	@GetMapping("/calendar")
-	String calendar(Model model) {
-		return "/calendar";
-	}
-	
-	@PostMapping(value="/nav", params="action=calendar")
-	String postCalendar(Model model) {
-		return "redirect:/calendar";
-	}
-	
-	@GetMapping("/gallery")
-	String gallery(Model model) {
-		return "redirect:/gallery";
-	}
-	
-	@PostMapping(value="/nav", params="action=gallery")
-	String postGallery(Model model) {
-		return "redirect:/gallery";
-	}
-	
-	@GetMapping("/settings")
-	String settings(Model model) {
-		return "redirect:/settings";
-	}
-	
-	@PostMapping(value="/nav", params="action=settings")
-	String postSettings(Model model) {
-		return "redirect:/settings";
-	}
-	
 	@PostMapping(value="/nav", params="action=logout")
 	String postLogout(Authentication auth, HttpServletRequest request, HttpServletResponse response) {
 		logoutHandler.logout(request, response, auth);

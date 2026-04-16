@@ -1,20 +1,16 @@
 package edu.uwgb.se372.familynest.user;
 
-import java.sql.SQLException;
 import java.util.Arrays;
-
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import edu.uwgb.se372.familynest.authority.NestRoleRepository;
 import edu.uwgb.se372.familynest.authority.NestRoleService;
 
 @Controller
-@RequestMapping("/admin/users")
+@RequestMapping("/admin")
 public class NestUserController {
 	
 	@Autowired
@@ -23,28 +19,14 @@ public class NestUserController {
 	@Autowired
 	private NestRoleService roleService;
 	
-	@Autowired
-	private DataSource db;
-	
-	@GetMapping("/query")
-	String getUsers() throws SQLException {
-		var ps = db.getConnection().prepareStatement("SELECT * FROM user");
-		var rs = ps.executeQuery();
-		while (rs.next()) {
-			System.out.println(rs.getString("username"));
-		}
-		
-		return "redirect:/calendar";
-	}
-	
-	@GetMapping("/add")
+	@PostMapping(value="/users", params="action=create")
 	String addUser(Model model) {
 		NestUserDto user = new NestUserDto();
 		model.addAttribute("user", user);
 		return "add_user";
 	}
 	
-	@PostMapping("/save")
+	@PostMapping(value="/users", params="action=save")
 	String saveUser(@ModelAttribute("user") NestUserDto userData) {
 		
 		NestUser user = userService.create(
@@ -55,7 +37,7 @@ public class NestUserController {
 		return "redirect:/login";
 	}
 	
-	@GetMapping("/delete/{id}")
+	@PostMapping(value="/users", params="action=delete")
 	String deleteUserById(@PathVariable(value="id") Long userId) {
 		userService.deleteUserById(userId);
 		return "redirect:/users";
