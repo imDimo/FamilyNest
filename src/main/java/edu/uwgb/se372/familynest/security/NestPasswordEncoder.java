@@ -7,7 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class NestPasswordEncoder {
-	@Bean PasswordEncoder encoder() {
+	@Bean
+	public PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
 	}
 }

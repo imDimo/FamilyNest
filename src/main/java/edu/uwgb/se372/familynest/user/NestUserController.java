@@ -1,6 +1,7 @@
 package edu.uwgb.se372.familynest.user;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import javax.sql.DataSource;
 
@@ -9,12 +10,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import edu.uwgb.se372.familynest.authority.NestRoleRepository;
+import edu.uwgb.se372.familynest.authority.NestRoleService;
+
 @Controller
 //@RequestMapping("/api/users")
 public class NestUserController {
 	
 	@Autowired
 	private NestUserService userService;
+	
+	@Autowired
+	private NestRoleService roleService;
 	
 	@Autowired
 	private DataSource db;
@@ -38,9 +45,13 @@ public class NestUserController {
 	}
 	
 	@PostMapping("/users/save")
-	String saveUser(@ModelAttribute("user") NestUserDto user) {
-		String str = userService.create(user.getUsername(), user.getPassword(), "USER");
-		System.out.println(str);
+	String saveUser(@ModelAttribute("user") NestUserDto userData) {
+		
+		NestUser user = userService.create(
+				userData.getUsername(), 
+				userData.getPassword(), 
+				Arrays.asList(roleService.findByName("ROLE_USER")));
+		
 		return "redirect:/login";
 	}
 	

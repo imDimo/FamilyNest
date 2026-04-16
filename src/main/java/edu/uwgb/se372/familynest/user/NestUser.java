@@ -1,13 +1,15 @@
 package edu.uwgb.se372.familynest.user;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import edu.uwgb.se372.familynest.authority.NestPrivilege;
+import edu.uwgb.se372.familynest.authority.NestRole;
 import jakarta.persistence.*;
 
 @Entity
@@ -24,14 +26,25 @@ public class NestUser implements UserDetails {
 	@Column(name="password", nullable=false)
 	private String password;
 	
-	@Column(name="authorities", nullable=false)
-	private String authorities;
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(
+			name="users_roles", 
+			joinColumns=@JoinColumn(
+					name="user_id", referencedColumnName="id"),
+			inverseJoinColumns = @JoinColumn(
+					name="role_id", referencedColumnName="id"))
+	private Collection<NestRole> roles;
 	
 	public NestUser() {};
-	public NestUser(String username, String password, String authorities) {
+	public NestUser(String username, String password) {
 		this.username = username;
 		this.password = password;
-		this.authorities = authorities;
+		this.roles = new ArrayList<NestRole>();
+	}
+	public NestUser(String username, String password, List<NestRole> roles) {
+		this.username = username;
+		this.password = password;
+		this.roles = roles;
 	}
 	
 	public Long getId() {
@@ -59,12 +72,33 @@ public class NestUser implements UserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Arrays.stream(this.authorities.split("::"))
-				.map(SimpleGrantedAuthority::new)
-				.collect(Collectors.toList());
+		return getGrantedAuthorities(getPrivileges());
+	}
+	
+	private List<String> getPrivileges() {
+		List<String> privilege_names = new ArrayList<>();
+		List<NestPrivilege> privileges = new ArrayList<>();
+		
+		for (NestRole role : roles) {
+			privilege_names.add(role.getName());
+			privileges.addAll(role.getPrivileges());
+		}
+		
+		for (NestPrivilege privilege : privileges)
+			privilege_names.add(privilege.getName());
+		
+		return privilege_names;
+	}
+	
+	private List<GrantedAuthority> getGrantedAuthorities(List<String> privileges) {
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		for (String privilege : privileges)
+			authorities.add(new SimpleGrantedAuthority(privilege));
+		
+		return authorities;
 	}
 	
 	/**
