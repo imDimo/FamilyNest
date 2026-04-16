@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @SpringBootApplication
 public class FamilyNestApplication {
 	
-	SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+	private SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 	
 	@GetMapping("/")
 	String home() {
@@ -55,7 +55,7 @@ public class FamilyNestApplication {
 	
 	@PostMapping(value="/nav", params="action=logout")
 	String postLogout(Authentication auth, HttpServletRequest request, HttpServletResponse response) {
-		this.logoutHandler.logout(request, response, auth);
+		logoutHandler.logout(request, response, auth);
 		return "redirect:/login";
 	}
 

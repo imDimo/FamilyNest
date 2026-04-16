@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class NestPrivilegeService {
 
 	@Autowired
-	NestPrivilegeRepository privilegeRepository;
+	private NestPrivilegeRepository privilegeRepository;
 	
 	public NestPrivilege create(String name) {
 		NestPrivilege privilege = privilegeRepository.findByName(name);

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 public class WebSocketController {
 	
 	@Autowired
-	WebSocketService webSocketService;
+	private WebSocketService webSocketService;
 	
 	@MessageMapping("/announcement")
 	@SendTo("/topic/announcements")

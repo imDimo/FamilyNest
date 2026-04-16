@@ -4,5 +4,4 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface NestSessionRepository extends CrudRepository<NestSession, String> {
-}
+public interface NestSessionRepository extends CrudRepository<NestSession, String> {}
