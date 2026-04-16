@@ -1,17 +1,15 @@
 package edu.uwgb.se372.familynest.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import edu.uwgb.se372.familynest.user.NestUser;
 import edu.uwgb.se372.familynest.user.NestUserDto;
 import edu.uwgb.se372.familynest.user.NestUserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class NestSecurityController {
@@ -20,27 +18,24 @@ public class NestSecurityController {
 	private NestUserService userService;
 	
 	@GetMapping("/login")
-	String login(Model model) {
+	String login(HttpServletRequest request, Model model) {
+		
+		HttpSession session = request.getSession(false);
+		String message = null;
+		
+		if (session != null) {
+			AuthenticationException ex = (AuthenticationException) session
+					.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+			
+			if (ex != null) {
+				message = "Incorrect username or password";
+				session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+			}
+		}
+		
 		NestUserDto user = new NestUserDto();
 		model.addAttribute("user", user);
+		model.addAttribute("error", message);
 		return "login";
 	}
-	
-	// login process automatically handled by spring boot security
-//	@PostMapping("/login/process")
-//	public String loginUser(@RequestBody NestUserDto userData) {
-//		
-//		System.out.println("login request received");
-//		
-//		try {
-//			NestUser user = userService.loadUserByUsername(userData.getUsername());
-//			System.out.println("Found user " + user.getUsername());
-//		}
-//		catch (UsernameNotFoundException e) {
-//			System.out.printf("User '%s' was not found\n", e.getName());
-//			return "redirect:/login";
-//		}
-//		
-//		return "redirect:/calendar";
-//	}
 }

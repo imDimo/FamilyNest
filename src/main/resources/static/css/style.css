@@ -41,3 +41,15 @@ button {
     background-color: green;
     width: 64px;
 }
+
+.error {
+    margin-top: 16px;
+    height: 24px;
+}
+
+.error p {
+    color: red;
+    font-size: 14px;
+    height: 0px;
+    margin: 0px;
+}

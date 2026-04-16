@@ -37,9 +37,14 @@ public class SecurityConfig {
 				.requestMatchers("/css/**", "/js/**", "/images/**", "/login**").permitAll()
 //				.requestMatchers("/**").permitAll()
 				.anyRequest().authenticated())
-		.formLogin(login -> login.loginPage("/login")
+		.formLogin(conf -> conf.loginPage("/login")
 				.loginProcessingUrl("/login/process")
-				.defaultSuccessUrl("/calendar", false));
+				.failureUrl("/login")
+				.defaultSuccessUrl("/calendar", false))
+		.logout((conf) -> conf
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/login")
+				.permitAll());
 		
 		return http.build();
 	}

@@ -13,6 +13,9 @@
                 <br>
                 <input type="password" th:field="*{password}" placeholder="Password">
                 <br>
+                <div class="error">
+                    <p th:if="${error}" th:text="${error}"></p>
+                </div>
                 <button id="login_button" type="submit">Login</button>
             </form>
         </div>

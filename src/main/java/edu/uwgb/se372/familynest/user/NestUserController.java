@@ -14,7 +14,7 @@ import edu.uwgb.se372.familynest.authority.NestRoleRepository;
 import edu.uwgb.se372.familynest.authority.NestRoleService;
 
 @Controller
-//@RequestMapping("/api/users")
+@RequestMapping("/admin/users")
 public class NestUserController {
 	
 	@Autowired
@@ -26,7 +26,7 @@ public class NestUserController {
 	@Autowired
 	private DataSource db;
 	
-	@GetMapping("/users/query")
+	@GetMapping("/query")
 	String getUsers() throws SQLException {
 		var ps = db.getConnection().prepareStatement("SELECT * FROM user");
 		var rs = ps.executeQuery();
@@ -37,14 +37,14 @@ public class NestUserController {
 		return "redirect:/calendar";
 	}
 	
-	@GetMapping("/users/add")
+	@GetMapping("/add")
 	String addUser(Model model) {
 		NestUserDto user = new NestUserDto();
 		model.addAttribute("user", user);
 		return "add_user";
 	}
 	
-	@PostMapping("/users/save")
+	@PostMapping("/save")
 	String saveUser(@ModelAttribute("user") NestUserDto userData) {
 		
 		NestUser user = userService.create(
@@ -55,43 +55,9 @@ public class NestUserController {
 		return "redirect:/login";
 	}
 	
-	@GetMapping("/users/delete/{id}")
+	@GetMapping("/delete/{id}")
 	String deleteUserById(@PathVariable(value="id") Long userId) {
 		userService.deleteUserById(userId);
 		return "redirect:/users";
 	}
-	
-	/*
-	// POST /api/users
-	@PostMapping
-	public User createUser(@RequestBody User user) {
-		return userService.createUser(user);
-	}
-	
-	// GET /api/users
-	@GetMapping
-	public List<User> getAllUsers() {
-		return userService.getAllUsers();
-	}
-	
-	// GET /api/users/{id}
-	@GetMapping("/{id}")
-	public User getUserByID(@PathVariable(value="id") Long userId) {
-		return userService.getUserById(userId);
-	}
-	
-	// PUT /api/users/{id}
-	@PutMapping("/{id}")
-	public User updateUser(
-			@PathVariable(value="id") Long userId,
-			@RequestBody User userDetails) {
-		return userService.updateUser(userId, userDetails);
-	}
-	
-	// DELETE /api/users/{id}
-	@DeleteMapping("/{id}")
-	public void deleteUser(@PathVariable(value="id") Long userId) {
-		userService.deleteUserById(userId);
-	}
-	*/
 }
