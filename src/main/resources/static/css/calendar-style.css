@@ -1,0 +1,23 @@
+.calendar-maincontent {
+    margin-top: 32px;
+    height: 50%;
+    justify-content: space-evenly;
+}
+
+.users-container {
+    padding: 8px;
+    width: 10%;
+    height: 60vh;
+}
+
+.calendar-container {
+    padding: 8px;
+    width: 55%;
+    height: 60vh;
+}
+
+.events-container {
+    padding: 8px;
+    width: 20%;
+    height: 60vh;
+}

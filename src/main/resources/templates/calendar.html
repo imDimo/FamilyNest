@@ -4,13 +4,14 @@
         <meta charset="ISO-8859-1">
         <title>Calendar | FamilyNest</title>
 		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/calendar-style.css">
         <script src="js/lib/stomp.min.js" defer></script>
         <script src="js/lib/sockjs.min.js" defer></script>
         <script src="js/calendar.js" defer></script>
     </head>
     <body>
-        <nav class="header">
-            <div class="rightalign">
+        <div class="header">
+            <nav class="rightalign">
                 <form action="#" th:action="@{/nav}" method="post">
                     <ul>
                         <li class="inline"><button type="submit" name="action" value="calendar">Calendar</button></li>
@@ -19,16 +20,45 @@
                         <li class="inline"><button type="submit" name="action" value="logout">Log Out</button></li>
                     </ul>
                 </form>
+            </nav>
+        </div>
+
+        <!-- <div id="announcementArea"> -->
+        <!---->
+        <!-- </div> -->
+        <!-- <div> -->
+        <!--     <button type="button" id="announceButton">Send announcement</button> -->
+        <!-- </div> -->
+        <div class="flex calendar-maincontent">
+            <div class="tile users-container">
+                <h2 class="centered">Members</h2>
+                <ul>
+                    <li th:if="${users}" th:each="user : ${users}">
+                        <div class="user-row">
+                            <span th:text="${user.username}"></span>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </nav>
-
-        <div id="announcementArea">
-            
+            <div class="tile calendar-container">
+                <div class="calendar">
+                    <div class="calendar-day" th:if="${dates}" th:each="date : ${dates}">
+                        <span th:text="${date.dayOfMonth}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="tile events-container">
+                <h2 class="centered">Upcoming Events</h2>
+                <ul>
+                    <li th:if="${events}" th:each="event : ${events}">
+                        <div class="event-row">
+                            <span th:text="${event.date}"></span>
+                            <span th:text="${event.title}"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div>
-            <button type="button" id="announceButton">Send announcement</button>
-        </div>
-
 
     </body>
 </html>

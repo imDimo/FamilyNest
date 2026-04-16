@@ -83,10 +83,22 @@ button:hover {
     margin-right: 16px;
 }
 
+.header nav {
+    margin-right: 64px;
+}
+
 .inline {
     display: inline;
 }
 
+.centered {
+    text-align: center;
+}
+
 .rightalign {
     text-align: right;
+}
+
+.flex {
+    display: flex;
 }

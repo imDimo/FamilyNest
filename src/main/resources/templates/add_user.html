@@ -2,9 +2,22 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
     <head>
         <meta charset="ISO-8859-1">
-        <title>Add User</title>
+        <title>Add a User</title>
     </head>
     <body>
+        <div class="header">
+            <nav class="rightalign">
+                <form action="#" th:action="@{/nav}" method="post">
+                    <ul>
+                        <li class="inline"><button type="submit" name="action" value="calendar">Calendar</button></li>
+                        <li class="inline"><button type="submit" name="action" value="gallery">Gallery</button></li>
+                        <li class="inline"><button type="submit" name="action" value="settings">Preferences</button></li>
+                        <li class="inline"><button type="submit" name="action" value="logout">Log Out</button></li>
+                    </ul>
+                </form>
+            </nav>
+        </div>
+
         <div>
             <form action="#" th:action="@{/users/save}" th:object="${user}"
                 method="POST">
