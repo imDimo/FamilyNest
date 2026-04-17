@@ -21,10 +21,17 @@ public class NestUserService implements UserDetailsService {
 
 	@Override
 	public NestUser loadUserByUsername(String username) {
-		
 		NestUser user = userRepository.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException(username);
+		}
+		return user;
+	}
+	
+	public NestUser loadUserById(Long id) {
+		NestUser user = userRepository.findById(id).orElse(null);
+		if (user == null) {
+			throw new NestUserNotFoundException(id);
 		}
 		return user;
 	}
@@ -58,7 +65,7 @@ public class NestUserService implements UserDetailsService {
 		NestUser existingUser = userRepository.findById(userId).orElse(null);
 		if (existingUser != null) {
 			existingUser.setUsername(userdata.getUsername());
-			existingUser.setPassword(userdata.getPassword());
+			existingUser.setPassword(passwordEncoder.encode(userdata.getPassword()));
 			return userRepository.save(existingUser);
 		}
 		else {

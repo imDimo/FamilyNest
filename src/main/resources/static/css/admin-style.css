@@ -26,11 +26,29 @@
 }
 
 .add-user-content {
-    text-align: center;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20%;
-    width: 70%;
+    width: 40%;
+}
+
+.add-user-content input {
+    margin: 8px;
+}
+
+.edit-user-tile {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    padding: 32px;
+    height: 600px;
+}
+
+.edit-user-content {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20%;
+    width: 40%;
 }
 
 .add-user-content input {
@@ -75,4 +93,8 @@
 
 .delete:hover {
     background-color: darkred;
+}
+
+.user-checkbox {
+    vertical-align: middle;
 }

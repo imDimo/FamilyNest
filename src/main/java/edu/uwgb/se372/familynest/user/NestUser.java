@@ -2,6 +2,7 @@ package edu.uwgb.se372.familynest.user;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -39,12 +40,12 @@ public class NestUser implements UserDetails {
 	public NestUser(String username, String password) {
 		this.username = username;
 		this.password = password;
-		this.roles = new ArrayList<NestRole>();
+		this.roles = new HashSet<NestRole>();
 	}
-	public NestUser(String username, String password, List<NestRole> roles) {
+	public NestUser(String username, String password, Collection<NestRole> roles) {
 		this.username = username;
 		this.password = password;
-		this.roles = roles;
+		this.roles = new HashSet<>(roles);
 	}
 	
 	public Long getId() {
@@ -76,6 +77,18 @@ public class NestUser implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return getGrantedAuthorities(getPrivileges());
+	}
+	
+	public Collection<NestRole> getRoles() {
+		return roles;
+	}
+	
+	public void setRoles(Collection<NestRole> roles) {
+		this.roles = new HashSet<>(roles);
+	}
+	
+	public boolean hasRole(NestRole role) {
+		return roles.stream().anyMatch((r) -> r.getId().equals(role.getId()));
 	}
 	
 	private List<String> getPrivileges() {

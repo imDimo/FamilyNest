@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import edu.uwgb.se372.familynest.authority.NestRoleService;
+import edu.uwgb.se372.familynest.user.NestUser;
 import edu.uwgb.se372.familynest.user.NestUserDto;
 import edu.uwgb.se372.familynest.user.NestUserService;
 
@@ -19,6 +22,9 @@ public class AdminNavigationController {
 	
 	@Autowired
 	NestUserService userService;
+	
+	@Autowired
+	NestRoleService roleService;
 	
 	@GetMapping("/manage-users")
 	String manageUsers(Model model) {
@@ -55,5 +61,24 @@ public class AdminNavigationController {
 	@PostMapping(value="/users", params="action=add-user")
 	String postAddUser(Model model) {
 		return "redirect:/admin/add-user";
+	}
+	
+	@PostMapping(value="/users", params="action=update-user")
+	String updateUser(Model model, @ModelAttribute(value="id") Long userId) {
+		NestUser user = null;
+		NestUserDto userData = null;
+		try {
+			user = userService.loadUserById(userId);
+		}
+		catch (Exception e) {
+			System.err.println(e.getMessage());
+			return "redirect:/admin/manage-users";
+		}
+		
+		userData = new NestUserDto(user);
+		userData.setIsAdmin(user.hasRole(roleService.findByName("ROLE_ADMIN")));
+		
+		model.addAttribute("user", userData);
+		return "/edit_user";
 	}
 }

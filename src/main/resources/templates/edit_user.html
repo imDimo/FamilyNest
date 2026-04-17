@@ -29,18 +29,19 @@
             </nav>
         </div>
 
-        <div class="tile add-user-tile">
-            <div class="add-user-content centered">
-                <form action="#" th:action="@{/admin/users/create}" th:object="${user}" method="POST" autocomplete="off">
+        <div class="tile edit-user-tile">
+            <div class="edit-user-content centered">
+                <form action="#" th:action="@{/admin/users/update}" th:object="${user}" method="POST" autocomplete="off">
+                    <input type="hidden" th:field="*{id}">
                     <input type="text" th:field="*{username}" placeholder="Username"> 
-                    <input type="password" th:field="*{password}" placeholder="Password">
+                    <input type="password" th:name="password" placeholder="Password">
                     <br>
                     <div>
                         <label for="admin_check">Admin Account</label>
-                        <input class="user-checkbox" type="checkbox" id="admin_check" th:field="*{isAdmin}">
+                        <input class="user-checkbox" type="checkbox" id="admin_check" th:field="*{isAdmin}" checked="${isAdmin}">
                     </div>
                     <br>
-                    <button class="add-user-bttn" type="submit">Add User</button>
+                    <button class="add-user-bttn" type="submit">Update</button>
                 </form>
             </div>
         </div>

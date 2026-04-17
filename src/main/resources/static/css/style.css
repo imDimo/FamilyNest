@@ -40,6 +40,10 @@ button:hover {
     margin-right: auto;
 }
 
+.left-align {
+    text-align: left;
+}
+
 .login-tile {
     margin-top: 25vh;
     width: 450px;

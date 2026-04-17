@@ -35,6 +35,10 @@ public class NestRole implements Serializable {
 		this.name = name;
 		this.privileges = privileges;
 	}
+	
+	public Long getId() {
+		return id;
+	}
 
 	public Collection<NestPrivilege> getPrivileges() {
 		return privileges;
