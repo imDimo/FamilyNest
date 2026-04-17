@@ -58,11 +58,15 @@ public class NestUserController {
 			return "redirect:/admin/manage-users";
 		}
 		
-		if (userData.getUsername() != null && !userData.getUsername().isBlank())
-			user.setUsername(userData.getUsername().trim());
+		// TODO: Add info messages when these operations fail
+		if (userData.getUsername() == null || userData.getUsername().isBlank())
+			return "redirect:/admin/manage-users";
 		
-		if (userData.getPassword() != null && !userData.getPassword().isBlank())
-			user.setPassword(userData.getPassword().trim());
+		if (userData.getPassword() == null || userData.getPassword().isBlank())
+			return "redirect:/admin/manage-users";
+		
+		user.setUsername(userData.getUsername().trim());
+		user.setPassword(userData.getPassword().trim());
 		
 		if (userData.getIsAdmin()) {
 			user.setRoles(Arrays.asList(roleService.findByName("ROLE_USER"), roleService.findByName("ROLE_ADMIN")));
@@ -78,6 +82,7 @@ public class NestUserController {
 	
 	@PostMapping(value="/users", params="action=delete-user")
 	String deleteUserById(@ModelAttribute(value="id") Long userId) {
+		// TODO: Prevent users from deleting themselves
 		userService.deleteUserById(userId);
 		return "redirect:/admin/manage-users";
 	}
