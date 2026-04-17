@@ -37,18 +37,6 @@ public class AdminNavigationController {
 		return "redirect:/admin/manage-users";
 	}
 	
-	@GetMapping("/add-user")
-	String addUser(Model model) {
-		NestUserDto user = new NestUserDto();
-		model.addAttribute("user", user);
-		return "/add_user";
-	}
-	
-	@PostMapping(value="/nav", params="action=add-user")
-	String postAddUser(Model model) {
-		return "redirect:/admin/add-user";
-	}
-	
 	@GetMapping("/manage-app")
 	String manageApp(Model model) {
 		return "/manage_app";
@@ -57,5 +45,17 @@ public class AdminNavigationController {
 	@PostMapping(value="/nav", params="action=manage-app")
 	String postManageApp(Model model) {
 		return "redirect:/admin/manage-app";
+	}
+	
+	@GetMapping("/add-user")
+	String addUser(Model model) {
+		NestUserDto user = new NestUserDto();
+		model.addAttribute("user", user);
+		return "/add_user";
+	}
+	
+	@PostMapping(value="/users", params="action=add-user")
+	String postAddUser(Model model) {
+		return "redirect:/admin/add-user";
 	}
 }

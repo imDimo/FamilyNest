@@ -7,7 +7,7 @@
     </head>
     <body>
         <div id="login_tile" class="centered tile">
-            <form action="#" th:action="@{/login/process}" th:object="${user}" method="post">
+            <form action="#" th:action="@{/login/process}" th:object="${user}" method="POST">
                 <h1>FamilyNest</h1>
                 <input type="text" th:field="*{username}" placeholder="Username">
                 <br>

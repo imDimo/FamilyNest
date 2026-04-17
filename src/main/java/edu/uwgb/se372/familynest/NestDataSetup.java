@@ -65,7 +65,12 @@ public class NestDataSetup implements ApplicationListener<ContextRefreshedEvent>
 		
 		if (admins.isEmpty()) {
 			System.out.println("No admin users found! Creating default admin account...");
-			userService.create("admin", passwordEncoder.encode("password"), Arrays.asList(roleAdmin, roleUser));
+			userService.create("admin", "password", Arrays.asList(roleAdmin, roleUser));
+		}
+		
+		for (NestUser u : userService.getAllUsers()) {
+			System.out.println(u.getUsername());
+			System.out.println(u.getPassword());
 		}
 	}
 }
