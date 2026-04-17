@@ -2,15 +2,16 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
     <head>
         <meta charset="ISO-8859-1">
-        <title>Calendar | FamilyNest</title>
-		<link rel="stylesheet" href="css/style.css">
-		<link rel="stylesheet" href="css/calendar-style.css">
+        <title>FamilyNest</title>
+		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="/css/calendar-style.css">
         <script src="js/lib/stomp.min.js" defer></script>
         <script src="js/lib/sockjs.min.js" defer></script>
         <script src="js/calendar.js" defer></script>
     </head>
     <body>
-        <div class="header">
+        <div class="header flex">
+            <h2>Calendar</h2>
             <nav class="rightalign">
                 <form action="#" th:action="@{/nav}" method="post">
                     <ul>
@@ -32,30 +33,35 @@
         <div class="flex calendar-maincontent">
             <div class="tile users-container">
                 <h2 class="centered">Members</h2>
-                <ul>
-                    <li th:if="${users}" th:each="user : ${users}">
-                        <div class="user-row">
-                            <span th:text="${user.username}"></span>
-                        </div>
-                    </li>
+                <ul id="users-list">
+                    <!-- Example list item -- dynamically added by javascript -->
+                    <!-- <li> -->
+                    <!--     <div class="user-row"> -->
+                    <!--         <span>Username</span> -->
+                    <!--         <span>Status</span> -->
+                    <!--     </div> -->
+                    <!-- </li> -->
                 </ul>
             </div>
             <div class="tile calendar-container">
                 <div class="calendar">
-                    <div class="calendar-day" th:if="${dates}" th:each="date : ${dates}">
-                        <span th:text="${date.dayOfMonth}"></span>
-                    </div>
+                    <!-- Example calendar entry -- dynamically added by javascript -->
+                    <!-- <div class="calendar-day"> -->
+                    <!--     <span>Day of Month</span> -->
+                    <!--     <div type="button">Organize event(s) here as clickable divs</div> -->
+                    <!-- </div> -->
                 </div>
             </div>
             <div class="tile events-container">
                 <h2 class="centered">Upcoming Events</h2>
                 <ul>
-                    <li th:if="${events}" th:each="event : ${events}">
-                        <div class="event-row">
-                            <span th:text="${event.date}"></span>
-                            <span th:text="${event.title}"></span>
-                        </div>
-                    </li>
+                    <!-- Example list item -- dynamically added by javascript -->
+                    <!-- <li> -->
+                    <!--     <div class="event-row"> -->
+                    <!--         <span>Event Date</span> -->
+                    <!--         <span>Event Title</span> -->
+                    <!--     </div> -->
+                    <!-- </li> -->
                 </ul>
             </div>
         </div>

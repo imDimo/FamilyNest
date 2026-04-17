@@ -23,7 +23,7 @@ public class NestUserController {
 	String addUser(Model model) {
 		NestUserDto user = new NestUserDto();
 		model.addAttribute("user", user);
-		return "add_user";
+		return "manage_users";
 	}
 	
 	@PostMapping(value="/users", params="action=save")
@@ -34,12 +34,12 @@ public class NestUserController {
 				userData.getPassword(), 
 				Arrays.asList(roleService.findByName("ROLE_USER")));
 		
-		return "redirect:/login";
+		return "manage_users";
 	}
 	
 	@PostMapping(value="/users", params="action=delete")
 	String deleteUserById(@PathVariable(value="id") Long userId) {
 		userService.deleteUserById(userId);
-		return "redirect:/users";
+		return "manage_users";
 	}
 }

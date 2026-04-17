@@ -7,17 +7,17 @@
 .users-container {
     padding: 8px;
     width: 10%;
-    height: 60vh;
+    height: 70vh;
 }
 
 .calendar-container {
     padding: 8px;
     width: 55%;
-    height: 60vh;
+    height: 70vh;
 }
 
 .events-container {
     padding: 8px;
     width: 20%;
-    height: 60vh;
+    height: 70vh;
 }

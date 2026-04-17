@@ -22,11 +22,15 @@
         </div>
 
         <div>
-            <form action="#" th:action="@{/admin/users/create}" th:object="${user}" method="POST">
-                <input type="text" th:field="*{username}" placeholder="Username"> 
-                <input type="password" th:field="*{password}" placeholder="Password">
-
-                <button type="submit">Add User</button>
+            <form action="#" th:action="@{/admin/nav}" method="POST">
+                <button type="submit" name="action" value="add-user">Create</button>
+                <ul>
+                    <li th:each="user : ${users}" class="user-row">
+                        <span th:text="${user.username}"></span>
+                        <button type="submit" name="action" value="update-user">Update</button>
+                        <button type="submit" name="action" value="delete-user">Delete</button>
+                    </li>
+                </ul>
             </form>
         </div>
     </body>

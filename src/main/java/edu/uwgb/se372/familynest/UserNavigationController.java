@@ -1,12 +1,19 @@
 package edu.uwgb.se372.familynest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import edu.uwgb.se372.familynest.user.NestUserService;
+
 @Controller
-public class NestNavigationController {
+public class UserNavigationController {
+	
+	@Autowired
+	NestUserService userService;
+	
 	@GetMapping("/")
 	String home() {
 		return "redirect:/calendar";
@@ -24,7 +31,7 @@ public class NestNavigationController {
 	
 	@GetMapping("/gallery")
 	String gallery(Model model) {
-		return "redirect:/gallery";
+		return "/gallery";
 	}
 	
 	@PostMapping(value="/nav", params="action=gallery")
@@ -34,7 +41,7 @@ public class NestNavigationController {
 	
 	@GetMapping("/settings")
 	String settings(Model model) {
-		return "redirect:/settings";
+		return "/settings";
 	}
 	
 	@PostMapping(value="/nav", params="action=settings")
