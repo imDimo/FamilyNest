@@ -16,7 +16,6 @@ public class SecurityConfig {
 		http.authorizeHttpRequests((auth) -> auth
 				.requestMatchers("/admin/**").hasRole("ADMIN")
 				.requestMatchers("/css/**", "/js/**", "/images/**", "/login**").permitAll()
-//				.requestMatchers("/**").permitAll()
 				.anyRequest().authenticated())
 		.formLogin(conf -> conf.loginPage("/login")
 				.loginProcessingUrl("/login/process")

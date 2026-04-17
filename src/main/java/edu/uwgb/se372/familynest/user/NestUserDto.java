@@ -12,15 +12,21 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 public class NestUserDto {
+	private Long id;
 	private String username;
 	private String password;
 	private Collection<? extends GrantedAuthority> roles;
 	
 	public NestUserDto() {}
 	public NestUserDto(NestUser user) {
+		this.id = user.getId();
 		this.username = user.getUsername();
 		this.password = user.getPassword();
 		this.roles = user.getAuthorities();
+	}
+	
+	public Long getId() {
+		return id;
 	}
 	
 	public String getUsername() {

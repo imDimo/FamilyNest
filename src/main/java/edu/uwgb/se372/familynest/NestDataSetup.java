@@ -1,7 +1,6 @@
 package edu.uwgb.se372.familynest;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import edu.uwgb.se372.familynest.authority.*;
-import edu.uwgb.se372.familynest.security.NestPasswordEncoder;
-import edu.uwgb.se372.familynest.user.NestUser;
-import edu.uwgb.se372.familynest.user.NestUserRepository;
 import edu.uwgb.se372.familynest.user.NestUserService;
 
 @Component
@@ -27,9 +23,6 @@ public class NestDataSetup implements ApplicationListener<ContextRefreshedEvent>
 	
 	@Autowired
 	private NestPrivilegeService privilegeService;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 	
 	// Initialize database
 	@Override
@@ -66,11 +59,6 @@ public class NestDataSetup implements ApplicationListener<ContextRefreshedEvent>
 		if (admins.isEmpty()) {
 			System.out.println("No admin users found! Creating default admin account...");
 			userService.create("admin", "password", Arrays.asList(roleAdmin, roleUser));
-		}
-		
-		for (NestUser u : userService.getAllUsers()) {
-			System.out.println(u.getUsername());
-			System.out.println(u.getPassword());
 		}
 	}
 }

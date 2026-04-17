@@ -1,21 +1,16 @@
 package edu.uwgb.se372.familynest.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import edu.uwgb.se372.familynest.user.NestUserDto;
-import edu.uwgb.se372.familynest.user.NestUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class NestSecurityController {
-	
-	@Autowired
-	private NestUserService userService;
 	
 	@GetMapping("/login")
 	String login(HttpServletRequest request, Model model) {

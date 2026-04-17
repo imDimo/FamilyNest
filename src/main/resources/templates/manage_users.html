@@ -27,6 +27,7 @@
                 <ul>
                     <li th:each="user : ${users}" class="user-row">
                         <span th:text="${user.username}"></span>
+                        <input type="hidden" th:name="id" th:value="${user.id}"></input>
                         <button type="submit" name="action" value="update-user">Update</button>
                         <button type="submit" name="action" value="delete-user">Delete</button>
                     </li>

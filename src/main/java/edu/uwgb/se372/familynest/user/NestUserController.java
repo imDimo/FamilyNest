@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import edu.uwgb.se372.familynest.authority.NestRoleService;
 
 @Controller
-@RequestMapping("/admin/users")
+@RequestMapping("/admin")
 public class NestUserController {
 	
 	@Autowired
@@ -23,7 +23,7 @@ public class NestUserController {
 	@Autowired
 	private NestRoleService roleService;
 	
-	@PostMapping("/create")
+	@PostMapping("/users/create")
 	String createUser(Model model, @ModelAttribute("user") NestUserDto userData) {
 		NestUser user = null;
 		
@@ -35,23 +35,19 @@ public class NestUserController {
 				userData.getUsername(), 
 				userData.getPassword(), 
 				Arrays.asList(roleService.findByName("ROLE_USER")));
-			
-			System.out.println("Created user with");
-			System.out.println(user.getUsername());
-			System.out.println(user.getPassword());
 		}
 		
 		return "redirect:/admin/manage-users";
 	}
 	
-	@PostMapping("/update")
+	@PostMapping(value="/users", params="action=update-user")
 	String updateUser(@ModelAttribute("user") NestUserDto userData) {
 		// TODO: Update user with incoming data
 		return "redirect:/admin/manage-users";
 	}
 	
-	@PostMapping("/delete")
-	String deleteUserById(@PathVariable(value="id") Long userId) {
+	@PostMapping(value="/users", params="action=delete-user")
+	String deleteUserById(@ModelAttribute(value="id") Long userId) {
 		userService.deleteUserById(userId);
 		return "redirect:/admin/manage-users";
 	}
