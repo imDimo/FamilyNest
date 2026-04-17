@@ -8,8 +8,16 @@
     </head>
     <body>
         <div class="header flex">
-            <h2>User Management</h2>
-            <nav class="rightalign">
+            <h2 class="page-title">User Management</h2>
+            <nav>
+                <form action="#" th:action="@{/admin/nav}" method="POST">
+                    <ul>
+                        <li class="inline"><button class="admin" type="submit" name="action" value="manage-users">Manage Members</button></li>
+                        <li class="inline"><button class="admin" type="submit" name="action" value="manage-app">Manage FamilyNest</button></li>
+                    </ul>
+                </form>
+            </nav>
+            <nav>
                 <form action="#" th:action="@{/nav}" method="POST">
                     <ul>
                         <li class="inline"><button type="submit" name="action" value="calendar">Calendar</button></li>
@@ -21,13 +29,14 @@
             </nav>
         </div>
 
-        <div>
-            <form action="#" th:action="@{/admin/users/create}" th:object="${user}" method="POST">
-                <input type="text" th:field="*{username}" placeholder="Username"> 
-                <input type="password" th:field="*{password}" placeholder="Password">
-
-                <button type="submit">Add User</button>
-            </form>
+        <div class="tile add-user-tile">
+            <div class="add-user-content">
+                <form action="#" th:action="@{/admin/users/create}" th:object="${user}" method="POST">
+                    <input type="text" th:field="*{username}" placeholder="Username"> 
+                    <input type="password" th:field="*{password}" placeholder="Password">
+                    <button type="submit">Add User</button>
+                </form>
+            </div>
         </div>
     </body>
 </html>

@@ -1,0 +1,78 @@
+.manage-users-tile {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    padding: 32px;
+    height: 600px;
+}
+
+.manage-users-content {
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+.manage-users-content > div {
+    width: 45%;
+}
+
+.add-user-tile {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    padding: 32px;
+    height: 600px;
+}
+
+.add-user-content {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20%;
+    width: 70%;
+}
+
+.add-user-content input {
+    margin: 8px;
+}
+
+.manage-app-tile {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    padding: 32px;
+    height: 600px;
+}
+
+.manage-app-content {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+.user-row {
+    justify-content: space-between;
+    padding: 16px;
+    border: solid 1px lightgray;
+    border-radius: 8px;
+    height: 32px;
+    width: 256px;
+    margin-bottom: 16px;
+}
+
+.user-row button {
+    width: 72px;
+}
+
+.username {
+    margin-top: 4px;
+}
+
+.delete {
+    background-color: crimson;
+}
+
+.delete:hover {
+    background-color: darkred;
+}

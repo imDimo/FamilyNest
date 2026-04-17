@@ -40,7 +40,7 @@ button:hover {
     margin-right: auto;
 }
 
-#login_tile {
+.login-tile {
     margin-top: 25vh;
     width: 450px;
     height: 250px;
@@ -48,13 +48,13 @@ button:hover {
     padding: 48px;
 }
 
-#login_button {
+.login-button {
     color: white;
     background-color: green;
     width: 64px;
 }
 
-#login_button:hover {
+.login-button:hover {
     background-color: darkgreen;
 }
 
@@ -70,16 +70,24 @@ button:hover {
     margin: 0px;
 }
 
+.page-title {
+    width: 300px;
+}
+
 .header {
     margin: 0 0 64px 0;
     background-color: white;
     box-shadow: 0 0 8px gray;
     height: 72px;
     justify-content: space-between;
-    padding: 0 128px 0 64px;
+    padding: 0 160px 0 86px;
 }
 
 .header ul {
+    list-style: none;
+}
+
+.noliststyle {
     list-style: none;
 }
 
@@ -102,4 +110,12 @@ button:hover {
 
 .flex {
     display: flex;
+}
+
+button.admin {
+    background-color: mediumpurple;
+}
+
+button.admin:hover {
+    background-color: rebeccapurple;
 }

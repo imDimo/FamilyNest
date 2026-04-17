@@ -8,7 +8,7 @@
     </head>
     <body>
         <div class="header flex">
-            <h2 class="page-title">User Management</h2>
+            <h2 class="page-title">FamilyNest Settings</h2>
             <nav>
                 <form action="#" th:action="@{/admin/nav}" method="POST">
                     <ul>
@@ -28,30 +28,11 @@
                 </form>
             </nav>
         </div>
-
-        <div class="tile manage-users-tile">
-            <div class="manage-users-content flex">
-                <div class="centered">
-                    <h3>Manage Existing Accounts</h3>
-                    <ul class="noliststyle">
-                        <li th:each="user : ${users}">
-                            <form class="centered" action="#" th:action="@{/admin/users}" method="POST">
-                                <div class="user-row flex">
-                                    <span class="username" th:text="${user.username}"></span>
-                                    <div>
-                                        <input type="hidden" th:name="id" th:value="${user.id}"></input>
-                                        <button type="submit" th:name="action" th:value="update-user">Edit</button>
-                                        <button class="delete" type="submit" th:name="action" th:value="delete-user">Delete</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-
-                <form class="centered" action="#" th:action="@{/admin/users}" method="POST">
-                    <h3>Add a New Family Member</h3>
-                    <button type="submit" name="action" value="add-user">Add New Account</button>
+        
+        <div class="tile manage-app-tile">
+            <div class="manage-app-content">
+                <form action="#" th:action="@{/admin/app}" method="POST">
+                    <button type="submit" name="action" value="test">Test Button</button>
                 </form>
             </div>
         </div>
