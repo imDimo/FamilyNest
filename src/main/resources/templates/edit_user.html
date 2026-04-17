@@ -31,10 +31,11 @@
 
         <div class="tile edit-user-tile">
             <div class="edit-user-content centered">
-                <form action="#" th:action="@{/admin/users/update}" th:object="${user}" method="POST" autocomplete="off">
+                <form action="#" th:action="@{/admin/users/update}" th:object="${user}" method="POST">
+                    <!-- TODO: Find better way to prevent text boxes from autofilling without using readonly + onfocus -->
                     <input type="hidden" th:field="*{id}">
-                    <input type="text" th:field="*{username}" placeholder="Username"> 
-                    <input type="password" th:name="password" placeholder="Password">
+                    <input type="text" th:field="*{username}" placeholder="Username" autocorrect="off" spellcheck="false" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');"> 
+                    <input type="password" th:name="password" placeholder="Password" autocorrect="off" spellcheck="false" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');">
                     <br>
                     <div>
                         <label for="admin_check">Admin Account</label>
