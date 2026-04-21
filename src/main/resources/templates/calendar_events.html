@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar Events</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .event-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .btn-create {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-create:hover {
+            background-color: #45a049;
+        }
+        .events-list {
+            display: grid;
+            gap: 20px;
+        }
+        .event-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .event-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .event-info {
+            margin: 8px 0;
+            font-size: 14px;
+            color: #555;
+        }
+        .event-description {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #fff;
+            border-left: 4px solid #4CAF50;
+            font-style: italic;
+        }
+        .event-members {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #e8f5e9;
+            border-radius: 4px;
+        }
+        .member-list {
+            margin-top: 8px;
+            font-size: 13px;
+        }
+        .member-item {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 4px 8px;
+            margin: 4px 4px 4px 0;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .creator-badge {
+            display: inline-block;
+            background-color: #2196F3;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        .event-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-view {
+            background-color: #2196F3;
+            color: white;
+        }
+        .btn-view:hover {
+            background-color: #0b7dda;
+        }
+        .btn-edit {
+            background-color: #FFC107;
+            color: white;
+        }
+        .btn-edit:hover {
+            background-color: #e0a800;
+        }
+        .btn-delete {
+            background-color: #f44336;
+            color: white;
+        }
+        .btn-delete:hover {
+            background-color: #da190b;
+        }
+        .no-events {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="event-container">
+        <div class="event-header">
+            <h1>Calendar Events</h1>
+            <a href="/calendar-events/new" class="btn-create">+ Create New Event</a>
+        </div>
+
+        <div class="events-list">
+            <div th:if="${events != null && !events.isEmpty()}">
+                <div th:each="event : ${events}" class="event-card">
+                    <div class="event-title">
+                        <span th:text="${event.title}"></span>
+                        <span class="creator-badge" th:text="'Creator: ' + ${event.creator.username}"></span>
+                    </div>
+                    
+                    <div class="event-info">
+                        <strong>Date & Time:</strong> <span th:text="${#temporals.format(event.eventDate, 'MMM dd, yyyy')}"></span>
+                        <span th:if="${event.eventTime}" th:text="' at ' + ${event.eventTime}"></span>
+                    </div>
+                    
+                    <div class="event-description" th:if="${event.description}">
+                        <strong>Description:</strong> <span th:text="${event.description}"></span>
+                    </div>
+                    
+                    <div class="event-members">
+                        <strong>Members:</strong>
+                        <div class="member-list" th:if="${event.members != null && !event.members.isEmpty()}">
+                            <span th:each="member : ${event.members}" class="member-item" th:text="${member.username}"></span>
+                        </div>
+                        <div th:if="${event.members == null || event.members.isEmpty()}" style="color: #666; font-size: 13px;">
+                            No members added yet
+                        </div>
+                    </div>
+                    
+                    <div class="event-actions">
+                        <a th:href="@{/calendar-events/{id}(id=${event.id})}" class="btn btn-view">View</a>
+                        <a th:href="@{/calendar-events/edit/{id}(id=${event.id})}" class="btn btn-edit">Edit</a>
+                        <a th:href="@{/calendar-events/{id}/delete(id=${event.id})}" class="btn btn-delete" onclick="return confirm('Are you sure?')">Delete</a>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${events == null || events.isEmpty()}" class="no-events">
+                <p>No calendar events found. <a href="/calendar-events/new">Create your first event</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

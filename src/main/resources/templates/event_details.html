@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .details-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+        .event-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .event-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+        .event-meta {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .details-section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin: 0 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .info-row {
+            margin-bottom: 12px;
+            display: flex;
+            gap: 10px;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #555;
+            min-width: 120px;
+        }
+        .info-value {
+            color: #333;
+            flex: 1;
+        }
+        .creator-info {
+            background-color: #e3f2fd;
+            padding: 12px;
+            border-radius: 4px;
+            border-left: 4px solid #2196F3;
+            margin-bottom: 15px;
+        }
+        .description-box {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .member-card {
+            background-color: #e8f5e9;
+            padding: 12px;
+            border-radius: 4px;
+            text-align: center;
+            border: 1px solid #c8e6c9;
+        }
+        .member-name {
+            font-weight: bold;
+            color: #2e7d32;
+            font-size: 14px;
+        }
+        .no-members {
+            color: #999;
+            font-style: italic;
+            padding: 15px;
+            text-align: center;
+        }
+        .event-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        button, .btn {
+            padding: 12px 24px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-edit {
+            background-color: #FFC107;
+            color: white;
+        }
+        .btn-edit:hover {
+            background-color: #e0a800;
+        }
+        .btn-delete {
+            background-color: #f44336;
+            color: white;
+        }
+        .btn-delete:hover {
+            background-color: #da190b;
+        }
+        .btn-back {
+            background-color: #9E9E9E;
+            color: white;
+        }
+        .btn-back:hover {
+            background-color: #757575;
+        }
+    </style>
+</head>
+<body>
+    <div class="details-container">
+        <a href="/calendar-events" class="back-link">← Back to Events</a>
+
+        <div class="event-header">
+            <div class="event-title" th:text="${event.title}"></div>
+            <div class="event-meta">
+                <strong>Date:</strong> <span th:text="${#temporals.format(event.eventDate, 'MMM dd, yyyy')}"></span>
+                <span th:if="${event.eventTime}" th:text="' at ' + ${event.eventTime}"></span>
+            </div>
+        </div>
+
+        <!-- Creator Information -->
+        <div class="details-section">
+            <div class="section-title">Creator</div>
+            <div class="creator-info">
+                <div class="info-row">
+                    <div class="info-label">Name:</div>
+                    <div class="info-value" th:text="${event.creator.username}"></div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Created:</div>
+                    <div class="info-value" th:text="${#temporals.format(event.createdAt, 'MMM dd, yyyy HH:mm')}"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="details-section" th:if="${event.description}">
+            <div class="section-title">Description</div>
+            <div class="description-box" th:text="${event.description}"></div>
+        </div>
+
+        <!-- Members -->
+        <div class="details-section">
+            <div class="section-title">Event Members</div>
+            <div class="members-grid" th:if="${event.members != null && !event.members.isEmpty()}">
+                <div th:each="member : ${event.members}" class="member-card">
+                    <div class="member-name" th:text="${member.username}"></div>
+                </div>
+            </div>
+            <div th:if="${event.members == null || event.members.isEmpty()}" class="no-members">
+                No members added to this event yet
+            </div>
+        </div>
+
+        <!-- Event Metadata -->
+        <div class="details-section">
+            <div class="section-title">Details</div>
+            <div class="info-row">
+                <div class="info-label">Event ID:</div>
+                <div class="info-value" th:text="${event.id}"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Last Updated:</div>
+                <div class="info-value" th:text="${#temporals.format(event.updatedAt, 'MMM dd, yyyy HH:mm')}"></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Total Members:</div>
+                <div class="info-value" th:text="${event.members != null ? event.members.size() : 0}"></div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="event-actions">
+            <a href="/calendar-events" class="btn btn-back">Back</a>
+            <a th:href="@{/calendar-events/edit/{id}(id=${event.id})}" class="btn btn-edit">Edit Event</a>
+            <a th:href="@{/calendar-events/{id}/delete(id=${event.id})}" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this event?')">Delete Event</a>
+        </div>
+    </div>
+</body>
+</html>

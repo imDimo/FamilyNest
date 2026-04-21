@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Calendar Event</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="datetime-local"],
+        input[type="time"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        input[type="text"]:focus,
+        input[type="datetime-local"]:focus,
+        input[type="time"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+        .members-section {
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .members-section h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+        .member-checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .member-checkbox input {
+            width: auto;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .member-checkbox label {
+            margin-bottom: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-submit {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-submit:hover {
+            background-color: #45a049;
+        }
+        .btn-cancel {
+            background-color: #ddd;
+            color: #333;
+        }
+        .btn-cancel:hover {
+            background-color: #ccc;
+        }
+        .form-info {
+            background-color: #e3f2fd;
+            padding: 12px;
+            border-left: 4px solid #2196F3;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Create Calendar Event</h1>
+        
+        <div class="form-info">
+            <strong>Note:</strong> You will be set as the creator of this event. You can add members after creation.
+        </div>
+
+        <form th:action="@{/calendar-events/save}" method="post" th:object="${event}">
+            <div class="form-group">
+                <label for="title">Event Title *</label>
+                <input type="text" id="title" name="title" th:field="*{title}" placeholder="Enter event title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" th:field="*{description}" placeholder="Enter event description"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="eventDateTime">Date & Time *</label>
+                <input type="datetime-local" id="eventDateTime" name="eventDateTime" required>
+            </div>
+
+            <div class="form-group">
+                <label for="eventTime">Time (Optional)</label>
+                <input type="time" id="eventTime" name="eventTime" th:field="*{eventTime}">
+            </div>
+
+            <div class="members-section" th:if="${allUsers != null && !allUsers.isEmpty()}">
+                <h3>Add Members to Event</h3>
+                <p style="font-size: 13px; margin-top: 0; color: #555;">Select members to invite to this event</p>
+                <div th:each="user : ${allUsers}" class="member-checkbox">
+                    <input type="checkbox" name="memberIds" th:value="${user.id}" th:id="'member_' + ${user.id}">
+                    <label th:for="'member_' + ${user.id}" th:text="${user.username}"></label>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">Create Event</button>
+                <a href="/calendar-events" class="btn-cancel" style="padding: 12px 24px; text-decoration: none; display: inline-block;">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
