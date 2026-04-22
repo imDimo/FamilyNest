@@ -1,7 +1,5 @@
 # java/spring
-**/application-*.properties
 **/application-*.yml
-**/application.properties
 **/application.yml
 **/test-output/
 *.cer
