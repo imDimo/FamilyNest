@@ -21,3 +21,13 @@
     width: 20%;
     height: 70vh;
 }
+
+.calendar-days {
+    flex-wrap: wrap;
+}
+
+.calendar-day {
+    border: solid 1px black;
+    width: 100px;
+    aspect-ratio: 1 / 1;
+}
