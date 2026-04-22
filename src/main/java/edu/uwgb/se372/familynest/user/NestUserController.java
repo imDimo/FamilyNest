@@ -20,7 +20,7 @@ public class NestUserController {
 	private NestRoleService roleService;
 	
 	@PostMapping("/users/create")
-	String createUser(Model model, @ModelAttribute("user") NestUserDto userData) {
+	public String createUser(Model model, @ModelAttribute("user") NestUserDto userData) {
 		NestUser user = null;
 		
 		try {
@@ -47,7 +47,7 @@ public class NestUserController {
 	}
 	
 	@PostMapping("/users/update")
-	String updateUser(Model model, @ModelAttribute("user") NestUserDto userData) {
+	public String updateUser(Model model, @ModelAttribute("user") NestUserDto userData) {
 		NestUser user = null;
 		
 		try {
@@ -81,7 +81,7 @@ public class NestUserController {
 	}
 	
 	@PostMapping(value="/users", params="action=delete-user")
-	String deleteUserById(@ModelAttribute(value="id") Long userId) {
+	public String deleteUserById(@ModelAttribute(value="id") Long userId) {
 		// TODO: Prevent users from deleting themselves
 		userService.deleteUserById(userId);
 		return "redirect:/admin/manage-users";

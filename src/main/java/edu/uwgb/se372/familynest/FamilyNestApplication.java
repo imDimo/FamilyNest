@@ -19,7 +19,7 @@ public class FamilyNestApplication {
 	private SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 	
 	@PostMapping(value="/nav", params="action=logout")
-	String postLogout(Authentication auth, HttpServletRequest request, HttpServletResponse response) {
+	public String postLogout(Authentication auth, HttpServletRequest request, HttpServletResponse response) {
 		logoutHandler.logout(request, response, auth);
 		return "redirect:/login";
 	}

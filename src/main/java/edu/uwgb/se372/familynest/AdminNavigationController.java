@@ -21,10 +21,10 @@ import edu.uwgb.se372.familynest.user.NestUserService;
 public class AdminNavigationController {
 	
 	@Autowired
-	NestUserService userService;
+	private NestUserService userService;
 	
 	@Autowired
-	NestRoleService roleService;
+	private NestRoleService roleService;
 	
 	@GetMapping("/manage-users")
 	String manageUsers(Model model) {
