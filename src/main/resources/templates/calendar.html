@@ -1,78 +1,84 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-    <head>
-        <meta charset="ISO-8859-1">
-        <title>FamilyNest</title>
-		<link rel="stylesheet" href="/css/style.css">
-		<link rel="stylesheet" href="/css/calendar-style.css">
-        <script src="js/lib/stomp.min.js" defer></script>
-        <script src="js/lib/sockjs.min.js" defer></script>
-        <script src="js/calendar.js" defer></script>
-    </head>
-    <body>
-        <div class="header flex">
-            <h2 class="page-title">Calendar</h2>
-            <nav>
-                <form action="#" th:action="@{/admin/nav}" method="POST">
-                    <ul>
-                        <li class="inline"><button class="admin" type="submit" name="action" value="manage-users">Manage Members</button></li>
-                        <li class="inline"><button class="admin" type="submit" name="action" value="manage-app">Manage FamilyNest</button></li>
-                    </ul>
-                </form>
-            </nav>
-            <nav>
-                <form action="#" th:action="@{/nav}" method="POST">
-                    <ul>
-                        <li class="inline"><button type="submit" name="action" value="calendar">Calendar</button></li>
-                        <li class="inline"><button type="submit" name="action" value="gallery">Gallery</button></li>
-                        <li class="inline"><button type="submit" name="action" value="settings">Preferences</button></li>
-                        <li class="inline"><button type="submit" name="action" value="logout">Log Out</button></li>
-                    </ul>
-                </form>
-            </nav>
-        </div>
-
-        <!-- <div id="announcementArea"> -->
-        <!---->
-        <!-- </div> -->
-        <!-- <div> -->
-        <!--     <button type="button" id="announceButton">Send announcement</button> -->
-        <!-- </div> -->
-        <div class="flex calendar-tiles-container">
-            <div class="tile users-tile">
-                <h2 class="centered">Members</h2>
-                <ul id="users-list">
-                    <!-- Example list item -- dynamically added by javascript -->
-                    <!-- <li> -->
-                    <!--     <div class="user-row"> -->
-                    <!--         <span>Username</span> -->
-                    <!--         <span>Status</span> -->
-                    <!--     </div> -->
-                    <!-- </li> -->
-                </ul>
-            </div>
-            <div class="tile calendar-tile">
-                <div class="calendar">
-                    <!-- Example calendar entry -- dynamically added by javascript -->
-                    <!-- <div class="calendar-day"> -->
-                    <!--     <span>Day of Month</span> -->
-                    <!--     <div type="button">Organize event(s) here as clickable divs</div> -->
-                    <!-- </div> -->
-                </div>
-            </div>
-            <div class="tile events-tile">
-                <h2 class="centered">Upcoming Events</h2>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>FamilyNest</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/calendar-style.css">
+    <script src="js/lib/stomp.min.js" defer></script>
+    <script src="js/lib/sockjs.min.js" defer></script>
+    <script src="js/calendar.js" defer></script>
+</head>
+<body>
+    <div class="header flex">
+        <h2 class="page-title">Calendar</h2>
+        <nav>
+            <form action="#" th:action="@{/admin/nav}" method="POST">
                 <ul>
-                    <!-- Example list item -- dynamically added by javascript -->
-                    <!-- <li> -->
-                    <!--     <div class="event-row"> -->
-                    <!--         <span>Event Date</span> -->
-                    <!--         <span>Event Title</span> -->
-                    <!--     </div> -->
-                    <!-- </li> -->
+                    <li class="inline"><button class="admin" type="submit" name="action" value="manage-users">Manage Members</button></li>
+                    <li class="inline"><button class="admin" type="submit" name="action" value="manage-app">Manage FamilyNest</button></li>
                 </ul>
+            </form>
+        </nav>
+        <nav>
+            <form action="#" th:action="@{/nav}" method="POST">
+                <ul>
+                    <li class="inline"><button type="submit" name="action" value="calendar">Calendar</button></li>
+                    <li class="inline"><button type="submit" name="action" value="gallery">Gallery</button></li>
+                    <li class="inline"><button type="submit" name="action" value="settings">Preferences</button></li>
+                    <li class="inline"><button type="submit" name="action" value="logout">Log Out</button></li>
+                </ul>
+            </form>
+        </nav>
+    </div>
+
+    <!-- <div id="announcementArea"> -->
+    <!---->
+    <!-- </div> -->
+    <!-- <div> -->
+    <!--     <button type="button" id="announceButton">Send announcement</button> -->
+    <!-- </div> -->
+    <div class="flex calendar-tiles-container">
+        <div class="tile users-tile">
+            <h2 class="centered">Members</h2>
+            <ul id="users-list">
+                <!-- Example list item -- dynamically added by javascript -->
+                <!-- <li> -->
+                <!--     <div class="user-row"> -->
+                <!--         <span>Username</span> -->
+                <!--         <span>Status</span> -->
+                <!--     </div> -->
+                <!-- </li> -->
+            </ul>
+        </div>
+        <div class="tile calendar-tile">
+            <div class="calendar">
+
+                <!-- Month + Year -->
+                <h2 th:text="${monthName} + ' ' + ${year}" class="centered"></h2>
+
+                <!-- Calendar Days -->
+                <div class="calendar-days flex">
+                    <div class="calendar-day" th:each="day : ${days}"
+                            <span th:text="${day}"></span>
+                    </div>
+                </div>
+
             </div>
         </div>
+        <div class="tile events-tile">
+            <h2 class="centered">Upcoming Events</h2>
+            <ul>
+                <!-- Example list item -- dynamically added by javascript -->
+                <!-- <li> -->
+                <!--     <div class="event-row"> -->
+                <!--         <span>Event Date</span> -->
+                <!--         <span>Event Title</span> -->
+                <!--     </div> -->
+                <!-- </li> -->
+            </ul>
+        </div>
+    </div>
 
-    </body>
+</body>
 </html>
