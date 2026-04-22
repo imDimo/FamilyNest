@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>FamilyNest</title>
+        <link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="/css/gallery-style.css">
+    </head>
+    <body>
+        <div class="header flex">
+            <h2 class="page-title">Gallery</h2>
+            <nav>
+                <form action="#" th:action="@{/admin/nav}" method="POST">
+                    <ul>
+                        <li class="inline"><button class="admin" type="submit" name="action" value="manage-users">Manage Members</button></li>
+                        <li class="inline"><button class="admin" type="submit" name="action" value="manage-app">Manage FamilyNest</button></li>
+                    </ul>
+                </form>
+            </nav>
+            <nav>
+                <form action="#" th:action="@{/nav}" method="POST">
+                    <ul>
+                        <li class="inline"><button type="submit" name="action" value="calendar">Calendar</button></li>
+                        <li class="inline"><button type="submit" name="action" value="gallery">Gallery</button></li>
+                        <li class="inline"><button type="submit" name="action" value="settings">Preferences</button></li>
+                        <li class="inline"><button type="submit" name="action" value="logout">Log Out</button></li>
+                    </ul>
+                </form>
+            </nav>
+        </div>
+
+    </body>
+</html>
