@@ -8,7 +8,7 @@ class NestUserNotFoundAdvice {
 	
 	@ExceptionHandler(NestUserNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	String userNotFoundHandler(NestUserNotFoundException e) {
+	public String userNotFoundHandler(NestUserNotFoundException e) {
 		return e.getMessage();
 	}
 }
