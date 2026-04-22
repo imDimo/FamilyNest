@@ -1,14 +1,16 @@
-package edu.uwgb.se372.familynest.websocket;
+package edu.uwgb.se372.familynest.announcements;
 
 public class Announcement {
 	private String title;
 	private String content;
+	private String time;
 	
 	public Announcement() {}
 	
-	public Announcement(String title, String content) {
+	public Announcement(String title, String content, String time) {
 		this.title = title;
 		this.content = content;
+		this.time = time;
 	}
 	
 	public String getTitle() {
@@ -25,5 +27,12 @@ public class Announcement {
 	
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 }

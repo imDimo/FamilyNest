@@ -1,4 +1,4 @@
-package edu.uwgb.se372.familynest.websocket;
+package edu.uwgb.se372.familynest.announcements;
 
 public class TimedAnnouncement {
 	private String title;
