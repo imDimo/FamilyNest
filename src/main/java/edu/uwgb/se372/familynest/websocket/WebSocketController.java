@@ -3,8 +3,8 @@ package edu.uwgb.se372.familynest.websocket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import edu.uwgb.se372.familynest.Announcements.Announcement;
-import edu.uwgb.se372.familynest.Announcements.TimedAnnouncement;
+import edu.uwgb.se372.familynest.announcements.Announcement;
+import edu.uwgb.se372.familynest.announcements.TimedAnnouncement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
