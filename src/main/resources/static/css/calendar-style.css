@@ -7,47 +7,29 @@
 .users-tile {
     padding: 8px;
     width: 10%;
-    height: 70vh;
+    height: 80vh;
 }
 
 .calendar-tile {
     padding: 8px;
     width: 55%;
-    height: 70vh;
+    height: 80vh;
 }
 
 .events-tile {
     padding: 8px;
     width: 20%;
-    height: 70vh;
+    height: 80vh;
 }
 
-.calendar-weekdays, 
 .calendar-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    width: 100%;
+    flex-wrap: wrap;
 }
 
 .calendar-day {
-    border: 1px solid #000;
-    min-height: 100px;
-    padding: 5px;
-    background-color: white;
-    box-sizing: border-box;
-}
-
-.calendar-weekdays {
-    font-weight: bold;
-    text-align: center;
-    background-color: #f8f9fa;
-    border-bottom: 2px solid #000;
-}
-
-.calendar-weekdays div {
-    padding: 10px 0;
-    white-space: nowrap; 
-    border-right: 1px solid #ddd;
+    border: solid 1px black;
+    width: 100px;
+    aspect-ratio: 1 / 1;
 }
 
 #global-announcement-area {

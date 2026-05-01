@@ -71,16 +71,6 @@
                 <!-- Month + Year -->
                 <h2 th:text="${monthName} + ' ' + ${year}" class="centered"></h2>
 
-                <div class="calendar-weekdays">
-                    <div>Sunday</div>
-                    <div>Monday</div>
-                    <div>Tuesday</div>
-                    <div>Wednesday</div>
-                    <div>Thursday</div>
-                    <div>Friday</div>
-                    <div>Saturday</div>
-                </div>
-                
                 <!-- Calendar Days -->
                 <div class="calendar-days flex">
                     <div class="calendar-day" th:each="day : ${days}"
