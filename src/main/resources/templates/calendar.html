@@ -33,16 +33,21 @@
         </nav>
     </div>
 
-<div class="tile">
-    <h2>Send Announcement</h2>
-    <div class="flex" style="flex-direction: column; gap: 10px; padding: 10px;">
-        <input type="text" id="announcementTitle" placeholder="Announcement Title">
-        <textarea id="announcementContent" placeholder="Message..."></textarea>
-        <button id="announceButton" class="admin">Broadcast to Family</button>
+    <div class="flex" style="justify-content: center; padding: 20px;">
+        <div class="tile" style="width: 100%; max-width: 1200px;">
+            <h2 style="text-align: left; margin-bottom: 15px;">Send Announcement</h2>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <input type="text" id="announcementTitle" placeholder="Announcement Title" 
+                       style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                <textarea id="announcementContent" placeholder="Message..." 
+                          style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; height: 60px;"></textarea>
+                <button id="announceButton" class="admin" 
+                        style="width: 100%; background-color: #9b6dff; color: white; border: none; padding: 10px; border-radius: 4px; cursor: pointer;">
+                    Broadcast to Family
+                </button>
+            </div>
+        </div>
     </div>
-</div>
-    
-    <div id="announcementArea"></div>
 
     <div class="flex calendar-tiles-container">
         <div class="tile users-tile">
