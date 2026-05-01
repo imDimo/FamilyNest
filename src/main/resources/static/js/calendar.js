@@ -1,38 +1,41 @@
 let stompClient = null;
 
 function main() {
-    let bttn = document.getElementById("announceButton")
-    bttn.addEventListener("click", function() {
-        sendAnnouncement();
-    })
-
-    connect()
+    let bttn = document.getElementById("announceButton");
+    if (bttn) {
+        bttn.addEventListener("click", sendAnnouncement);
+    }
+    
+    connect(); 
 }
 
 function sendAnnouncement() {
-    let title = document.getElementById("announcementTitle").value || "No Title";
-    let content = document.getElementById("announcementContent").value || "No Content";
+    let titleInput = document.getElementById("announcementTitle");
+    let contentInput = document.getElementById("announcementContent");
+
     stompClient.publish({
-        destination: "/app/announcement",
-        body: JSON.stringify({"title" : title, "content" : content})
-    })
+        destination: "/app/announcement", 
+        body: JSON.stringify({
+            "title": titleInput.value,
+            "content": contentInput.value
+        })
+    });
+
+    titleInput.value = "";
+    contentInput.value = "";
 }
 
 function connect() {
-    // var socket = new SockJS("/announcement")
     let url = `ws://${location.host}/ws`;
     stompClient = new StompJs.Client({
         brokerURL: url,
         onConnect: () => {
-            stompClient.subscribe("/topic/announcements", (timedAnnouncement) => {
-                showAnnouncement(JSON.parse(timedAnnouncement.body))
-            })
+            stompClient.subscribe("/topic/announcements", (msg) => {
+                showAnnouncement(JSON.parse(msg.body));
+            });
         }
-    })
-
-    stompClient.activate()
+    });
+    stompClient.activate();
 }
 
-window.onload = (_) => {
-    main()
-}
+window.onload = main;

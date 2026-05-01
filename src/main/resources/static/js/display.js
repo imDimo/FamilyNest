@@ -1,32 +1,45 @@
 function showAnnouncement(announcement) {
-    let title = announcement.title
-    let content = announcement.content
-    let time = announcement.time
+    let announcementArea = document.getElementById("global-announcement-area");
 
-    let announcementArea = document.getElementById("announcement-popup-area");
+    if (!announcementArea) {
+        announcementArea = document.createElement("div");
+        announcementArea.id = "global-announcement-area";
+        document.body.appendChild(announcementArea);
+    }
 
     let container = document.createElement("div");
-    container.className = "floating-announcement";
+    container.className = "announcement-card";
 
     let closeBtn = document.createElement("button");
     closeBtn.innerHTML = "&times;";
-    closeBtn.className = "close-btn";
-    closeBtn.onclick = function() { container.remove(); };
+    closeBtn.className = "close-announcement";
+    closeBtn.onclick = () => container.remove();
 
     let header = document.createElement("h3");
-    header.appendChild(document.createTextNode(title));
+    header.textContent = announcement.title;
 
     let body = document.createElement("p");
-    body.appendChild(document.createTextNode(content));
+    body.textContent = announcement.content;
 
-    let timestamp = document.createElement("p");
-    timestamp.style.fontSize = "0.8em";
-    timestamp.appendChild(document.createTextNode(`Sent at ${time}`));
+    let timestamp = document.createElement("small");
+    timestamp.textContent = `Sent at ${announcement.time}`;
 
-    container.appendChild(closeBtn);
-    container.appendChild(header);
-    container.appendChild(body);
-    container.appendChild(timestamp);
-    
+    container.append(closeBtn, header, body, timestamp);
     announcementArea.appendChild(container);
+
+
+    setTimeout(() => { if(container) container.remove(); }, 10000);
+}
+
+function initGlobalAnnouncements() {
+    let url = `ws://${location.host}/ws`;
+    let client = new StompJs.Client({
+        brokerURL: url,
+        onConnect: () => {
+            client.subscribe("/topic/announcements", (message) => {
+                showAnnouncement(JSON.parse(message.body));
+            });
+        }
+    });
+    client.activate();
 }
