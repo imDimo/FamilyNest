@@ -125,3 +125,36 @@ button.admin {
 button.admin:hover {
     background-color: rebeccapurple;
 }
+
+.announcement-mini-tile {
+    padding: 10px 20px !important;
+    margin-bottom: 20px;
+    width: 95%;
+    max-width: 1400px;
+}
+
+.announcement-inline-form {
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    gap: 15px;
+}
+
+.announcement-inline-form h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+.announcement-inline-form input {
+    flex: 1; 
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.announcement-inline-form button {
+    padding: 8px 30px;
+    white-space: nowrap;
+    width: auto;
+}

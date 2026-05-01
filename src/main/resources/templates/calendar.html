@@ -33,19 +33,12 @@
         </nav>
     </div>
 
-    <div class="flex" style="justify-content: center; padding: 20px;">
-        <div class="tile" style="width: 100%; max-width: 1200px;">
-            <h2 style="text-align: left; margin-bottom: 15px;">Send Announcement</h2>
-            <div style="display: flex; flex-direction: column; gap: 10px; max-width: 1200px;">
-                <input type="text" id="announcementTitle" placeholder="Announcement Title" 
-                       style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; max-width: 1200px;">
-                <textarea id="announcementContent" placeholder="Message..." 
-                          style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; height: 60px;"></textarea>
-                <button id="announceButton" class="admin" 
-                        style="width: 100%; background-color: #9b6dff; color: white; border: none; padding: 10px; border-radius: 4px; cursor: pointer;">
-                    Broadcast to Family
-                </button>
-            </div>
+    <div class="tile announcement-mini-tile">
+        <div class="announcement-inline-form">
+            <h3>Send Announcement:</h3>
+            <input type="text" id="announcementTitle" placeholder="Title">
+            <input type="text" id="announcementContent" placeholder="Message...">
+            <button id="announceButton" class="admin">Send</button>
         </div>
     </div>
 
