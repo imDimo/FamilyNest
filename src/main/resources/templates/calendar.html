@@ -5,9 +5,11 @@
     <title>FamilyNest</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/calendar-style.css">
+    <link rel="stylesheet" href="/css/announcement-style.css">
     <script src="js/lib/stomp.min.js" defer></script>
     <script src="js/lib/sockjs.min.js" defer></script>
     <script src="js/calendar.js" defer></script>
+    <script src="/js/announcementDisplay.js"></script>
 </head>
 <body>
     <div class="header flex">
@@ -32,12 +34,24 @@
         </nav>
     </div>
 
-    <!-- <div id="announcementArea"> -->
-    <!---->
-    <!-- </div> -->
-    <!-- <div> -->
-    <!--     <button type="button" id="announceButton">Send announcement</button> -->
-    <!-- </div> -->
+    <div id ="announcementPopup" class="announcementPopup" style ="display: none;">
+        <span id ="announcementMessage"></span>
+        <button id="closeAnnouncement" class="close-btn">&times;</button>
+    </div>
+    <div>
+        <button type="button" id="announcementButton">Send Announcement</button>
+    </div>
+    <div id="announcementModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" id="closeAnnouncement">&times;</span>
+            <form id="announcementForm">
+                <label for="announcementText">Announcement:</label>
+                <textarea id="announcementText" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
     <div class="flex calendar-tiles-container">
         <div class="tile users-tile">
             <h2 class="centered">Members</h2>
