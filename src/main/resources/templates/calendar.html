@@ -5,11 +5,10 @@
     <title>FamilyNest</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/calendar-style.css">
-    <link rel="stylesheet" href="/css/announcement-style.css">
     <script src="js/lib/stomp.min.js" defer></script>
     <script src="js/lib/sockjs.min.js" defer></script>
     <script src="js/calendar.js" defer></script>
-    <script src="/js/announcementDisplay.js"></script>
+    <script src="js/announcements.js" defer></script>
 </head>
 <body>
     <div class="header flex">
@@ -34,23 +33,17 @@
         </nav>
     </div>
 
-    <div id ="announcementPopup" class="announcementPopup" style ="display: none;">
-        <span id ="announcementMessage"></span>
-        <button id="closeAnnouncement" class="close-btn">&times;</button>
-    </div>
-    <div>
-        <button type="button" id="announcementButton">Send Announcement</button>
-    </div>
-    <div id="announcementModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" id="closeAnnouncement">&times;</span>
-            <form id="announcementForm">
-                <label for="announcementText">Announcement:</label>
-                <textarea id="announcementText" required></textarea>
-                <button type="submit">Send</button>
-            </form>
+    <div class="tile">
+        <h3>Create Announcement</h3>
+        <div class="flex" style="flex-direction: column; gap: 10px;">
+            <input type="text" id="announcementTitle" placeholder="Title">
+            <textarea id="announcementContent" placeholder="Message"></textarea>
+            
+            <button id="announceButton" class="admin">Send Announcement</button>
         </div>
     </div>
+    
+    <div id="announcementArea"></div>
 
     <div class="flex calendar-tiles-container">
         <div class="tile users-tile">
@@ -65,6 +58,9 @@
                 <!-- </li> -->
             </ul>
         </div>
+
+<div id="global-announcement-container"></div>
+
         <div class="tile calendar-tile">
             <div class="calendar">
 
