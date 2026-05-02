@@ -18,14 +18,18 @@ public class NestUserSettings implements Serializable {
 	@PrimaryKeyJoinColumn(name = "settings_id")
 	NestUser user;
 	
-	private Boolean dark_mode;
+	private boolean darkMode;
 	
 	public NestUserSettings() {};
-	public NestUserSettings(boolean dark_mode) {
-		this.dark_mode = dark_mode;
+	public NestUserSettings(boolean darkMode) {
+		this.darkMode = darkMode;
 	}
 	
 	public long getId() {
 		return id;
+	}
+	
+	public boolean getDarkMode() {
+		return darkMode;
 	}
 }
