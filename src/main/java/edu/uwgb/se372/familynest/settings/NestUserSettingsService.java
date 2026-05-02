@@ -22,7 +22,7 @@ public class NestUserSettingsService {
 		return nestUserSettingsRepository.findAll();
 	}
 	
-	public void deleteSettings(long settingsId) {
+	public void deleteSettingsById(long settingsId) {
 		nestUserSettingsRepository.deleteById(settingsId);
 	}
 }

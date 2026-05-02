@@ -12,7 +12,7 @@ public class NestUserSettings implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "settings_id")
-	private Long settingsId;
+	private Long id;
 	
 	@OneToOne
 	@PrimaryKeyJoinColumn(name = "settings_id")
@@ -23,5 +23,9 @@ public class NestUserSettings implements Serializable {
 	public NestUserSettings() {};
 	public NestUserSettings(boolean dark_mode) {
 		this.dark_mode = dark_mode;
+	}
+	
+	public long getId() {
+		return id;
 	}
 }

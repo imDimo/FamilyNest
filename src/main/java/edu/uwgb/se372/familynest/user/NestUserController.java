@@ -18,10 +18,10 @@ public class NestUserController {
 	private NestUserService userService;
 	
 	@Autowired
-	private NestRoleService roleService;
+	private NestUserSettingsService userSettingsService;
 	
 	@Autowired
-	private NestUserSettingsService userSettingsService;
+	private NestRoleService roleService;
 	
 	@PostMapping("/users/create")
 	public String createUser(Model model, @ModelAttribute("user") NestUserDto userData) {
@@ -89,7 +89,16 @@ public class NestUserController {
 	@PostMapping(value="/users", params="action=delete-user")
 	public String deleteUserById(@ModelAttribute(value="id") Long userId) {
 		// TODO: Prevent users from deleting themselves
-		userService.deleteUserById(userId);
+		try {
+			NestUser user = userService.loadUserById(userId);
+			
+			userSettingsService.deleteSettingsById(user.getUserSettings().getId());
+			userService.deleteUserById(userId);
+		}
+		catch (Exception e) {
+			System.out.println("Attempted to remove a user but they did not exist");
+		}
+		
 		return "redirect:/admin/manage-users";
 	}
 }

@@ -28,7 +28,7 @@ public class NestUser implements UserDetails {
 	@Column(name="password", nullable=false)
 	private String password;
 	
-	@OneToOne(mappedBy="user")
+	@OneToOne(mappedBy="user", cascade=CascadeType.ALL)
 	private NestUserSettings settings;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
