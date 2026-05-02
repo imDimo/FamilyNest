@@ -19,6 +19,8 @@ public class NestUserSettings implements Serializable {
 	NestUser user;
 	
 	private boolean darkMode;
+	private boolean allowAnnouncements;
+	private boolean showOnlineStatus;
 	
 	public NestUserSettings() {};
 	public NestUserSettings(boolean darkMode) {
@@ -31,5 +33,21 @@ public class NestUserSettings implements Serializable {
 	
 	public boolean getDarkMode() {
 		return darkMode;
+	}
+	
+	public void setDarkMode(boolean darkMode) {
+		this.darkMode = darkMode;
+	}
+	public boolean getAllowAnnouncements() {
+		return allowAnnouncements;
+	}
+	public void setAllowAnnouncements(boolean allowAnnouncements) {
+		this.allowAnnouncements = allowAnnouncements;
+	}
+	public boolean getShowOnlineStatus() {
+		return showOnlineStatus;
+	}
+	public void setShowOnlineStatus(boolean showOnlineStatus) {
+		this.showOnlineStatus = showOnlineStatus;
 	}
 }
