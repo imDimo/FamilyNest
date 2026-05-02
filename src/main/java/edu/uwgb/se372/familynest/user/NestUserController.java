@@ -3,6 +3,7 @@ package edu.uwgb.se372.familynest.user;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,42 +48,54 @@ public class NestUserController {
 	}
 	
 	@PostMapping("/users/update")
-	public String updateUser(Model model, @ModelAttribute("user") NestUserDto userData) {
-		NestUser user = null;
+	public String updateUser(@AuthenticationPrincipal NestUser currentUser, Model model, 
+			@ModelAttribute("user") NestUserDto userData) {
+		NestUser existingUser = null;
+		NestUserDto existingUserData = null;
 		
 		try {
-			user = userService.loadUserById(userData.getId());
+			existingUser = userService.loadUserById(userData.getId());
+			existingUserData = new NestUserDto(existingUser);
 		}
 		catch (Exception e) {
 			System.err.println(e.getMessage());
-			return "redirect:/admin/manage-users";
+			return "redirect:/error";
 		}
 		
-		// TODO: Add info messages when these operations fail
-		if (userData.getUsername() == null || userData.getUsername().isBlank())
-			return "redirect:/admin/manage-users";
-		
-		if (userData.getPassword() == null || userData.getPassword().isBlank())
-			return "redirect:/admin/manage-users";
-		
-		user.setUsername(userData.getUsername().trim());
-		user.setPassword(userData.getPassword().trim());
-		
-		if (userData.getIsAdmin()) {
-			user.setRoles(Arrays.asList(roleService.findByName("ROLE_USER"), roleService.findByName("ROLE_ADMIN")));
+		if (userData.getUsername() != null && !userData.getUsername().isBlank()) {
+			try {
+				NestUser userWithName = userService.loadUserByUsername(userData.getUsername().trim());
+				
+				if (userWithName.getId() != existingUser.getId()) {
+					// TODO: Add info message when username is already taken
+					return "redirect:/admin/manage-users";
+				}
+			}
+			catch (Exception e) {
+				// Username not found, so we can update it
+				System.out.printf("Changing username of user %d", userData.getId());
+				existingUserData.setUsername(userData.getUsername().trim());
+			}
 		}
 		else {
-			user.setRoles(Arrays.asList(roleService.findByName("ROLE_USER")));
+			existingUserData.setUsername("");
 		}
 		
-		userService.updateUser(user.getId(), user);
+		if (userData.getPassword() != null && !userData.getPassword().isBlank()) {
+			existingUserData.setPassword(userData.getPassword().trim());
+		}
+		else {
+			existingUserData.setPassword("");
+		}
 		
+		existingUserData.setIsAdmin(userData.getIsAdmin());
+		
+		userService.updateUser(userData.getId(), existingUserData);
 		return "redirect:/admin/manage-users";
 	}
 	
 	@PostMapping(value="/users", params="action=delete-user")
 	public String deleteUserById(@ModelAttribute(value="id") Long userId) {
-		// TODO: Prevent users from deleting themselves
 		userService.deleteUserById(userId);
 		return "redirect:/admin/manage-users";
 	}

@@ -1,5 +1,6 @@
 package edu.uwgb.se372.familynest.user;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import edu.uwgb.se372.familynest.authority.NestRole;
+import edu.uwgb.se372.familynest.authority.NestRoleService;
 
 @Service
 public class NestUserService implements UserDetailsService {
 	
 	@Autowired
 	private NestUserRepository userRepository;
+	
+	@Autowired
+	private NestRoleService roleService;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -61,16 +66,27 @@ public class NestUserService implements UserDetailsService {
 		return user;
 	}
 	
-	public NestUser updateUser(Long userId, NestUser userdata) {
-		NestUser existingUser = userRepository.findById(userId).orElse(null);
-		if (existingUser != null) {
-			existingUser.setUsername(userdata.getUsername());
-			existingUser.setPassword(passwordEncoder.encode(userdata.getPassword()));
-			return userRepository.save(existingUser);
+	public NestUser updateUser(Long userId, NestUserDto userData) {
+		NestUser existingUser = null;
+		
+		try {
+			existingUser = this.loadUserById(userId);
 		}
-		else {
+		catch (Exception e) {
+			System.err.println(e.getMessage());
 			return null;
 		}
+		
+		if (!userData.getUsername().isBlank())
+			existingUser.setUsername(userData.getUsername().trim());
+		if (!userData.getPassword().isBlank())
+			existingUser.setPassword(passwordEncoder.encode(userData.getPassword().trim()));
+		if (userData.getIsAdmin())
+			existingUser.setRoles(Arrays.asList(roleService.findByName("ROLE_USER"), roleService.findByName("ROLE_ADMIN")));
+		else
+			existingUser.setRoles(Arrays.asList(roleService.findByName("ROLE_USER")));
+		
+		return userRepository.save(existingUser);
 	}
 	
 	public void deleteUserById(Long userId) {
