@@ -127,18 +127,21 @@ button.admin:hover {
 }
 
 .announcement-mini-tile {
-    width: 98% !important; 
-    max-width: 1600px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    box-sizing: border-box;
+    padding: 15px 25px !important; 
+    margin: 20px auto;            
+    width: 98% !important;     
+    max-width: 1600px;            
+    box-sizing: border-box;      
+    overflow: hidden;
 }
 
 .announcement-inline-form {
     display: flex;
     flex-direction: row; 
     align-items: center;
-    gap: 15px;
+    gap: 20px;
+    width: 100%;                
+    box-sizing: border-box;
 }
 
 .announcement-inline-form h3 {
@@ -148,14 +151,14 @@ button.admin:hover {
 }
 
 .announcement-inline-form input {
-    flex: 1; 
-    padding: 8px;
+    min-width: 0;                
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
 .announcement-inline-form button {
-    padding: 8px 30px;
+    flex-shrink: 0;               
+    padding: 10px 30px;
     white-space: nowrap;
-    width: auto;
 }
