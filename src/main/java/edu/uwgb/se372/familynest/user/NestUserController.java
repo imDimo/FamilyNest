@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import edu.uwgb.se372.familynest.authority.NestRoleService;
+import edu.uwgb.se372.familynest.settings.NestUserSettingsService;
 
 @Controller
 @RequestMapping("/admin")
@@ -18,6 +19,9 @@ public class NestUserController {
 	
 	@Autowired
 	private NestRoleService roleService;
+	
+	@Autowired
+	private NestUserSettingsService userSettingsService;
 	
 	@PostMapping("/users/create")
 	public String createUser(Model model, @ModelAttribute("user") NestUserDto userData) {
@@ -35,11 +39,13 @@ public class NestUserController {
 			
 			if (userData.getIsAdmin()) {
 				user = userService.create(username.trim(), password.trim(), 
-						Arrays.asList(roleService.findByName("ROLE_USER"), roleService.findByName("ROLE_ADMIN")));
+						Arrays.asList(roleService.findByName("ROLE_USER"), roleService.findByName("ROLE_ADMIN")),
+						userSettingsService.createSettings());
 			}
 			else {
 				user = userService.create(username.trim(), password.trim(), 
-						Arrays.asList(roleService.findByName("ROLE_USER")));
+						Arrays.asList(roleService.findByName("ROLE_USER")),
+						userSettingsService.createSettings());
 			}
 		}
 		

@@ -1,21 +1,27 @@
 package edu.uwgb.se372.familynest.settings;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
+import java.io.Serializable;
 
-@RedisHash("sessions")
-public class NestUserSettings {
+import edu.uwgb.se372.familynest.user.NestUser;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="settings")
+public class NestUserSettings implements Serializable {
 	
 	@Id
-	private String settingsId;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "settings_id")
+	private Long settingsId;
 	
-	private Long userId;
+	@OneToOne
+	@PrimaryKeyJoinColumn(name = "settings_id")
+	NestUser user;
 	
-	public Long getUserId() {
-		return userId;
-	}
+	private Boolean dark_mode;
 	
-	public void setUserId(Long userId ) {
-		this.userId = userId;
+	public NestUserSettings() {};
+	public NestUserSettings(boolean dark_mode) {
+		this.dark_mode = dark_mode;
 	}
 }

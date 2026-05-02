@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import edu.uwgb.se372.familynest.authority.NestPrivilege;
 import edu.uwgb.se372.familynest.authority.NestRole;
+import edu.uwgb.se372.familynest.settings.NestUserSettings;
 import jakarta.persistence.*;
 
 @Entity
@@ -27,6 +28,9 @@ public class NestUser implements UserDetails {
 	@Column(name="password", nullable=false)
 	private String password;
 	
+	@OneToOne(mappedBy="user")
+	private NestUserSettings settings;
+	
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(
 			name="users_roles", 
@@ -41,11 +45,13 @@ public class NestUser implements UserDetails {
 		this.username = username;
 		this.password = password;
 		this.roles = new HashSet<NestRole>();
+		this.settings = new NestUserSettings();
 	}
-	public NestUser(String username, String password, Collection<NestRole> roles) {
+	public NestUser(String username, String password, Collection<NestRole> roles, NestUserSettings settings) {
 		this.username = username;
 		this.password = password;
 		this.roles = new HashSet<>(roles);
+		this.settings = settings;
 	}
 	
 	public Long getId() {
@@ -85,6 +91,14 @@ public class NestUser implements UserDetails {
 	
 	public void setRoles(Collection<NestRole> roles) {
 		this.roles = new HashSet<>(roles);
+	}
+	
+	public NestUserSettings getUserSettings() {
+		return settings;
+	}
+	
+	public void setUserSettings(NestUserSettings settings) {
+		this.settings = settings;
 	}
 	
 	public boolean hasRole(NestRole role) {

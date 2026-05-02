@@ -4,26 +4,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NestSettingsService {
+public class NestUserSettingsService {
 	
 	@Autowired
 	private NestUserSettingsRepository nestUserSettingsRepository;
 	
-	public NestUserSettings createSettings(long userId) {
+	public NestUserSettings createSettings() {
 		NestUserSettings settings = new NestUserSettings();
-		settings.setUserId(userId);
 		return nestUserSettingsRepository.save(settings);
 	}
 	
-	public NestUserSettings getSettings(String sessionId) {
-		return nestUserSettingsRepository.findById(sessionId).orElse(null);
+	public NestUserSettings getSettings(long settingsId) {
+		return nestUserSettingsRepository.findById(settingsId).orElse(null);
 	}
 	
 	public Iterable<NestUserSettings> getAllSettings() {
 		return nestUserSettingsRepository.findAll();
 	}
 	
-	public void deleteSettings(String sessionId) {
-		nestUserSettingsRepository.deleteById(sessionId);
+	public void deleteSettings(long settingsId) {
+		nestUserSettingsRepository.deleteById(settingsId);
 	}
 }
