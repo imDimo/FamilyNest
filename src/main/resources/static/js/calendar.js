@@ -1,5 +1,7 @@
 let stompClient = null;
 
+const mySenderId = "user-" + Math.random().toString(36).substring(2, 9);
+
 function main() {
     let bttn = document.getElementById("announceButton");
     if (bttn) {
@@ -17,7 +19,8 @@ function sendAnnouncement() {
         destination: "/app/announcement", 
         body: JSON.stringify({
             "title": titleInput.value,
-            "content": contentInput.value
+            "content": contentInput.value,
+            "senderId" : mySenderId
         })
     });
 
@@ -31,7 +34,10 @@ function connect() {
         brokerURL: url,
         onConnect: () => {
             stompClient.subscribe("/topic/announcements", (msg) => {
-                showAnnouncement(JSON.parse(msg.body));
+                const data = JSON.parse(msg.body);
+                if (data.senderId !== mySenderId) {
+                    showAnnouncement(data);
+                }
             });
         }
     });
