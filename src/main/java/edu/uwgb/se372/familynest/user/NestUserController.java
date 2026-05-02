@@ -91,6 +91,11 @@ public class NestUserController {
 		existingUserData.setIsAdmin(userData.getIsAdmin());
 		
 		userService.updateUser(userData.getId(), existingUserData);
+		
+		// If user updated their own information, they will have to log back in
+		if (userData.getId().equals(currentUser.getId()))
+			return "redirect:/logout";
+		
 		return "redirect:/admin/manage-users";
 	}
 	
