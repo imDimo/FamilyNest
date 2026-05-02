@@ -62,16 +62,20 @@ button:hover {
     background-color: darkgreen;
 }
 
-.error {
+.error-container {
     margin-top: 16px;
     height: 24px;
 }
 
-.error p {
+.error-container p {
     color: red;
     font-size: 14px;
     height: 0px;
     margin: 0px;
+}
+
+.error {
+    color: red;
 }
 
 .page-title {
@@ -95,17 +99,15 @@ button:hover {
     list-style: none;
 }
 
-.header ul li {
-    margin-left: 16px;
-    margin-right: 16px;
-}
-
 .inline {
     display: inline;
 }
 
 .centered {
     text-align: center;
+}
+.bold {
+    font-weight: bold;
 }
 
 .rightalign {
