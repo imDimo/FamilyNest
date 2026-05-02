@@ -35,7 +35,8 @@ function connect() {
         onConnect: () => {
             stompClient.subscribe("/topic/announcements", (msg) => {
                 const data = JSON.parse(msg.body);
-                if (data.senderId !== mySenderId) {
+                console.log("Announcement received:", data); 
+                if (data.senderId && data.senderId !== mySenderId) {
                     showAnnouncement(data);
                 }
             });
