@@ -2,12 +2,14 @@ package edu.uwgb.se372.familynest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import edu.uwgb.se372.familynest.user.NestUserService;
+import edu.uwgb.se372.familynest.authority.NestRoleService;
+import edu.uwgb.se372.familynest.user.NestUser;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -20,9 +22,9 @@ import java.util.stream.IntStream;
 
 @Controller
 public class UserNavigationController {
-
+    
     @Autowired
-    private NestUserService userService;
+    private NestRoleService roleService;
 
     @GetMapping("/")
     public String home() {
@@ -30,9 +32,10 @@ public class UserNavigationController {
     }
 
     @GetMapping("/calendar")
-    public String calendar(Model model) {
-
-      
+    public String calendar(@AuthenticationPrincipal NestUser currentUser, Model model) {
+    	boolean isAdmin = currentUser.hasRole(roleService.findByName("ROLE_ADMIN"));
+    	model.addAttribute("userIsAdmin", isAdmin);
+    	
         LocalDate today = LocalDate.now();
         YearMonth yearMonth = YearMonth.from(today);
 
@@ -54,18 +57,11 @@ public class UserNavigationController {
         return "redirect:/calendar";
     }
 
-    @GetMapping("/gallery")
-    public String gallery(Model model) {
-        return "/gallery";
-    }
-
-    @PostMapping(value = "/nav", params = "action=gallery")
-    public String postGallery(Model model) {
-        return "redirect:/gallery";
-    }
-
     @GetMapping("/settings")
-    public String settings(Model model) {
+    public String settings(@AuthenticationPrincipal NestUser currentUser, Model model) {
+    	boolean isAdmin = currentUser.hasRole(roleService.findByName("ROLE_ADMIN"));
+    	model.addAttribute("userIsAdmin", isAdmin);
+    	
         return "/settings";
     }
 
@@ -75,7 +71,14 @@ public class UserNavigationController {
     }
     
     @GetMapping(value = "/error")
-    public String error(HttpServletRequest request, Model model) {
+    public String error(@AuthenticationPrincipal NestUser currentUser, HttpServletRequest request, Model model) {
+    	
+    	boolean isAdmin = false;
+    	if (currentUser != null)
+    		isAdmin = currentUser.hasRole(roleService.findByName("ROLE_ADMIN"));
+    	
+    	model.addAttribute("userIsAdmin", isAdmin);
+    	
     	String message = null;
     	Object err = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
     	

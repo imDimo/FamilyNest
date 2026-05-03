@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,10 +27,7 @@ public class AdminNavigationController {
 	private NestRoleService roleService;
 	
 	@GetMapping("/manage-users")
-	public String manageUsers(@AuthenticationPrincipal NestUser user, Model model) {
-		NestUserDto currentUser = new NestUserDto(user);
-		model.addAttribute("currentUser", currentUser);
-		
+	public String manageUsers(Model model) {
 		Collection<NestUserDto> allUsers = userService.getAllUsers().stream()
 				.map((nestUser) -> new NestUserDto(nestUser)).collect(Collectors.toList());
 		
