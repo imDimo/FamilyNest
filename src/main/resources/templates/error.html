@@ -4,7 +4,7 @@
         <meta charset="ISO-8859-1">
         <title>FamilyNest</title>
         <link rel="stylesheet" href="/css/style.css">
-		<link rel="stylesheet" href="/css/admin-style.css">
+        <link rel="stylesheet" href="/css/error-style.css">
     </head>
     <body>
         <div class="header flex">
@@ -29,30 +29,10 @@
             </nav>
         </div>
 
-        <div class="tile manage-users-tile">
-            <div class="manage-users-content flex">
-                <div class="centered">
-                    <h3>Manage Existing Accounts</h3>
-                    <ul class="noliststyle">
-                        <li th:each="user : ${users}">
-                            <form class="centered" action="#" th:action="@{/admin/users}" method="POST">
-                                <div class="user-row flex">
-                                    <span class="username" th:text="${user.username}"></span>
-                                    <div>
-                                        <input type="hidden" th:name="id" th:value="${user.id}"></input>
-                                        <button th:if="${currentUser.id} != ${user.id}" class="delete" type="submit" th:name="action" th:value="delete-user">Delete</button>
-                                        <button type="submit" th:name="action" th:value="update-user">Edit</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-
-                <form class="centered" action="#" th:action="@{/admin/users}" method="POST">
-                    <h3>Add a New Family Member</h3>
-                    <button type="submit" name="action" value="add-user">Add New Account</button>
-                </form>
+        <div class="tile error-tile">
+            <div class="error-content centered">
+                <p class="error bold" th:text="${error_code != null} ? ${error_code} : 'An Error Occurred'"></p>
+                <p>Please try returning to the calendar</p>
             </div>
         </div>
     </body>

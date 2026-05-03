@@ -1,0 +1,14 @@
+.error-tile {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    padding: 32px;
+    height: 600px;
+}
+
+.error-content {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20%;
+    width: 70%;
+}

@@ -13,7 +13,7 @@
                 <br>
                 <input type="password" th:field="*{password}" placeholder="Password">
                 <br>
-                <div class="error">
+                <div class="error-container">
                     <p th:if="${error}" th:text="${error}"></p>
                 </div>
                 <button class="login-button" type="submit">Login</button>
