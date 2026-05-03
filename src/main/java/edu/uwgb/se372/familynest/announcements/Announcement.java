@@ -4,13 +4,15 @@ public class Announcement {
 	private String title;
 	private String content;
 	private String time;
+	private String senderId;
 	
 	public Announcement() {}
 	
-	public Announcement(String title, String content, String time) {
+	public Announcement(String title, String content, String time, String senderId) {
 		this.title = title;
 		this.content = content;
 		this.time = time;
+		this.senderId = senderId;
 	}
 	
 	public String getTitle() {
@@ -35,4 +37,12 @@ public class Announcement {
 	public void setTime(String time) {
 		this.time = time;
 	}
+
+	public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
 }

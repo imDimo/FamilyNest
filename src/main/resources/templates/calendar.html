@@ -8,6 +8,7 @@
     <script src="js/lib/stomp.min.js" defer></script>
     <script src="js/lib/sockjs.min.js" defer></script>
     <script src="js/calendar.js" defer></script>
+    <script src="js/display.js" defer></script>
 </head>
 <body>
     <div class="header flex">
@@ -32,12 +33,15 @@
         </nav>
     </div>
 
-    <!-- <div id="announcementArea"> -->
-    <!---->
-    <!-- </div> -->
-    <!-- <div> -->
-    <!--     <button type="button" id="announceButton">Send announcement</button> -->
-    <!-- </div> -->
+    <div class="tile announcement-mini-tile">
+        <div class="announcement-inline-form">
+            <h3>Send Announcement:</h3>
+            <input type="text" id="announcementTitle" placeholder="Title">
+            <input type="text" id="announcementContent" placeholder="Message...">
+            <button id="announceButton" class="admin">Send</button>
+        </div>
+    </div>
+
     <div class="flex calendar-tiles-container">
         <div class="tile users-tile">
             <h2 class="centered">Members</h2>
@@ -51,6 +55,9 @@
                 <!-- </li> -->
             </ul>
         </div>
+
+<div id="global-announcement-container"></div>
+
         <div class="tile calendar-tile">
             <div class="calendar">
 

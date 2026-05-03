@@ -7,19 +7,19 @@
 .users-tile {
     padding: 8px;
     width: 10%;
-    height: 70vh;
+    height: 80vh;
 }
 
 .calendar-tile {
     padding: 8px;
     width: 55%;
-    height: 70vh;
+    height: 80vh;
 }
 
 .events-tile {
     padding: 8px;
     width: 20%;
-    height: 70vh;
+    height: 80vh;
 }
 
 .calendar-days {
