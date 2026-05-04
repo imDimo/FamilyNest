@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import edu.uwgb.se372.familynest.authority.NestRoleService;
+import edu.uwgb.se372.familynest.settings.NestUserSettingsService;
 
 @Controller
 @RequestMapping("/admin")
@@ -15,6 +16,9 @@ public class NestUserController {
 	
 	@Autowired
 	private NestUserService userService;
+	
+	@Autowired
+	private NestUserSettingsService userSettingsService;
 	
 	@Autowired
 	private NestRoleService roleService;
@@ -35,11 +39,13 @@ public class NestUserController {
 			
 			if (userData.getIsAdmin()) {
 				user = userService.create(username.trim(), password.trim(), 
-						Arrays.asList(roleService.findByName("ROLE_USER"), roleService.findByName("ROLE_ADMIN")));
+						Arrays.asList(roleService.findByName("ROLE_USER"), roleService.findByName("ROLE_ADMIN")),
+						userSettingsService.createSettings());
 			}
 			else {
 				user = userService.create(username.trim(), password.trim(), 
-						Arrays.asList(roleService.findByName("ROLE_USER")));
+						Arrays.asList(roleService.findByName("ROLE_USER")),
+						userSettingsService.createSettings());
 			}
 		}
 		
@@ -83,7 +89,16 @@ public class NestUserController {
 	@PostMapping(value="/users", params="action=delete-user")
 	public String deleteUserById(@ModelAttribute(value="id") Long userId) {
 		// TODO: Prevent users from deleting themselves
-		userService.deleteUserById(userId);
+		try {
+			NestUser user = userService.loadUserById(userId);
+			
+			userSettingsService.deleteSettingsById(user.getUserSettings().getId());
+			userService.deleteUserById(userId);
+		}
+		catch (Exception e) {
+			System.out.println("Attempted to remove a user but they did not exist");
+		}
+		
 		return "redirect:/admin/manage-users";
 	}
 }

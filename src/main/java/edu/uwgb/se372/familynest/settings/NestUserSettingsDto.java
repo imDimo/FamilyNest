@@ -1,34 +1,32 @@
 package edu.uwgb.se372.familynest.settings;
 
-import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-import edu.uwgb.se372.familynest.user.NestUser;
-import jakarta.persistence.*;
-
-@Entity
-@Table(name="settings")
-public class NestUserSettings implements Serializable {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "settings_id")
+@Setter
+@Getter
+@AllArgsConstructor
+public class NestUserSettingsDto {
 	private Long id;
-	
-	@OneToOne
-	@PrimaryKeyJoinColumn(name = "settings_id")
-	NestUser user;
-	
 	private boolean darkMode;
 	private boolean allowAnnouncements;
 	private boolean showOnlineStatus;
 	
-	public NestUserSettings() {};
-	public NestUserSettings(boolean darkMode) {
-		this.darkMode = darkMode;
+	public NestUserSettingsDto() {}
+	public NestUserSettingsDto(NestUserSettings settings) {
+		this.id = settings.getId();
+		this.darkMode = settings.getDarkMode();
+		this.allowAnnouncements = settings.getAllowAnnouncements();
+		this.showOnlineStatus = settings.getShowOnlineStatus();
 	}
 	
-	public long getId() {
+	public Long getId() {
 		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	public boolean getDarkMode() {
@@ -38,7 +36,7 @@ public class NestUserSettings implements Serializable {
 	public void setDarkMode(boolean darkMode) {
 		this.darkMode = darkMode;
 	}
-	public boolean getAllowAnnouncements() {
+	public boolean isAllowAnnouncements() {
 		return allowAnnouncements;
 	}
 	public void setAllowAnnouncements(boolean allowAnnouncements) {
