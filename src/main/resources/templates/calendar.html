@@ -43,7 +43,7 @@
 
     <div class="flex calendar-tiles-container">
         <div class="tile users-tile">
-            <h2 class="centered">Members</h2>
+            <h2 class="center-align">Members</h2>
             <ul id="users-list">
                 <!-- Example list item -- dynamically added by javascript -->
                 <!-- <li> -->
@@ -58,22 +58,23 @@
 <div id="global-announcement-container"></div>
 
         <div class="tile calendar-tile">
-            <div class="calendar">
+            <div class="calendar center-align">
 
                 <!-- Month + Year -->
-                <h2 th:text="${monthName} + ' ' + ${year}" class="centered"></h2>
+                <h2 th:text="${monthName} + ' ' + ${year}"></h2>
 
                 <!-- Calendar Days -->
-                <div class="calendar-days flex">
-                    <div class="calendar-day" th:each="day : ${days}"
-                            <span th:text="${day}"></span>
+                <div class="calendar-day-container">
+                    <div class="calendar-day-grid">
+                        <div class="calendar-day" th:each="day:${#numbers.sequence(1, numDays)}">
+                            <span class="calendar-day-label" th:text="${day}"></span>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="tile events-tile">
-            <h2 class="centered">Upcoming Events</h2>
+            <h2 class="center-align">Upcoming Events</h2>
             <ul>
                 <!-- Example list item -- dynamically added by javascript -->
                 <!-- <li> -->

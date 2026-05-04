@@ -41,8 +41,16 @@ button:hover {
     margin-right: auto;
 }
 
+.center-align {
+    text-align: center;
+}
+
 .left-align {
     text-align: left;
+}
+
+.right-align {
+    text-align: right;
 }
 
 .login-tile {
@@ -105,15 +113,8 @@ button:hover {
     display: inline;
 }
 
-.centered {
-    text-align: center;
-}
 .bold {
     font-weight: bold;
-}
-
-.rightalign {
-    text-align: right;
 }
 
 .flex {

@@ -22,12 +22,27 @@
     height: 80vh;
 }
 
-.calendar-days {
-    flex-wrap: wrap;
+.calendar-day-container {
+
+}
+
+.calendar-day-grid {
+    display: inline-grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 0;
 }
 
 .calendar-day {
+    text-align: initial;
+    margin: 0;
     border: solid 1px black;
-    width: 100px;
+    width: 128px;
     aspect-ratio: 1 / 1;
+}
+
+.calendar-day-label {
+    margin: 4px;
+    font-size: 14px;
+    color: dimgray;
 }
