@@ -28,6 +28,7 @@
 	</scm>
 	<properties>
 		<java.version>25</java.version>
+		<spring-security.version>7.0.5</spring-security.version>
 	</properties>
 	<dependencies>
 		<dependency>
