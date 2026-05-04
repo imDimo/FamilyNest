@@ -36,61 +36,42 @@
 
                 <div class="settings-grid">
 
-                    <!-- Left column -->
-                    <div class="settings-col">
-                        <h3 class="settings-col-title">Appearance &amp; Notifications</h3>
+                   <!-- Left column -->
+                            <div class="settings-col">
+                                <h3 class="settings-col-title">Appearance &amp; Notifications</h3>
 
-                        <div class="settings-row">
-                            <label class="settings-label" for="darkMode">Dark Mode</label>
-                            <input type="hidden" name="darkMode" value="false">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="darkMode" th:field="*{darkMode}">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
+                                <div class="settings-row">
+                                    <label class="settings-label" for="darkMode">Dark Mode</label>
+                                    <input type="hidden" name="darkMode" value="false">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="darkMode" th:field="*{darkMode}">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                 </div>
 
-                        <div class="settings-row">
-                            <label class="settings-label" for="emailNotifications">Email Notifications</label>
-                            <input type="hidden" name="emailNotifications" value="false">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="emailNotifications" th:field="*{emailNotifications}">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-
-                        <div class="settings-row">
-                            <label class="settings-label" for="calendarReminders">Calendar Reminders</label>
-                            <input type="hidden" name="calendarReminders" value="false">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="calendarReminders" th:field="*{calendarReminders}">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
+                                <div class="settings-row">
+                                    <label class="settings-label" for="allowAnnouncements">Allow Announcements</label>
+                                     <input type="hidden" name="allowAnnouncements" value="false">
+                                     <label class="toggle-switch">
+                                         <input type="checkbox" id="allowAnnouncements" th:field="*{allowAnnouncements}">
+                                         <span class="toggle-slider"></span>
+                                 </label>
+                                </div>
+                            </div>
 
                     <!-- Right column -->
-                    <div class="settings-col">
-                        <h3 class="settings-col-title">Privacy</h3>
+                            <div class="settings-col">
+                                 <h3 class="settings-col-title">Privacy</h3>
 
-                        <div class="settings-row">
-                            <label class="settings-label" for="profileVisibility">Profile Visible to Family</label>
-                            <input type="hidden" name="profileVisibility" value="false">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="profileVisibility" th:field="*{profileVisibility}">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-
-                        <div class="settings-row">
-                            <label class="settings-label" for="showOnlineStatus">Show Online Status</label>
-                            <input type="hidden" name="showOnlineStatus" value="false">
-                            <label class="toggle-switch">
+                                <div class="settings-row">
+                                    <label class="settings-label" for="showOnlineStatus">Show Online Status</label>
+                                    <input type="hidden" name="showOnlineStatus" value="false">
+                                     <label class="toggle-switch">
                                 <input type="checkbox" id="showOnlineStatus" th:field="*{showOnlineStatus}">
                                 <span class="toggle-slider"></span>
-                            </label>
+                             </label>
+                            </div>
                         </div>
-                    </div>
-
                 </div>
 
                 <div class="settings-actions">

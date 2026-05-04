@@ -26,6 +26,9 @@ public class UserNavigationController {
     @Autowired
     private NestUserService userService;
 
+    @Autowired
+    private NestUserSettingsService userSettingsService;
+
     @GetMapping("/")
     public String home() {
         return "redirect:/calendar";
@@ -73,6 +76,19 @@ public class UserNavigationController {
     	
         return "/settings";
     }
+    @PostMapping("/settings/save")
+public String saveSettings(@AuthenticationPrincipal NestUser user, 
+                           @ModelAttribute("nestUserSettings") NestUserSettingsDto settingsDto, 
+                           Model model) {
+    NestUserSettings settings = user.getUserSettings();
+    settings.setDarkMode(settingsDto.getDarkMode());
+    settings.setAllowAnnouncements(settingsDto.isAllowAnnouncements());
+    settings.setShowOnlineStatus(settingsDto.getShowOnlineStatus());
+    
+    userSettingsService.updateSettings(settings.getId(), settings);
+    
+    return "redirect:/settings";
+}
 
     @PostMapping(value = "/nav", params = "action=settings")
     public String postSettings(Model model) {
