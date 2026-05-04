@@ -1,11 +1,7 @@
 package edu.uwgb.se372.familynest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
-import org.springframework.http.HttpStatus;
-=======
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
->>>>>>> 21dabf06f2ef1a0972d194e79ee75cc0d02b3fa7
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
