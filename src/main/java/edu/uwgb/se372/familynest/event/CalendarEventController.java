@@ -40,6 +40,55 @@ public class CalendarEventController {
 		}
 		return null;
 	}
+
+	// Legacy compatibility endpoints for the old NestEventController (/events with action params).
+	// These delegate to CalendarEventManagement so NestEvent* classes can be removed.
+	@PostMapping(value="/events", params="action=add")
+	public String legacyAddEvent() {
+		return "redirect:/calendar-events/new";
+	}
+	
+	@PostMapping(value="/events", params="action=save")
+	public String legacySaveEvent(@RequestParam("title") String title,
+								  @RequestParam("description") String description,
+								  @RequestParam(value="eventDateTime", required=false) String eventDateTime) {
+		NestUser currentUser = getCurrentUser();
+		if (currentUser == null) {
+			return "redirect:/login";
+		}
+		
+		CalendarEventManagement event = new CalendarEventManagement();
+		event.setTitle(title);
+		event.setDescription(description);
+		event.setCreator(currentUser);
+		
+		if (eventDateTime != null && !eventDateTime.isEmpty()) {
+			try {
+				DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+				event.setEventDate(LocalDateTime.parse(eventDateTime, formatter));
+			} catch (Exception e) {
+				event.setEventDate(LocalDateTime.now());
+			}
+		} else {
+			event.setEventDate(LocalDateTime.now());
+		}
+		
+		calendarEventService.createEvent(event);
+		return "redirect:/calendar";
+	}
+	
+	@PostMapping(value="/events", params="action=delete")
+	public String legacyDeleteEventById(@RequestParam("id") Long id) {
+		CalendarEventManagement event = calendarEventService.getEventById(id);
+		NestUser currentUser = getCurrentUser();
+		
+		if (event != null && currentUser != null && event.getCreator() != null
+				&& event.getCreator().getId().equals(currentUser.getId())) {
+			calendarEventService.deleteEvent(id);
+		}
+		
+		return "redirect:/calendar";
+	}
 	
 	// Display all calendar events
 	@GetMapping
