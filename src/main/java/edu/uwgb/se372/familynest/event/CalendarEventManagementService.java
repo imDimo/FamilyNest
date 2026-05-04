@@ -1,6 +1,7 @@
 package edu.uwgb.se372.familynest.event;
 
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Set;
 
@@ -29,6 +30,19 @@ public class CalendarEventManagementService {
 	// Get all events
 	public List<CalendarEventManagement> getAllEvents() {
 		return calendarEventRepository.findAll();
+	}
+	
+	/**
+	 * Returns all events whose {@code eventDate} falls within the given month/year.
+	 *
+	 * @param month 1-12
+	 * @param year full year (e.g. 2026)
+	 */
+	public List<CalendarEventManagement> getEventsByMonthYear(int month, int year) {
+		YearMonth ym = YearMonth.of(year, month);
+		LocalDateTime startInclusive = ym.atDay(1).atStartOfDay();
+		LocalDateTime endExclusive = ym.plusMonths(1).atDay(1).atStartOfDay();
+		return calendarEventRepository.findEventsByEventDateRange(startInclusive, endExclusive);
 	}
 	
 	// Get event by ID
