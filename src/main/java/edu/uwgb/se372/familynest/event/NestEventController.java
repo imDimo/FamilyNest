@@ -13,20 +13,20 @@ public class NestEventController {
 	private NestEventService nestEventService;
 	
 	@PostMapping(value="/events", params="action=add")
-	String addEvent(Model model) {
+	public String addEvent(Model model) {
 		NestEvent event = new NestEvent();
 		model.addAttribute("event", event);
 		return "add_event";
 	}
 	
 	@PostMapping(value="/events", params="action=save")
-	String saveEvent(@ModelAttribute("event") NestEvent event) {
+	public String saveEvent(@ModelAttribute("event") NestEvent event) {
 		nestEventService.createEvent(event);
 		return "redirect:/calendar";
 	}
 	
 	@PostMapping(value="/events", params="action=delete")
-	String deleteEventById(@ModelAttribute("event") NestEvent event) {
+	public String deleteEventById(@ModelAttribute("event") NestEvent event) {
 		nestEventService.deleteEventById(event.getId());
 		return "redirect:/calendar";
 	}

@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 public class NestSecurityController {
 	
 	@GetMapping("/login")
-	String login(HttpServletRequest request, Model model) {
+	public String login(HttpServletRequest request, Model model) {
 		
 		HttpSession session = request.getSession(false);
 		String message = null;

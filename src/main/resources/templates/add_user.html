@@ -5,6 +5,7 @@
         <title>FamilyNest</title>
         <link rel="stylesheet" href="/css/style.css">
 		<link rel="stylesheet" href="/css/admin-style.css">
+        <script src="/js/add-user.js" defer></script>
     </head>
     <body>
         <div class="header flex">
@@ -21,7 +22,6 @@
                 <form action="#" th:action="@{/nav}" method="POST">
                     <ul>
                         <li class="inline"><button type="submit" name="action" value="calendar">Calendar</button></li>
-                        <li class="inline"><button type="submit" name="action" value="gallery">Gallery</button></li>
                         <li class="inline"><button type="submit" name="action" value="settings">Preferences</button></li>
                         <li class="inline"><button type="submit" name="action" value="logout">Log Out</button></li>
                     </ul>
@@ -31,15 +31,16 @@
 
         <div class="tile add-user-tile">
             <div class="add-user-content centered">
-                <form action="#" th:action="@{/admin/users/create}" th:object="${user}" method="POST">
+                <form id="add-user-form" action="#" th:action="@{/admin/users/create}" th:object="${user}" method="POST">
                     <!-- TODO: Find better way to prevent text boxes from autofilling without using readonly + onfocus -->
-                    <input type="text" th:field="*{username}" placeholder="Username" autocorrect="off" spellcheck="false" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');"> 
-                    <input type="password" th:field="*{password}" placeholder="Password" autocorrect="off" spellcheck="false" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');">
+                    <input id="username" type="text" th:field="*{username}" placeholder="Username" autocorrect="off" spellcheck="false" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');"> 
+                    <input id="password" type="password" th:field="*{password}" placeholder="Password" autocorrect="off" spellcheck="false" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');">
                     <br>
                     <div>
                         <label for="admin_check">Admin Account</label>
                         <input class="user-checkbox" type="checkbox" id="admin_check" th:field="*{isAdmin}">
                     </div>
+                    <div id="error-container" class="error-container"></div>
                     <br>
                     <button class="add-user-bttn" type="submit">Add User</button>
                 </form>

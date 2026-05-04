@@ -4,7 +4,9 @@
         <meta charset="ISO-8859-1">
         <title>FamilyNest</title>
         <link rel="stylesheet" href="/css/style.css">
-		<link rel="stylesheet" href="/css/admin-style.css">
+		<link rel="stylesheet" href="/css/admin-style.css"> 
+        <script src="js/calendar.js" defer></script>
+        <script src="js/display.js" defer></script>
     </head>
     <body>
         <div class="header flex">
@@ -21,7 +23,6 @@
                 <form action="#" th:action="@{/nav}" method="POST">
                     <ul>
                         <li class="inline"><button type="submit" name="action" value="calendar">Calendar</button></li>
-                        <li class="inline"><button type="submit" name="action" value="gallery">Gallery</button></li>
                         <li class="inline"><button type="submit" name="action" value="settings">Preferences</button></li>
                         <li class="inline"><button type="submit" name="action" value="logout">Log Out</button></li>
                     </ul>

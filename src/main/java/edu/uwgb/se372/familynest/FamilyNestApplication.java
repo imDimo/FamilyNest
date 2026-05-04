@@ -18,10 +18,15 @@ public class FamilyNestApplication {
 	
 	private SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 	
-	@PostMapping(value="/nav", params="action=logout")
-	String postLogout(Authentication auth, HttpServletRequest request, HttpServletResponse response) {
+	@GetMapping("/logout")
+	public String logout(Authentication auth, HttpServletRequest request, HttpServletResponse response) {
 		logoutHandler.logout(request, response, auth);
 		return "redirect:/login";
+	}
+	
+	@PostMapping(value="/nav", params="action=logout")
+	public String postLogout(Authentication auth, HttpServletRequest request, HttpServletResponse response) {
+		return "redirect:/logout";
 	}
 
 	public static void main(String[] args) {

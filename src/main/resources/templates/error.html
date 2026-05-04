@@ -4,13 +4,13 @@
         <meta charset="ISO-8859-1">
         <title>FamilyNest</title>
         <link rel="stylesheet" href="/css/style.css">
-		<link rel="stylesheet" href="/css/admin-style.css">
+        <link rel="stylesheet" href="/css/error-style.css">
     </head>
     <body>
         <div class="header flex">
-            <h2 class="page-title">FamilyNest Settings</h2>
+            <h2 class="page-title">User Management</h2>
             <nav>
-                <form action="#" th:action="@{/admin/nav}" method="POST">
+                <form th:if="${userIsAdmin}" action="#" th:action="@{/admin/nav}" method="POST">
                     <ul>
                         <li class="inline"><button class="admin" type="submit" name="action" value="manage-users">Manage Members</button></li>
                         <li class="inline"><button class="admin" type="submit" name="action" value="manage-app">Manage FamilyNest</button></li>
@@ -27,12 +27,11 @@
                 </form>
             </nav>
         </div>
-        
-        <div class="tile manage-app-tile">
-            <div class="manage-app-content">
-                <form action="#" th:action="@{/admin/app}" method="POST">
-                    <button type="submit" name="action" value="test">Test Button</button>
-                </form>
+
+        <div class="tile error-tile">
+            <div class="error-content centered">
+                <p class="error bold" th:text="${error_code != null} ? ${error_code} : 'An Error Occurred'"></p>
+                <p>Please try returning to the calendar</p>
             </div>
         </div>
     </body>

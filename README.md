@@ -20,10 +20,10 @@ Changes to database settings should also be reflected in `/compose.yml`
 
 ## Building and Running
 
-> If you do not have Maven installed, you can use `.\mvnw.cmd` (Windows) or `./mvnw` (Linux) in place of `mvn` below
+> If you do not have Maven installed, you can use `.\mvnw.cmd` (Windows) or `./mvnw` (Linux/Mac) in place of `mvn` below
 
 Launch the calendar server by running `mvn spring-boot:run` in the project's root directory
 
-The required databases will automatically launch with the server
+The required databases will automatically launch with the server, make sure your docker service is running beforehand
 
 Connect to the server through a web browser using the host's address and port (specified in application.properties, default: 8080); example: `http://localhost:8080/`
