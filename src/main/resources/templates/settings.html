@@ -34,107 +34,64 @@
         <div class="tile settings-tile">
             <form action="#" th:action="@{/settings/save}" th:object="${nestUserSettings}" method="POST">
 
-                <!-- Appearance -->
-                <section class="settings-section">
-                    <div class="settings-section-header">
-                        <div class="settings-section-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-                        </div>
-                        <h3 class="settings-section-title">Appearance</h3>
-                    </div>
+                <div class="settings-grid">
 
-                    <div class="settings-row">
-                        <div class="settings-label-group">
+                    <!-- Left column -->
+                    <div class="settings-col">
+                        <h3 class="settings-col-title">Appearance &amp; Notifications</h3>
+
+                        <div class="settings-row">
                             <label class="settings-label" for="darkMode">Dark Mode</label>
-                            <p class="settings-desc">Switch to a darker colour scheme.</p>
+                            <input type="hidden" name="darkMode" value="false">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="darkMode" th:field="*{darkMode}">
+                                <span class="toggle-slider"></span>
+                            </label>
                         </div>
-                        <input type="hidden" name="darkMode" value="false">
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="darkMode" th:field="*{darkMode}">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
 
-                    <div class="settings-row">
-                        <div class="settings-label-group">
-                            <label class="settings-label" for="fontSize">Font Size</label>
-                            <p class="settings-desc">Adjust the text size across the app.</p>
-                        </div>
-                        <select id="fontSize" name="fontSize" class="settings-select" th:field="*{fontSize}">
-                            <option value="small">Small</option>
-                            <option value="medium">Medium</option>
-                            <option value="large">Large</option>
-                        </select>
-                    </div>
-                </section>
-
-                <!-- Notifications -->
-                <section class="settings-section">
-                    <div class="settings-section-header">
-                        <div class="settings-section-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-                        </div>
-                        <h3 class="settings-section-title">Notifications</h3>
-                    </div>
-
-                    <div class="settings-row">
-                        <div class="settings-label-group">
+                        <div class="settings-row">
                             <label class="settings-label" for="emailNotifications">Email Notifications</label>
-                            <p class="settings-desc">Receive updates and alerts by email.</p>
+                            <input type="hidden" name="emailNotifications" value="false">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="emailNotifications" th:field="*{emailNotifications}">
+                                <span class="toggle-slider"></span>
+                            </label>
                         </div>
-                        <input type="hidden" name="emailNotifications" value="false">
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="emailNotifications" th:field="*{emailNotifications}">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
 
-                    <div class="settings-row">
-                        <div class="settings-label-group">
+                        <div class="settings-row">
                             <label class="settings-label" for="calendarReminders">Calendar Reminders</label>
-                            <p class="settings-desc">Get notified before upcoming family events.</p>
+                            <input type="hidden" name="calendarReminders" value="false">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="calendarReminders" th:field="*{calendarReminders}">
+                                <span class="toggle-slider"></span>
+                            </label>
                         </div>
-                        <input type="hidden" name="calendarReminders" value="false">
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="calendarReminders" th:field="*{calendarReminders}">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-                </section>
-
-                <!-- Privacy -->
-                <section class="settings-section">
-                    <div class="settings-section-header">
-                        <div class="settings-section-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                        </div>
-                        <h3 class="settings-section-title">Privacy</h3>
                     </div>
 
-                    <div class="settings-row">
-                        <div class="settings-label-group">
+                    <!-- Right column -->
+                    <div class="settings-col">
+                        <h3 class="settings-col-title">Privacy</h3>
+
+                        <div class="settings-row">
                             <label class="settings-label" for="profileVisibility">Profile Visible to Family</label>
-                            <p class="settings-desc">Show your profile to other family members.</p>
+                            <input type="hidden" name="profileVisibility" value="false">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="profileVisibility" th:field="*{profileVisibility}">
+                                <span class="toggle-slider"></span>
+                            </label>
                         </div>
-                        <input type="hidden" name="profileVisibility" value="false">
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="profileVisibility" th:field="*{profileVisibility}">
-                            <span class="toggle-slider"></span>
-                        </label>
+
+                        <div class="settings-row">
+                            <label class="settings-label" for="showOnlineStatus">Show Online Status</label>
+                            <input type="hidden" name="showOnlineStatus" value="false">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="showOnlineStatus" th:field="*{showOnlineStatus}">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
                     </div>
 
-                    <div class="settings-row">
-                        <div class="settings-label-group">
-                            <label class="settings-label" for="showOnlineStatus">Show Online Status</label>
-                            <p class="settings-desc">Let others see when you were last active.</p>
-                        </div>
-                        <input type="hidden" name="showOnlineStatus" value="false">
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="showOnlineStatus" th:field="*{showOnlineStatus}">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-                </section>
+                </div>
 
                 <div class="settings-actions">
                     <button type="submit" class="btn-save">Save Preferences</button>
@@ -142,23 +99,5 @@
 
             </form>
         </div>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const fontSizeMap = { small: '13px', medium: '16px', large: '20px' };
-                const fontSelect = document.getElementById('fontSize');
-                if (!fontSelect) return;
-
-                function applyFontSize(value) {
-                    document.documentElement.style.fontSize = fontSizeMap[value] || '16px';
-                }
-
-                fontSelect.addEventListener('change', function () {
-                    applyFontSize(this.value);
-                });
-
-                applyFontSize(fontSelect.value);
-            });
-        </script>
     </body>
 </html>
