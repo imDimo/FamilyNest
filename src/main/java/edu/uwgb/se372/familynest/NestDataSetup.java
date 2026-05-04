@@ -11,8 +11,10 @@ import org.springframework.stereotype.Component;
 
 import edu.uwgb.se372.familynest.authority.*;
 import edu.uwgb.se372.familynest.user.NestUserService;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
 @Component
+@ConditionalOnProperty(name = "nest.data.setup.enabled", havingValue = "true", matchIfMissing = true)
 public class NestDataSetup implements ApplicationListener<ContextRefreshedEvent> {
 	
 	@Autowired
