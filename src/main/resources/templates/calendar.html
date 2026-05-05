@@ -65,6 +65,7 @@
 
                 <!-- Calendar Days -->
                 <div class="calendar-day-container">
+
                     <div class="calendar-day-grid">
                         <h4 class="day-label">Sunday</h4>
                         <h4 class="day-label">Monday</h4>
@@ -73,14 +74,17 @@
                         <h4 class="day-label">Thursday</h4>
                         <h4 class="day-label">Friday</h4>
                         <h4 class="day-label">Saturday</h4>
-
+                        
+                        <!-- Place blank spaces to push first day into the proper day of the week -->
                         <div class="calendar-day border-month" th:each="day:${#numbers.sequence(1, startDayOffset)}">
                         </div>
 
                         <div class="calendar-day" th:each="day:${#numbers.sequence(1, numDays)}">
-                            <span class="calendar-day-label" th:text="${day}"></span>
+                            <span id="'day-' + ${day}" class="calendar-day-label" th:text="${day}"></span>
                         </div>
+
                     </div>
+                
                 </div>
             </div>
         </div>

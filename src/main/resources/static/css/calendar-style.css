@@ -23,6 +23,10 @@
 }
 
 .calendar-day-container {
+    margin: 0 64px 0 64px;
+}
+
+.next-button {
 
 }
 
@@ -31,9 +35,9 @@
 }
 
 .calendar-day-grid {
-    display: inline-grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: auto repeat(5, 1fr);
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-rows: auto repeat(5, minmax(0, 1fr));
     gap: 0;
 }
 
@@ -41,8 +45,7 @@
     text-align: initial;
     margin: 0;
     border: solid 1px black;
-    width: 128px;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 8 / 7;
 }
 
 .calendar-day-label {
