@@ -4,8 +4,8 @@
         <meta charset="ISO-8859-1">
         <title>FamilyNest</title>
 
-		<link rel="stylesheet" href="/css/style.css">
-		<link rel="stylesheet" href="/css/settings-style.css"> 
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/settings-style.css"> 
         <script src="js/lib/stomp.min.js" defer></script>
         <script src="js/lib/sockjs.min.js" defer></script>
         <script src="js/calendar.js" defer></script>
@@ -38,42 +38,47 @@
 
                 <div class="settings-grid">
 
-<!-- Left column -->
-    <div class="settings-col">
-        <h3 class="settings-col-title">Appearance &amp; Notifications</h3>
+                    <!-- Left column -->
+                    <div class="settings-col">
+                        <h3 class="settings-col-title">Appearance &amp; Notifications</h3>
 
-        <div class="settings-row">
-            <span class="settings-label">Dark Mode</span>
-            <label class="toggle-switch">
-                <input type="checkbox" th:field="*{darkMode}">
-                <span class="toggle-slider"></span>
-            </label>
+                        <div class="settings-row">
+                            <label class="settings-label" for="darkMode">Dark Mode</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" th:field="*{darkMode}">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="settings-row">
+                            <label class="settings-label" for="allowAnnouncements">Allow Announcements</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" th:field="*{allowAnnouncements}">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Right column -->
+                    <div class="settings-col">
+                        <h3 class="settings-col-title">Privacy</h3>
+
+                        <div class="settings-row">
+                            <label class="settings-label" for="showOnlineStatus">Show Online Status</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" th:field="*{showOnlineStatus}">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="settings-actions">
+                    <button type="submit" class="btn-save">Save Preferences</button>
+                </div>
+
+            </form>
         </div>
-
-        <div class="settings-row">
-            <span class="settings-label">Allow Announcements</span>
-            <label class="toggle-switch">
-                <input type="checkbox" th:field="*{allowAnnouncements}">
-                <span class="toggle-slider"></span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Right column -->
-    <div class="settings-col">
-        <h3 class="settings-col-title">Privacy</h3>
-
-        <div class="settings-row">
-            <span class="settings-label">Show Online Status</span>
-            <label class="toggle-switch">
-                <input type="checkbox" th:field="*{showOnlineStatus}">
-                <span class="toggle-slider"></span>
-            </label>
-        </div>
-    </div>
-
-</div>
-
-<div class="settings-actions">
-    <button type="submit" class="btn-save">Save Preferences</button>
-</div>
+    </body>
+</html>

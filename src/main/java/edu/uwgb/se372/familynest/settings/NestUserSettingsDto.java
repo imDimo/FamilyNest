@@ -9,9 +9,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class NestUserSettingsDto {
     private Long id;
-    private Boolean darkMode;
-    private Boolean allowAnnouncements;
-    private Boolean showOnlineStatus;
+    private boolean darkMode;
+    private boolean allowAnnouncements;
+    private boolean showOnlineStatus;
     
     public NestUserSettingsDto() {}
     public NestUserSettingsDto(NestUserSettings settings) {
@@ -24,12 +24,12 @@ public class NestUserSettingsDto {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     
-    public Boolean getDarkMode() { return darkMode; }
-    public void setDarkMode(Boolean darkMode) { this.darkMode = darkMode; }
+    public boolean getDarkMode() { return darkMode; }
+    public void setDarkMode(boolean darkMode) { this.darkMode = darkMode; }
     
-    public Boolean isAllowAnnouncements() { return allowAnnouncements; }
-    public void setAllowAnnouncements(Boolean allowAnnouncements) { this.allowAnnouncements = allowAnnouncements; }
+    public boolean isAllowAnnouncements() { return allowAnnouncements; }
+    public void setAllowAnnouncements(boolean allowAnnouncements) { this.allowAnnouncements = allowAnnouncements; }
     
-    public Boolean getShowOnlineStatus() { return showOnlineStatus; }
-    public void setShowOnlineStatus(Boolean showOnlineStatus) { this.showOnlineStatus = showOnlineStatus; }
+    public boolean getShowOnlineStatus() { return showOnlineStatus; }
+    public void setShowOnlineStatus(boolean showOnlineStatus) { this.showOnlineStatus = showOnlineStatus; }
 }
