@@ -29,10 +29,10 @@ import edu.uwgb.se372.familynest.user.NestUserRepository;
 class CalendarEventManagementServiceMonthYearTests {
 	
 	@Autowired
-	private CalendarEventManagementService calendarEventService;
+	private NestEventService calendarEventService;
 	
 	@Autowired
-	private CalendarEventRepository calendarEventRepository;
+	private NestEventRepository calendarEventRepository;
 	
 	@Autowired
 	private NestUserRepository userRepository;
@@ -44,21 +44,21 @@ class CalendarEventManagementServiceMonthYearTests {
 		creator.setPassword("pw");
 		creator = userRepository.save(creator);
 		
-		CalendarEventManagement janEvent = new CalendarEventManagement();
+		NestEvent janEvent = new NestEvent();
 		janEvent.setTitle("Jan event");
 		janEvent.setDescription("d");
 		janEvent.setCreator(creator);
 		janEvent.setEventDate(LocalDateTime.of(2026, 1, 15, 10, 0));
 		calendarEventRepository.save(janEvent);
 		
-		CalendarEventManagement febEvent = new CalendarEventManagement();
+		NestEvent febEvent = new NestEvent();
 		febEvent.setTitle("Feb event");
 		febEvent.setDescription("d");
 		febEvent.setCreator(creator);
 		febEvent.setEventDate(LocalDateTime.of(2026, 2, 1, 0, 0));
 		calendarEventRepository.save(febEvent);
 		
-		List<CalendarEventManagement> jan = calendarEventService.getEventsByMonthYear(1, 2026);
+		List<NestEvent> jan = calendarEventService.getEventsByMonthYear(1, 2026);
 		assertEquals(1, jan.size());
 		assertEquals("Jan event", jan.getFirst().getTitle());
 	}
