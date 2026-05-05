@@ -14,6 +14,7 @@ import edu.uwgb.se372.familynest.user.NestUserDto;
 import edu.uwgb.se372.familynest.user.NestUserService;
 import edu.uwgb.se372.familynest.authority.NestRoleService;
 import edu.uwgb.se372.familynest.event.NestEvent;
+import edu.uwgb.se372.familynest.event.NestEventDto;
 import edu.uwgb.se372.familynest.event.NestEventService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
@@ -59,12 +60,15 @@ public class UserNavigationController {
         model.addAttribute("startDayOffset", startDay.getDayOfWeek().getValue());
         model.addAttribute("currentDay", today.getDayOfMonth());
         
-        List<NestEvent> events = eventService.getEventsByMonthYear(today.getMonthValue(), today.getYear());
-        model.addAttribute("events", events);
+//        List<NestEvent> events = eventService.getEventsByMonthYear(today.getMonthValue(), today.getYear());
+//        model.addAttribute("events", events);
         
         List<NestUserDto> members = userService.getAllUsers().stream()
         		.filter((m) -> !m.getId().equals(currentUser.getId()))
         		.map((m) -> new NestUserDto(m)).toList();
+        
+        NestEventDto eventContainer = new NestEventDto();
+        model.addAttribute("eventDto", eventContainer);
         
         model.addAttribute("members", members);
         

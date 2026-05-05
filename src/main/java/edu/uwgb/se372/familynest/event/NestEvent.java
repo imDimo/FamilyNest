@@ -1,6 +1,6 @@
 package edu.uwgb.se372.familynest.event;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,7 +33,7 @@ public class NestEvent {
 	private String description;
 	
 	@Column(name="event_date", nullable=false)
-	private LocalDateTime eventDate;
+	private LocalDate eventDate;
 	
 	@Column(name="event_time")
 	private String eventTime;
@@ -51,14 +51,14 @@ public class NestEvent {
 	private Set<NestUser> members = new HashSet<>();
 	
 	@Column(name="created_at", nullable=false, updatable=false)
-	private LocalDateTime createdAt = LocalDateTime.now();
+	private LocalDate createdAt = LocalDate.now();
 	
 	@Column(name="updated_at")
-	private LocalDateTime updatedAt = LocalDateTime.now();
+	private LocalDate updatedAt = LocalDate.now();
 	
 	public NestEvent() {}
 	
-	public NestEvent(String title, String description, LocalDateTime eventDate, NestUser creator) {
+	public NestEvent(String title, String description, LocalDate eventDate, NestUser creator) {
 		this.title = title;
 		this.description = description;
 		this.eventDate = eventDate;
@@ -90,11 +90,11 @@ public class NestEvent {
 		this.description = description;
 	}
 	
-	public LocalDateTime getEventDate() {
+	public LocalDate getEventDate() {
 		return eventDate;
 	}
 	
-	public void setEventDate(LocalDateTime eventDate) {
+	public void setEventDate(LocalDate eventDate) {
 		this.eventDate = eventDate;
 	}
 	
@@ -130,19 +130,19 @@ public class NestEvent {
 		this.members.remove(member);
 	}
 	
-	public LocalDateTime getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 	
-	public void setCreatedAt(LocalDateTime createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 	
-	public LocalDateTime getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 	
-	public void setUpdatedAt(LocalDateTime updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 }

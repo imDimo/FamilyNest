@@ -2,64 +2,53 @@ let stompClient = null;
 
 const mySenderId = "user-" + Math.random().toString(36).substring(2, 9);
 
+let dayContainers = [];
+
 function main() {
-    blockForm();
+    addFormValidation();
     initEvents();
     let bttn = document.getElementById("announceButton");
     if (bttn) {
         bttn.addEventListener("click", sendAnnouncement);
     }
+
+    getEvents();
     
     connect(); 
 }
 
-function blockForm() {
+function addFormValidation() {
     let form = document.getElementById("create-event-form");
     form.addEventListener("submit", onFormSubmit);
 }
 
 function onFormSubmit(e) {
-    e.preventDefault();
 
     let title = document.getElementById("title");
-    let description = document.getElementById("description");
     let date = document.getElementById("date");
-    let time = document.getElementById("time");
-    let members = document.getElementById("members");
 
     if (title.value.trim().length == 0) {
+        e.preventDefault();
         title.focus();
         return;
     }
 
     if (date.value.trim().length == 0) {
+        e.preventDefault();
         date.focus();
         return;
     }
-
-    let event = {
-        "id": -1,
-        "title": title.value,
-        "description": description.value,
-        "eventDate": date.value,
-        "eventTime": time.value,
-        // "memberIds": members.value,
-        "memberIds": [],
-        "createdAt": "",
-        "updatedAt": ""
-    };
-
-    createEvent(JSON.stringify(event));
 }
 
 function initEvents() {
     for (let i = 1;; i++) {
-        let day_container = document.getElementById(`day-${i}`);
-        if (!day_container) {
+        let dayContainer = document.getElementById(`day-${i}`);
+        if (!dayContainer) {
             break;
         }
         
-        day_container.addEventListener("click", toggleAddEventPopup);
+        dayContainers.push(dayContainer);
+        dayContainer.addEventListener("click", toggleAddEventPopup);
     }
 
     document.getElementById("bttn-close-popup").addEventListener("click", toggleAddEventPopup);
@@ -106,16 +95,6 @@ function connect() {
     stompClient = new StompJs.Client({
         brokerURL: url,
         onConnect: () => {
-            // stompClient.subscribe("/topic/events", (msg) => {
-            //     const data = JSON.parse(msg.body);
-            //     console.log("Event received:", data); 
-            //     // if (data.senderId && data.senderId !== mySenderId) {
-            //         // showAnnouncement(data);
-            //     // }
-            //
-            //     console.log("Event name: " + data.title);
-            // });
-
             stompClient.subscribe("/topic/announcements", (msg) => {
                 const data = JSON.parse(msg.body);
                 console.log("Announcement received:", data); 
@@ -138,26 +117,28 @@ function getEvents(month, year) {
         return response.json();
     })
     .then(data => {
-        console.log(data);
+        addEventsToCalendar(data);
     })
     .catch(error => {
         console.error(error);
     });
 }
 
-function createEvent(event) {
-    console.log("Sending:");
-    console.log(event);
+function addEventsToCalendar(events) {
+    let counter = 0;
+    let list = document.getElementById("events-list");
 
-    let url = `http://${location.host}`;
-    fetch(`${url}/events/create`, {method: "POST", body: event})
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Could not connect to server");
+    events.forEach(e => {
+        let date = new Date(e.eventDate);
+
+        if (counter < 8) {
+            let elem = document.createElement("div");
+            elem.classList.add("event-list-item")
+            elem.insertAdjacentHTML("beforeend", `<p class="bold center-align">${e.title}</p><p>${e.description}</p><p>${date.toDateString()}, ${e.eventTime}</p>`);
+            list.appendChild(elem);
         }
-    })
-    .then(data => {
-        console.log(data);
+
+        counter++;
     });
 }
 

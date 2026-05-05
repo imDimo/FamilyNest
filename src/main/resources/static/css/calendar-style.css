@@ -67,7 +67,7 @@
 .calendar-tile {
     padding: 8px;
     width: 55%;
-    height: 85vh;
+    height: 80vh;
 }
 
 .events-tile {
@@ -99,11 +99,35 @@
     text-align: initial;
     margin: 0;
     border: solid 1px black;
-    aspect-ratio: 8 / 7;
+    aspect-ratio: 6 / 5;
 }
 
 .calendar-day-label {
     margin: 4px;
     font-size: 14px;
     color: dimgray;
+}
+
+.events-list {
+    margin-left: 16px;
+    margin-right: 16px;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.event-list-item {
+    margin-bottom: 16px;
+    padding: 0 8px 0 8px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+.event-list-item p {
+    font-size: 14px;
+    height: 12px;
+    text-overflow: ellipsis;
+}
+
+.has-event {
+    background-color: lightgray;
 }
