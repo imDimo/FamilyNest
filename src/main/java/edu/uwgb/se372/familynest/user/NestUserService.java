@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import edu.uwgb.se372.familynest.authority.NestRole;
-import edu.uwgb.se372.familynest.authority.NestRoleService;
+import edu.uwgb.se372.familynest.authority.*;
+import edu.uwgb.se372.familynest.settings.NestUserSettings;
 
 @Service
 public class NestUserService implements UserDetailsService {
@@ -50,7 +50,7 @@ public class NestUserService implements UserDetailsService {
 		return userRepository.findByRolesIn(roles);
 	}
 	
-	public NestUser create(String username, String password, List<NestRole> roles) {
+	public NestUser create(String username, String password, List<NestRole> roles, NestUserSettings settings) {
 		
 		NestUser user = userRepository.findByUsername(username);
 		
@@ -58,13 +58,15 @@ public class NestUserService implements UserDetailsService {
 			user = new NestUser(
 				username,
 				passwordEncoder.encode(password),
-				roles
+				roles,
+				settings
 			);
 			user = userRepository.save(user);
 		}
 		
 		return user;
 	}
+	
 	
 	public NestUser updateUser(Long userId, NestUserDto userData) {
 		NestUser existingUser = null;
