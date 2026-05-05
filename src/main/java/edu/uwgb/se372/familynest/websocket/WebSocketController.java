@@ -21,6 +21,6 @@ public class WebSocketController {
 	@SendTo("/topic/announcements")
 	public TimedAnnouncement announcement(Announcement announcement) {
 		String time = new SimpleDateFormat("hh:mm a").format(new Date());
-		return new TimedAnnouncement(announcement.getTitle(), announcement.getContent(), time);
+		return new TimedAnnouncement(announcement.getTitle(), announcement.getContent(), time, announcement.getSenderId());
 	}
 }

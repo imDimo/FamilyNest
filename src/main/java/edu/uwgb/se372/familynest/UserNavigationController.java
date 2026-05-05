@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.uwgb.se372.familynest.settings.NestUserSettingsDto;
 import edu.uwgb.se372.familynest.user.NestUser;
-import edu.uwgb.se372.familynest.user.NestUserService;
+import edu.uwgb.se372.familynest.authority.NestRoleService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -18,14 +18,12 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.Locale;
-import java.util.List;
-import java.util.stream.IntStream;
 
 @Controller
 public class UserNavigationController {
-
+    
     @Autowired
-    private NestUserService userService;
+    private NestRoleService roleService;
 
     @GetMapping("/")
     public String home() {
@@ -33,21 +31,23 @@ public class UserNavigationController {
     }
 
     @GetMapping("/calendar")
-    public String calendar(Model model) {
-
-      
+    public String calendar(@AuthenticationPrincipal NestUser currentUser, Model model) {
+    	boolean isAdmin = currentUser.hasRole(roleService.findByName("ROLE_ADMIN"));
+    	model.addAttribute("userIsAdmin", isAdmin);
+    	
         LocalDate today = LocalDate.now();
         YearMonth yearMonth = YearMonth.from(today);
+        LocalDate startDay = yearMonth.atDay(1);
 
-        String monthName = today.getMonth().getDisplayName(TextStyle.FULL, Locale.US);
-        int year = today.getYear();
+        String monthName = yearMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.US);
+        int year = yearMonth.getYear();
         int daysInMonth = yearMonth.lengthOfMonth();
-
-        List < Integer > days = IntStream.rangeClosed(1, daysInMonth).boxed().toList();
 
         model.addAttribute("monthName", monthName);
         model.addAttribute("year", year);
-        model.addAttribute("days", days);
+        model.addAttribute("numDays", daysInMonth);
+        model.addAttribute("startDayOffset", startDay.getDayOfWeek().getValue());
+        model.addAttribute("currentDay", today.getDayOfMonth());
       
         return "/calendar";
     }
@@ -57,19 +57,12 @@ public class UserNavigationController {
         return "redirect:/calendar";
     }
 
-    @GetMapping("/gallery")
-    public String gallery(Model model) {
-        return "/gallery";
-    }
-
-    @PostMapping(value = "/nav", params = "action=gallery")
-    public String postGallery(Model model) {
-        return "redirect:/gallery";
-    }
-
     @GetMapping("/settings")
-    public String settings(@AuthenticationPrincipal NestUser user, Model model) {
-    	NestUserSettingsDto settingsDto = new NestUserSettingsDto(user.getUserSettings());
+    public String settings(@AuthenticationPrincipal NestUser currentUser, Model model) {
+    	boolean isAdmin = currentUser.hasRole(roleService.findByName("ROLE_ADMIN"));
+    	model.addAttribute("userIsAdmin", isAdmin);
+    	
+    	NestUserSettingsDto settingsDto = new NestUserSettingsDto(currentUser.getUserSettings());
     	model.addAttribute("nestUserSettings", settingsDto);
     	
         return "/settings";
@@ -81,7 +74,14 @@ public class UserNavigationController {
     }
     
     @GetMapping(value = "/error")
-    public String error(HttpServletRequest request, Model model) {
+    public String error(@AuthenticationPrincipal NestUser currentUser, HttpServletRequest request, Model model) {
+    	
+    	boolean isAdmin = false;
+    	if (currentUser != null)
+    		isAdmin = currentUser.hasRole(roleService.findByName("ROLE_ADMIN"));
+    	
+    	model.addAttribute("userIsAdmin", isAdmin);
+    	
     	String message = null;
     	Object err = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
     	
