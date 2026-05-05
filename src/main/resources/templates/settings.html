@@ -44,7 +44,7 @@
                                     <label class="settings-label" for="darkMode">Dark Mode</label>
                                     <input type="hidden" name="darkMode" value="false">
                                     <label class="toggle-switch">
-                                        <input type="checkbox" id="darkMode" th:field="*{darkMode}">
+                                        <input type="checkbox" id="darkMode" name="darkMode" value="true" th:checked="*{darkMode}">
                                         <span class="toggle-slider"></span>
                                     </label>
                                  </div>
@@ -53,7 +53,7 @@
                                     <label class="settings-label" for="allowAnnouncements">Allow Announcements</label>
                                      <input type="hidden" name="allowAnnouncements" value="false">
                                      <label class="toggle-switch">
-                                         <input type="checkbox" id="allowAnnouncements" th:field="*{allowAnnouncements}">
+                                         <input type="checkbox" id="allowAnnouncements" name="allowAnnouncements" value="true" th:checked="*{allowAnnouncements}">
                                          <span class="toggle-slider"></span>
                                  </label>
                                 </div>
@@ -67,7 +67,7 @@
                                     <label class="settings-label" for="showOnlineStatus">Show Online Status</label>
                                     <input type="hidden" name="showOnlineStatus" value="false">
                                      <label class="toggle-switch">
-                                <input type="checkbox" id="showOnlineStatus" th:field="*{showOnlineStatus}">
+                                <input type="checkbox" id="showOnlineStatus" name="showOnlineStatus" value="true" th:checked="*{showOnlineStatus}">
                                 <span class="toggle-slider"></span>
                              </label>
                             </div>
