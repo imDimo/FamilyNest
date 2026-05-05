@@ -2,9 +2,7 @@ package edu.uwgb.se372.familynest.event;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-import edu.uwgb.se372.familynest.user.NestUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +26,7 @@ public class NestEventDto {
 		this.title = event.getTitle();
 		this.description = event.getDescription();
 		this.eventDate = event.getEventDate().toString();
+		this.eventTime = event.getEventTime().toString();
 		this.memberIds = new ArrayList<>();
 		memberIds.addAll(event.getMembers().stream().map((m) -> m.getId()).toList());
 		this.createdAt = event.getCreatedAt().toString();

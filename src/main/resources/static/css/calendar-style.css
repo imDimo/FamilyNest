@@ -1,3 +1,57 @@
+.create-event-tile {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 65%;
+    top: 25%;
+
+    width: 20%;
+    height: 50%;
+
+    overflow: auto;
+}
+
+.show {
+    display: block;
+}
+
+.popup-header {
+    text-align: center;
+}
+
+.popup-header h2 {
+    display: inline-block;
+    margin-top: 24px;
+}
+
+.bttn-close-popup {
+    position: absolute;
+    right: 8px;
+}
+
+.bttn-submit-popup {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+}
+
+.close-button {
+    background:url("/img/close_outlined.svg") no-repeat center;
+    padding: 24px;
+    margin: 16px;
+}
+
+.create-event-form {
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+.create-event-form input {
+    margin-top: 0;
+    margin-bottom: 8px;
+    width: 80%;
+}
+
 .calendar-tiles-container {
     margin-top: 32px;
     height: 50%;
@@ -13,7 +67,7 @@
 .calendar-tile {
     padding: 8px;
     width: 55%;
-    height: 85vh;
+    height: 80vh;
 }
 
 .events-tile {
@@ -45,11 +99,35 @@
     text-align: initial;
     margin: 0;
     border: solid 1px black;
-    aspect-ratio: 8 / 7;
+    aspect-ratio: 6 / 5;
 }
 
 .calendar-day-label {
     margin: 4px;
     font-size: 14px;
     color: dimgray;
+}
+
+.events-list {
+    margin-left: 16px;
+    margin-right: 16px;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.event-list-item {
+    margin-bottom: 16px;
+    padding: 0 8px 0 8px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+.event-list-item p {
+    font-size: 14px;
+    height: 12px;
+    text-overflow: ellipsis;
+}
+
+.has-event {
+    background-color: lightgray;
 }

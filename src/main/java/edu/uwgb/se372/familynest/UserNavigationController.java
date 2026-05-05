@@ -10,20 +10,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.uwgb.se372.familynest.settings.NestUserSettingsDto;
 import edu.uwgb.se372.familynest.user.NestUser;
+import edu.uwgb.se372.familynest.user.NestUserDto;
+import edu.uwgb.se372.familynest.user.NestUserService;
 import edu.uwgb.se372.familynest.authority.NestRoleService;
+import edu.uwgb.se372.familynest.event.NestEvent;
+import edu.uwgb.se372.familynest.event.NestEventDto;
+import edu.uwgb.se372.familynest.event.NestEventService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
 public class UserNavigationController {
+	
+	@Autowired
+	private NestUserService userService;
     
     @Autowired
     private NestRoleService roleService;
+    
+    @Autowired
+    private NestEventService eventService;
 
     @GetMapping("/")
     public String home() {
@@ -39,16 +51,27 @@ public class UserNavigationController {
         YearMonth yearMonth = YearMonth.from(today);
         LocalDate startDay = yearMonth.atDay(1);
 
-        String monthName = yearMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.US);
-        int year = yearMonth.getYear();
+        String monthName = today.getMonth().getDisplayName(TextStyle.FULL, Locale.US);
         int daysInMonth = yearMonth.lengthOfMonth();
 
         model.addAttribute("monthName", monthName);
-        model.addAttribute("year", year);
+        model.addAttribute("year", today.getYear());
         model.addAttribute("numDays", daysInMonth);
         model.addAttribute("startDayOffset", startDay.getDayOfWeek().getValue());
         model.addAttribute("currentDay", today.getDayOfMonth());
-      
+        
+//        List<NestEvent> events = eventService.getEventsByMonthYear(today.getMonthValue(), today.getYear());
+//        model.addAttribute("events", events);
+        
+        List<NestUserDto> members = userService.getAllUsers().stream()
+        		.filter((m) -> !m.getId().equals(currentUser.getId()))
+        		.map((m) -> new NestUserDto(m)).toList();
+        
+        NestEventDto eventContainer = new NestEventDto();
+        model.addAttribute("eventDto", eventContainer);
+        
+        model.addAttribute("members", members);
+        
         return "/calendar";
     }
 

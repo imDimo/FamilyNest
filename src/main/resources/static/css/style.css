@@ -135,7 +135,9 @@ button.admin:hover {
 
 .announcement-mini-tile {
     padding: 15px 25px !important; 
-    margin: 20px auto;            
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
     width: 98% !important;     
     max-width: 1600px;            
     box-sizing: border-box;      

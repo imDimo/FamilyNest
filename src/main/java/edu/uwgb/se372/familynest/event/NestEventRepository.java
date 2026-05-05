@@ -1,7 +1,7 @@
 package edu.uwgb.se372.familynest.event;
 
 import java.util.List;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,6 +24,6 @@ public interface NestEventRepository extends JpaRepository<NestEvent, Long> {
 //	public List<NestEvent> findEventsByCreatorOrMember(@Param("creator") NestUser creator, @Param("member") NestUser member);
 	
 	@Query("SELECT e FROM NestEvent e WHERE e.eventDate >= :startInclusive AND e.eventDate < :endExclusive ORDER BY e.eventDate ASC")
-	public List<NestEvent> findEventsByEventDateRange(@Param("startInclusive") LocalDateTime startInclusive,
-			@Param("endExclusive") LocalDateTime endExclusive);
+	public List<NestEvent> findEventsByEventDateRange(@Param("startInclusive") LocalDate startInclusive,
+			@Param("endExclusive") LocalDate endExclusive);
 }
