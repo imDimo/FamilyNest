@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.uwgb.se372.familynest.settings.NestUserSettingsDto;
 import edu.uwgb.se372.familynest.user.NestUser;
+import edu.uwgb.se372.familynest.user.NestUserDto;
+import edu.uwgb.se372.familynest.user.NestUserService;
 import edu.uwgb.se372.familynest.authority.NestRoleService;
 import edu.uwgb.se372.familynest.event.NestEvent;
 import edu.uwgb.se372.familynest.event.NestEventService;
@@ -24,6 +26,9 @@ import java.util.Locale;
 
 @Controller
 public class UserNavigationController {
+	
+	@Autowired
+	private NestUserService userService;
     
     @Autowired
     private NestRoleService roleService;
@@ -56,6 +61,12 @@ public class UserNavigationController {
         
         List<NestEvent> events = eventService.getEventsByMonthYear(today.getMonthValue(), today.getYear());
         model.addAttribute("events", events);
+        
+        List<NestUserDto> members = userService.getAllUsers().stream()
+        		.filter((m) -> !m.getId().equals(currentUser.getId()))
+        		.map((m) -> new NestUserDto(m)).toList();
+        
+        model.addAttribute("members", members);
         
         return "/calendar";
     }

@@ -2,8 +2,6 @@ let stompClient = null;
 
 const mySenderId = "user-" + Math.random().toString(36).substring(2, 9);
 
-let dayContainers = [];
-
 function main() {
     initEvents();
     let bttn = document.getElementById("announceButton");
@@ -21,11 +19,22 @@ function initEvents() {
         if (!day_container) {
             break;
         }
-
-        dayContainers.push(day_container);
+        
+        day_container.addEventListener("click", showAddEventPopup);
     }
 
-    getEvents();
+    document.getElementById("bttn-close-popup").addEventListener("click", showAddEventPopup);
+
+    let date = new Date();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    getEvents(month, year);
+}
+
+function showAddEventPopup(e) {
+    let day_num = e.target.id.replace(/^\D+/g, '');
+    document.getElementById("create-event-popup").classList.toggle("show");
 }
 
 function sendAnnouncement() {
@@ -72,14 +81,13 @@ function connect() {
     stompClient.activate();
 }
 
-function getEvents() {
-    let url = `https://${location.host}`;
-    fetch(url + "/calendar/events")
+function getEvents(month, year) {
+    let url = `http://${location.host}`;
+    fetch(`${url}/events/${month}/${year}`)
     .then(response => {
         if (!response.ok) {
             throw new Error("Could not connect to server");
         }
-        console.log(response.json());
         return response.json();
     })
     .then(data => {
@@ -88,6 +96,10 @@ function getEvents() {
     .catch(error => {
         console.error(error);
     });
+}
+
+function createEvent() {
+
 }
 
 window.onload = main;

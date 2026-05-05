@@ -55,14 +55,45 @@
             </ul>
         </div>
 
-<div id="global-announcement-container"></div>
+        <div id="global-announcement-container"></div>
+
+        <div id="create-event-popup" class="tile create-event-tile">
+            <div class="popup-header">
+                <h2>Create Event</h2>
+                <button id="bttn-close-popup" class="close-button"></button>
+            </div>
+            <hr>
+            <form id="create-event-form" class="create-event-form" action="#" method="POST">
+                <label for="title">Title</label>
+                <br>
+                <input id="title" type="text">
+                <br>
+                <label for="description">Description (Optional)</label>
+                <br>
+                <input id="description" type="textarea" rows="5" cols="33">
+                <br>
+                <label for="date">Date</label>
+                <br>
+                <input id="date" type="date">
+                <br>
+                <label for="time">Time (Optional)</label>
+                <input id="time" type="time">
+                <br>
+                <label for="members">Other Members</label>
+                <br>
+                <select name="members" id="members" multiple>
+                    <option th:each="member:${members}" th:text="${member.username}" th:value="${member.id}"></option>
+                </select>
+            </form>
+        </div>
 
         <div class="tile calendar-tile">
             <div class="calendar center-align">
 
-                <!-- Month + Year -->
-                <h2 th:text="${monthName} + ' ' + ${year}"></h2>
-
+                <div class="calendar-header">
+                    <!-- Month + Year -->
+                    <h2 th:text="${monthName} + ' ' + ${year}"></h2>
+                </div>
                 <!-- Calendar Days -->
                 <div class="calendar-day-container">
 
@@ -79,8 +110,8 @@
                         <div class="calendar-day border-month" th:each="day:${#numbers.sequence(1, startDayOffset)}">
                         </div>
 
-                        <div class="calendar-day" th:each="day:${#numbers.sequence(1, numDays)}">
-                            <span th:id="'day-' + ${day}" class="calendar-day-label" th:text="${day}"></span>
+                        <div th:id="'day-' + ${day}" class="calendar-day" th:each="day:${#numbers.sequence(1, numDays)}">
+                            <span class="calendar-day-label" th:text="${day}"></span>
                         </div>
 
                     </div>

@@ -2,31 +2,24 @@ package edu.uwgb.se372.familynest.event;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import edu.uwgb.se372.familynest.user.NestUser;
-import edu.uwgb.se372.familynest.user.NestUserRepository;
 import edu.uwgb.se372.familynest.user.NestUserService;
 
-@Controller
-@RequestMapping("/calendar")
+@RestController
+@RequestMapping("/events")
 public class NestEventController {
 	
 	@Autowired
@@ -35,7 +28,7 @@ public class NestEventController {
 	@Autowired
 	private NestUserService userService;
 	
-	@GetMapping("/events/{month}/{year}")
+	@GetMapping("/{month}/{year}")
 	public List<NestEventDto> getEvents(@PathVariable Map<String, String> pathVariables) {
 		
 		try {
@@ -50,7 +43,7 @@ public class NestEventController {
 		return null;
 	}
 	
-	@PostMapping("/events/create")
+	@PostMapping("/create")
 	public NestEventDto createEvent(@AuthenticationPrincipal NestUser currentUser,
 			Model model, @RequestBody NestEventDto eventData) {
 		NestEvent event = eventService.getEventById(eventData.getId());
@@ -86,7 +79,7 @@ public class NestEventController {
 		return new NestEventDto(eventService.create(event));
 	}
 	
-	@PostMapping("/events/update")
+	@PostMapping("/update")
 	public NestEventDto updateEvent(@AuthenticationPrincipal NestUser currentUser, Model model,
 			@RequestBody NestEventDto eventData) {
 		
@@ -128,8 +121,8 @@ public class NestEventController {
 		return new NestEventDto(eventService.updateEvent(eventData.getId(), existingEventData));
 	}
 	
-	@PostMapping("/events/delete")
-	public void deleteEventById(@AuthenticationPrincipal NestUser currentUser, @RequestParam("id") Long id) {
+	@PostMapping("/delete/{id}")
+	public void deleteEventById(@AuthenticationPrincipal NestUser currentUser, @PathVariable("id") Long id) {
 		NestEvent event = eventService.getEventById(id);
 		
 		if (event != null && currentUser != null && event.getCreator() != null
