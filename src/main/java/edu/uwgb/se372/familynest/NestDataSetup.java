@@ -4,15 +4,19 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import edu.uwgb.se372.familynest.authority.*;
+import edu.uwgb.se372.familynest.authority.NestPrivilege;
+import edu.uwgb.se372.familynest.authority.NestPrivilegeService;
+import edu.uwgb.se372.familynest.authority.NestRole;
+import edu.uwgb.se372.familynest.authority.NestRoleService;
 import edu.uwgb.se372.familynest.user.NestUserService;
 
 @Component
+@ConditionalOnProperty(name = "nest.data.setup.enabled", havingValue = "true", matchIfMissing = true)
 public class NestDataSetup implements ApplicationListener<ContextRefreshedEvent> {
 	
 	@Autowired

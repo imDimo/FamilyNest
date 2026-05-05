@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.uwgb.se372.familynest.authority.NestRoleService;
+import edu.uwgb.se372.familynest.event.NestEvent;
+import edu.uwgb.se372.familynest.event.NestEventService;
 import edu.uwgb.se372.familynest.user.NestUser;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +27,9 @@ public class UserNavigationController {
     
     @Autowired
     private NestRoleService roleService;
+    
+    @Autowired
+    private NestEventService eventService;
 
     @GetMapping("/")
     public String home() {
