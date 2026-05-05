@@ -30,11 +30,11 @@
 
         <div class="tile manage-users-tile">
             <div class="manage-users-content flex">
-                <div class="centered">
+                <div class="center-align">
                     <h3>Manage Existing Accounts</h3>
                     <ul class="noliststyle">
                         <li th:each="user : ${users}">
-                            <form class="centered" action="#" th:action="@{/admin/users}" method="POST">
+                            <form class="center-align" action="#" th:action="@{/admin/users}" method="POST">
                                 <div class="user-row flex">
                                     <span class="username" th:text="${user.username}"></span>
                                     <div>
@@ -48,7 +48,7 @@
                     </ul>
                 </div>
 
-                <form class="centered" action="#" th:action="@{/admin/users}" method="POST">
+                <form class="center-align" action="#" th:action="@{/admin/users}" method="POST">
                     <h3>Add a New Family Member</h3>
                     <button type="submit" name="action" value="add-user">Add New Account</button>
                 </form>

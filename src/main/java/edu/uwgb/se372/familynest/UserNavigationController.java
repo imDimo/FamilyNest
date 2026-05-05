@@ -38,16 +38,17 @@ public class UserNavigationController {
     	
         LocalDate today = LocalDate.now();
         YearMonth yearMonth = YearMonth.from(today);
+        LocalDate startDay = yearMonth.atDay(1);
 
-        String monthName = today.getMonth().getDisplayName(TextStyle.FULL, Locale.US);
-        int year = today.getYear();
+        String monthName = yearMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.US);
+        int year = yearMonth.getYear();
         int daysInMonth = yearMonth.lengthOfMonth();
-
-        List < Integer > days = IntStream.rangeClosed(1, daysInMonth).boxed().toList();
 
         model.addAttribute("monthName", monthName);
         model.addAttribute("year", year);
-        model.addAttribute("days", days);
+        model.addAttribute("numDays", daysInMonth);
+        model.addAttribute("startDayOffset", startDay.getDayOfWeek().getValue());
+        model.addAttribute("currentDay", today.getDayOfMonth());
       
         return "/calendar";
     }

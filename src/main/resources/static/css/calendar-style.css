@@ -13,7 +13,7 @@
 .calendar-tile {
     padding: 8px;
     width: 55%;
-    height: 80vh;
+    height: 85vh;
 }
 
 .events-tile {
@@ -22,12 +22,34 @@
     height: 80vh;
 }
 
-.calendar-days {
-    flex-wrap: wrap;
+.calendar-day-container {
+    margin: 0 64px 0 64px;
+}
+
+.next-button {
+
+}
+
+.day-label {
+    margin: 0;
+}
+
+.calendar-day-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-rows: auto repeat(5, minmax(0, 1fr));
+    gap: 0;
 }
 
 .calendar-day {
+    text-align: initial;
+    margin: 0;
     border: solid 1px black;
-    width: 100px;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 8 / 7;
+}
+
+.calendar-day-label {
+    margin: 4px;
+    font-size: 14px;
+    color: dimgray;
 }
