@@ -23,13 +23,13 @@ public String saveSettings(@AuthenticationPrincipal NestUser user,
         @ModelAttribute("nestUserSettings") NestUserSettingsDto settingsDto, Model model) {
     
     System.out.println("darkMode: " + settingsDto.getDarkMode());
-    System.out.println("allowAnnouncements: " + settingsDto.isAllowAnnouncements());
+    System.out.println("allowAnnouncements: " + settingsDto.getAllowAnnouncements());
     System.out.println("showOnlineStatus: " + settingsDto.getShowOnlineStatus());
     
     NestUserSettings settings = user.getUserSettings();
-    settings.setDarkMode(settingsDto.getDarkMode() != null && settingsDto.getDarkMode());
-    settings.setAllowAnnouncements(settingsDto.isAllowAnnouncements() != null && settingsDto.isAllowAnnouncements());
-    settings.setShowOnlineStatus(settingsDto.getShowOnlineStatus() != null && settingsDto.getShowOnlineStatus());
+    settings.setDarkMode(settingsDto.getDarkMode());
+    settings.setAllowAnnouncements(settingsDto.getAllowAnnouncements());
+    settings.setShowOnlineStatus(settingsDto.getShowOnlineStatus());
     
     userSettingsService.updateSettings(settings.getId(), settings);
     

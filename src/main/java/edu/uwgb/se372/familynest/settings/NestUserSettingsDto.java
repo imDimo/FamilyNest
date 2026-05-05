@@ -27,8 +27,8 @@ public class NestUserSettingsDto {
     public boolean getDarkMode() { return darkMode; }
     public void setDarkMode(boolean darkMode) { this.darkMode = darkMode; }
     
-    public boolean isAllowAnnouncements() { return allowAnnouncements; }
-    public void setAllowAnnouncements(boolean allowAnnouncements) { this.allowAnnouncements = allowAnnouncements; }
+    public boolean getAllowAnnouncements() { return allowAnnouncements; }
+public void setAllowAnnouncements(boolean allowAnnouncements) { this.allowAnnouncements = allowAnnouncements; }
     
     public boolean getShowOnlineStatus() { return showOnlineStatus; }
     public void setShowOnlineStatus(boolean showOnlineStatus) { this.showOnlineStatus = showOnlineStatus; }
