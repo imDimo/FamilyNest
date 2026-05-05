@@ -9,10 +9,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import edu.uwgb.se372.familynest.authority.NestPrivilege;
-import edu.uwgb.se372.familynest.authority.NestPrivilegeService;
-import edu.uwgb.se372.familynest.authority.NestRole;
-import edu.uwgb.se372.familynest.authority.NestRoleService;
+import edu.uwgb.se372.familynest.authority.*;
+import edu.uwgb.se372.familynest.settings.*;
 import edu.uwgb.se372.familynest.user.NestUserService;
 
 @Component
@@ -27,6 +25,8 @@ public class NestDataSetup implements ApplicationListener<ContextRefreshedEvent>
 	
 	@Autowired
 	private NestPrivilegeService privilegeService;
+	
+	@Autowired NestUserSettingsService userSettingsService;
 	
 	// Initialize database
 	@Override
@@ -60,9 +60,11 @@ public class NestDataSetup implements ApplicationListener<ContextRefreshedEvent>
 		
 		var admins = userService.findUsersWithRoles(Arrays.asList(roleAdmin));
 		
+		NestUserSettings defaultSettings = userSettingsService.createSettings();
+		
 		if (admins.isEmpty()) {
 			System.out.println("No admin users found! Creating default admin account...");
-			userService.create("admin", "password", Arrays.asList(roleAdmin, roleUser));
+			userService.create("admin", "password", Arrays.asList(roleAdmin, roleUser), defaultSettings);
 		}
 	}
 }

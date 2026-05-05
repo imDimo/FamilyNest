@@ -8,10 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import edu.uwgb.se372.familynest.authority.NestRoleService;
-import edu.uwgb.se372.familynest.event.NestEvent;
-import edu.uwgb.se372.familynest.event.NestEventService;
+import edu.uwgb.se372.familynest.settings.NestUserSettingsDto;
 import edu.uwgb.se372.familynest.user.NestUser;
+import edu.uwgb.se372.familynest.authority.NestRoleService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -19,17 +18,12 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.Locale;
-import java.util.List;
-import java.util.stream.IntStream;
 
 @Controller
 public class UserNavigationController {
     
     @Autowired
     private NestRoleService roleService;
-    
-    @Autowired
-    private NestEventService eventService;
 
     @GetMapping("/")
     public String home() {
@@ -67,6 +61,9 @@ public class UserNavigationController {
     public String settings(@AuthenticationPrincipal NestUser currentUser, Model model) {
     	boolean isAdmin = currentUser.hasRole(roleService.findByName("ROLE_ADMIN"));
     	model.addAttribute("userIsAdmin", isAdmin);
+    	
+    	NestUserSettingsDto settingsDto = new NestUserSettingsDto(currentUser.getUserSettings());
+    	model.addAttribute("nestUserSettings", settingsDto);
     	
         return "/settings";
     }

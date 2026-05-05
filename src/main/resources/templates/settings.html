@@ -3,6 +3,7 @@
     <head>
         <meta charset="ISO-8859-1">
         <title>FamilyNest</title>
+
 		<link rel="stylesheet" href="/css/style.css">
 		<link rel="stylesheet" href="/css/settings-style.css"> 
         <script src="js/lib/stomp.min.js" defer></script>
@@ -32,8 +33,55 @@
             </nav>
         </div>
 
-        <div class="tile">
-            
+        <div class="tile settings-tile">
+            <form action="#" th:action="@{/settings/save}" th:object="${nestUserSettings}" method="POST">
+
+                <div class="settings-grid">
+
+                    <!-- Left column -->
+                    <div class="settings-col">
+                        <h3 class="settings-col-title">Appearance &amp; Notifications</h3>
+
+                        <div class="settings-row">
+                            <label class="settings-label">Dark Mode</label>
+                           
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="darkMode" name="darkMode" value="true" th:checked="*{darkMode}">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="settings-row">
+                            <label class="settings-label">Allow Announcements</label>
+                            
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="allowAnnouncements" name="allowAnnouncements" value="true" th:checked="*{allowAnnouncements}">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Right column -->
+                    <div class="settings-col">
+                        <h3 class="settings-col-title">Privacy</h3>
+
+                        <div class="settings-row">
+                            <label class="settings-label">Show Online Status</label>
+                            
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="showOnlineStatus" name="showOnlineStatus" value="true" th:checked="*{showOnlineStatus}">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="settings-actions">
+                    <button type="submit" class="btn-save">Save Preferences</button>
+                </div>
+
+            </form>
         </div>
     </body>
 </html>
