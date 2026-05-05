@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,13 +35,28 @@ public class NestEventController {
 	@Autowired
 	private NestUserService userService;
 	
+	@GetMapping("/events/{month}/{year}")
+	public List<NestEventDto> getEvents(@PathVariable Map<String, String> pathVariables) {
+		
+		try {
+			int month = Integer.parseInt(pathVariables.get("month"));
+			int year = Integer.parseInt(pathVariables.get("year"));
+			return eventService.getEventsByMonthYear(month, year).stream().map((e) -> new NestEventDto(e)).toList();
+		}
+		catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		
+		return null;
+	}
+	
 	@PostMapping("/events/create")
-	public String createEvent(@AuthenticationPrincipal NestUser currentUser,
-			Model model, @ModelAttribute("event") NestEventDto eventData) {
+	public NestEventDto createEvent(@AuthenticationPrincipal NestUser currentUser,
+			Model model, @RequestBody NestEventDto eventData) {
 		NestEvent event = eventService.getEventById(eventData.getId());
 		
 		if (event != null) {
-			return "redirect:/calendar";
+			return null;
 		}
 		
 		event = new NestEvent();
@@ -66,14 +83,12 @@ public class NestEventController {
 			event.setEventDate(LocalDateTime.now());
 		}
 		
-		eventService.create(event);
-		
-		return "redirect:/calendar";
+		return new NestEventDto(eventService.create(event));
 	}
 	
 	@PostMapping("/events/update")
-	public String updateEvent(@AuthenticationPrincipal NestUser currentUser, Model model,
-			@ModelAttribute("event") NestEventDto eventData) {
+	public NestEventDto updateEvent(@AuthenticationPrincipal NestUser currentUser, Model model,
+			@RequestBody NestEventDto eventData) {
 		
 		NestEvent existingEvent = null;
 		NestEventDto existingEventData = null;
@@ -84,7 +99,7 @@ public class NestEventController {
 		}
 		catch (Exception e) {
 			System.err.println(e.getMessage());
-			return "redirect:/error";
+			return null;
 		}
 		
 		if (eventData.getTitle() != null && !eventData.getTitle().isBlank()) {
@@ -110,20 +125,16 @@ public class NestEventController {
 		
 		existingEvent.setUpdatedAt(LocalDateTime.now());
 		
-		eventService.updateEvent(eventData.getId(), existingEventData);
-		
-		return "redirect:/calendar";
+		return new NestEventDto(eventService.updateEvent(eventData.getId(), existingEventData));
 	}
 	
 	@PostMapping("/events/delete")
-	public String deleteEventById(@AuthenticationPrincipal NestUser currentUser, @RequestParam("id") Long id) {
+	public void deleteEventById(@AuthenticationPrincipal NestUser currentUser, @RequestParam("id") Long id) {
 		NestEvent event = eventService.getEventById(id);
 		
 		if (event != null && currentUser != null && event.getCreator() != null
 				&& event.getCreator().getId().equals(currentUser.getId())) {
 			eventService.deleteEvent(id);
 		}
-		
-		return "redirect:/calendar";
 	}
 }

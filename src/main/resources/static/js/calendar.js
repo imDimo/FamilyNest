@@ -22,8 +22,10 @@ function initEvents() {
             break;
         }
 
-        dayContainers.add(day_container);
+        dayContainers.push(day_container);
     }
+
+    getEvents();
 }
 
 function sendAnnouncement() {
@@ -48,15 +50,15 @@ function connect() {
     stompClient = new StompJs.Client({
         brokerURL: url,
         onConnect: () => {
-            stompClient.subscribe("/topic/events", (msg) => {
-                const data = JSON.parse(msg.body);
-                console.log("Event received:", data); 
-                // if (data.senderId && data.senderId !== mySenderId) {
-                    // showAnnouncement(data);
-                // }
-                
-                console.log("Event name: " + data.title);
-            });
+            // stompClient.subscribe("/topic/events", (msg) => {
+            //     const data = JSON.parse(msg.body);
+            //     console.log("Event received:", data); 
+            //     // if (data.senderId && data.senderId !== mySenderId) {
+            //         // showAnnouncement(data);
+            //     // }
+            //
+            //     console.log("Event name: " + data.title);
+            // });
 
             stompClient.subscribe("/topic/announcements", (msg) => {
                 const data = JSON.parse(msg.body);
@@ -68,6 +70,24 @@ function connect() {
         }
     });
     stompClient.activate();
+}
+
+function getEvents() {
+    let url = `https://${location.host}`;
+    fetch(url + "/calendar/events")
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Could not connect to server");
+        }
+        console.log(response.json());
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error(error);
+    });
 }
 
 window.onload = main;

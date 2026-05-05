@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import edu.uwgb.se372.familynest.settings.NestUserSettingsDto;
 import edu.uwgb.se372.familynest.user.NestUser;
 import edu.uwgb.se372.familynest.authority.NestRoleService;
+import edu.uwgb.se372.familynest.event.NestEvent;
 import edu.uwgb.se372.familynest.event.NestEventService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -51,6 +53,9 @@ public class UserNavigationController {
         model.addAttribute("numDays", daysInMonth);
         model.addAttribute("startDayOffset", startDay.getDayOfWeek().getValue());
         model.addAttribute("currentDay", today.getDayOfMonth());
+        
+        List<NestEvent> events = eventService.getEventsByMonthYear(today.getMonthValue(), today.getYear());
+        model.addAttribute("events", events);
         
         return "/calendar";
     }
