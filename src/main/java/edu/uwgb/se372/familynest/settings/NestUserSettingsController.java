@@ -18,15 +18,20 @@ public class NestUserSettingsController {
     private NestUserSettingsService userSettingsService;
 	
 	@PostMapping("/save")
-	public String saveSettings(@AuthenticationPrincipal NestUser user, 
-			@ModelAttribute("nestUserSettings") NestUserSettingsDto settingsDto, Model model) {
-	    NestUserSettings settings = user.getUserSettings();
-	    settings.setDarkMode(settingsDto.getDarkMode() != null && settingsDto.getDarkMode());
-		settings.setAllowAnnouncements(settingsDto.isAllowAnnouncements() != null && settingsDto.isAllowAnnouncements());
-		settings.setShowOnlineStatus(settingsDto.getShowOnlineStatus() != null && settingsDto.getShowOnlineStatus());
-	    
-	    userSettingsService.updateSettings(settings.getId(), settings);
-	    
-	    return "redirect:/settings";
-	}
+public String saveSettings(@AuthenticationPrincipal NestUser user, 
+        @ModelAttribute("nestUserSettings") NestUserSettingsDto settingsDto, Model model) {
+    
+    System.out.println("darkMode: " + settingsDto.getDarkMode());
+    System.out.println("allowAnnouncements: " + settingsDto.isAllowAnnouncements());
+    System.out.println("showOnlineStatus: " + settingsDto.getShowOnlineStatus());
+    
+    NestUserSettings settings = user.getUserSettings();
+    settings.setDarkMode(settingsDto.getDarkMode() != null && settingsDto.getDarkMode());
+    settings.setAllowAnnouncements(settingsDto.isAllowAnnouncements() != null && settingsDto.isAllowAnnouncements());
+    settings.setShowOnlineStatus(settingsDto.getShowOnlineStatus() != null && settingsDto.getShowOnlineStatus());
+    
+    userSettingsService.updateSettings(settings.getId(), settings);
+    
+    return "redirect:/settings";
+}
 }
