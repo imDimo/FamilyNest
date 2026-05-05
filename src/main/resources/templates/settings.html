@@ -38,24 +38,24 @@
 
                 <div class="settings-grid">
 
-                    <!-- Left column -->
+                   <!-- Left column -->
 <div class="settings-col">
     <h3 class="settings-col-title">Appearance &amp; Notifications</h3>
 
     <div class="settings-row">
         <label class="settings-label">Dark Mode</label>
-        <label class="toggle-switch">
+        <div class="toggle-switch">
             <input type="checkbox" th:field="*{darkMode}">
             <span class="toggle-slider"></span>
-        </label>
+        </div>
     </div>
 
     <div class="settings-row">
         <label class="settings-label">Allow Announcements</label>
-        <label class="toggle-switch">
+        <div class="toggle-switch">
             <input type="checkbox" th:field="*{allowAnnouncements}">
             <span class="toggle-slider"></span>
-        </label>
+        </div>
     </div>
 </div>
 
@@ -65,13 +65,12 @@
 
     <div class="settings-row">
         <label class="settings-label">Show Online Status</label>
-        <label class="toggle-switch">
+        <div class="toggle-switch">
             <input type="checkbox" th:field="*{showOnlineStatus}">
             <span class="toggle-slider"></span>
-        </label>
+        </div>
     </div>
 </div>
-                </div>
 
                 <div class="settings-actions">
                     <button type="submit" class="btn-save">Save Preferences</button>
