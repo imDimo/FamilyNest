@@ -44,15 +44,11 @@ public class NestEventController {
 	}
 	
 	@PostMapping("/create")
-	public NestEventDto createEvent(@AuthenticationPrincipal NestUser currentUser,
-			Model model, @RequestBody NestEventDto eventData) {
-		NestEvent event = eventService.getEventById(eventData.getId());
+	public String createEvent(@AuthenticationPrincipal NestUser currentUser, @RequestBody NestEventDto eventData) {
 		
-		if (event != null) {
-			return null;
-		}
+		System.out.println(eventData.getTitle());
 		
-		event = new NestEvent();
+		NestEvent event = new NestEvent();
 		event.setTitle(eventData.getTitle());
 		event.setDescription(eventData.getDescription());
 		event.setCreator(currentUser);
@@ -76,7 +72,9 @@ public class NestEventController {
 			event.setEventDate(LocalDateTime.now());
 		}
 		
-		return new NestEventDto(eventService.create(event));
+		eventService.create(event);
+		
+		return "Event created";
 	}
 	
 	@PostMapping("/update")

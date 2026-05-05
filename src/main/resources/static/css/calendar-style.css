@@ -24,9 +24,15 @@
     margin-top: 24px;
 }
 
-.popup-header button {
+.bttn-close-popup {
     position: absolute;
     right: 8px;
+}
+
+.bttn-submit-popup {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
 }
 
 .close-button {

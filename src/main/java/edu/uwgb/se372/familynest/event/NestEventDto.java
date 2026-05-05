@@ -28,6 +28,7 @@ public class NestEventDto {
 		this.title = event.getTitle();
 		this.description = event.getDescription();
 		this.eventDate = event.getEventDate().toString();
+		this.eventTime = event.getEventTime().toString();
 		this.memberIds = new ArrayList<>();
 		memberIds.addAll(event.getMembers().stream().map((m) -> m.getId()).toList());
 		this.createdAt = event.getCreatedAt().toString();

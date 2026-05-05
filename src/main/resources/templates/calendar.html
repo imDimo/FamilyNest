@@ -60,7 +60,7 @@
         <div id="create-event-popup" class="tile create-event-tile">
             <div class="popup-header">
                 <h2>Create Event</h2>
-                <button id="bttn-close-popup" class="close-button"></button>
+                <button id="bttn-close-popup" class="bttn-close-popup close-button"></button>
             </div>
             <hr>
             <form id="create-event-form" class="create-event-form" action="#" method="POST">
@@ -84,6 +84,8 @@
                 <select name="members" id="members" multiple>
                     <option th:each="member:${members}" th:text="${member.username}" th:value="${member.id}"></option>
                 </select>
+                <br>
+                <button class="bttn-submit-popup" type="submit">Create</button>
             </form>
         </div>
 

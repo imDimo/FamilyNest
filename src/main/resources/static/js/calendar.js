@@ -3,6 +3,7 @@ let stompClient = null;
 const mySenderId = "user-" + Math.random().toString(36).substring(2, 9);
 
 function main() {
+    blockForm();
     initEvents();
     let bttn = document.getElementById("announceButton");
     if (bttn) {
@@ -10,7 +11,45 @@ function main() {
     }
     
     connect(); 
+}
 
+function blockForm() {
+    let form = document.getElementById("create-event-form");
+    form.addEventListener("submit", onFormSubmit);
+}
+
+function onFormSubmit(e) {
+    e.preventDefault();
+
+    let title = document.getElementById("title");
+    let description = document.getElementById("description");
+    let date = document.getElementById("date");
+    let time = document.getElementById("time");
+    let members = document.getElementById("members");
+
+    if (title.value.trim().length == 0) {
+        title.focus();
+        return;
+    }
+
+    if (date.value.trim().length == 0) {
+        date.focus();
+        return;
+    }
+
+    let event = {
+        "id": -1,
+        "title": title.value,
+        "description": description.value,
+        "eventDate": date.value,
+        "eventTime": time.value,
+        // "memberIds": members.value,
+        "memberIds": [],
+        "createdAt": "",
+        "updatedAt": ""
+    };
+
+    createEvent(JSON.stringify(event));
 }
 
 function initEvents() {
@@ -20,10 +59,10 @@ function initEvents() {
             break;
         }
         
-        day_container.addEventListener("click", showAddEventPopup);
+        day_container.addEventListener("click", toggleAddEventPopup);
     }
 
-    document.getElementById("bttn-close-popup").addEventListener("click", showAddEventPopup);
+    document.getElementById("bttn-close-popup").addEventListener("click", toggleAddEventPopup);
 
     let date = new Date();
     let month = date.getMonth() + 1;
@@ -32,8 +71,16 @@ function initEvents() {
     getEvents(month, year);
 }
 
-function showAddEventPopup(e) {
-    let day_num = e.target.id.replace(/^\D+/g, '');
+function toggleAddEventPopup(e) {
+    let currentDate = new Date();
+
+    let year = currentDate.getFullYear();
+    let month = currentDate.getMonth();
+    let day = e.target.id.replace(/^\D+/g, '');
+
+    let date = new Date(year, month, day);
+
+    document.getElementById("date").value = date.toISOString().substring(0, 10);
     document.getElementById("create-event-popup").classList.toggle("show");
 }
 
@@ -98,8 +145,20 @@ function getEvents(month, year) {
     });
 }
 
-function createEvent() {
+function createEvent(event) {
+    console.log("Sending:");
+    console.log(event);
 
+    let url = `http://${location.host}`;
+    fetch(`${url}/events/create`, {method: "POST", body: event})
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Could not connect to server");
+        }
+    })
+    .then(data => {
+        console.log(data);
+    });
 }
 
 window.onload = main;
