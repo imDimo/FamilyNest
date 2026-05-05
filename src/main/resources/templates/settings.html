@@ -38,45 +38,42 @@
 
                 <div class="settings-grid">
 
-                   <!-- Left column -->
-<div class="settings-col">
-    <h3 class="settings-col-title">Appearance &amp; Notifications</h3>
+<!-- Left column -->
+    <div class="settings-col">
+        <h3 class="settings-col-title">Appearance &amp; Notifications</h3>
 
-    <div class="settings-row">
-        <label class="settings-label">Dark Mode</label>
-        <div class="toggle-switch">
-            <input type="checkbox" th:field="*{darkMode}">
-            <span class="toggle-slider"></span>
+        <div class="settings-row">
+            <span class="settings-label">Dark Mode</span>
+            <label class="toggle-switch">
+                <input type="checkbox" th:field="*{darkMode}">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+
+        <div class="settings-row">
+            <span class="settings-label">Allow Announcements</span>
+            <label class="toggle-switch">
+                <input type="checkbox" th:field="*{allowAnnouncements}">
+                <span class="toggle-slider"></span>
+            </label>
         </div>
     </div>
 
-    <div class="settings-row">
-        <label class="settings-label">Allow Announcements</label>
-        <div class="toggle-switch">
-            <input type="checkbox" th:field="*{allowAnnouncements}">
-            <span class="toggle-slider"></span>
+    <!-- Right column -->
+    <div class="settings-col">
+        <h3 class="settings-col-title">Privacy</h3>
+
+        <div class="settings-row">
+            <span class="settings-label">Show Online Status</span>
+            <label class="toggle-switch">
+                <input type="checkbox" th:field="*{showOnlineStatus}">
+                <span class="toggle-slider"></span>
+            </label>
         </div>
     </div>
+
 </div>
 
-<!-- Right column -->
-<div class="settings-col">
-    <h3 class="settings-col-title">Privacy</h3>
-
-    <div class="settings-row">
-        <label class="settings-label">Show Online Status</label>
-        <div class="toggle-switch">
-            <input type="checkbox" th:field="*{showOnlineStatus}">
-            <span class="toggle-slider"></span>
-        </div>
-    </div>
+<div class="settings-actions">
+    <button type="submit" class="btn-save">Save Preferences</button>
 </div>
-
-                <div class="settings-actions">
-                    <button type="submit" class="btn-save">Save Preferences</button>
-                </div>
-
-            </form>
-        </div>
-    </body>
-</html>
