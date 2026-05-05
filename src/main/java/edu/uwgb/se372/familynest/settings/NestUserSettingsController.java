@@ -19,20 +19,20 @@ public class NestUserSettingsController {
     private NestUserSettingsService userSettingsService;
 	
 	@PostMapping("/save")
-public String saveSettings(@AuthenticationPrincipal NestUser user, 
-        @ModelAttribute("nestUserSettings") NestUserSettingsDto settingsDto, Model model) {
+	public String saveSettings(@AuthenticationPrincipal NestUser user, 
+        @ModelAttribute("nestUserSettings") NestUserSettingsDto settingsDto) {
     
-    System.out.println("darkMode: " + settingsDto.getDarkMode());
-    System.out.println("allowAnnouncements: " + settingsDto.getAllowAnnouncements());
-    System.out.println("showOnlineStatus: " + settingsDto.getShowOnlineStatus());
-    
-    NestUserSettings settings = user.getUserSettings();
-    settings.setDarkMode(settingsDto.getDarkMode());
-    settings.setAllowAnnouncements(settingsDto.getAllowAnnouncements());
-    settings.setShowOnlineStatus(settingsDto.getShowOnlineStatus());
-    
-    userSettingsService.updateSettings(settings.getId(), settings);
-    
-    return "redirect:/settings";
-}
+			NestUserSettings settings = user.getUserSettings();
+			settings.setDarkMode(settingsDto.getDarkMode());
+			settings.setAllowAnnouncements(settingsDto.getAllowAnnouncements());
+			settings.setShowOnlineStatus(settingsDto.getShowOnlineStatus());
+			userSettingsService.updateSettings(settings.getId(), settings);
+			return "redirect:/settings";
+		}
+	
+		@RequestMapping
+		public String showSettings(@AuthenticationPrincipal NestUser user, Model model) {
+			model.addAttribute("nestUserSettings", user.getUserSettings());
+			return "settings";
+		}
 }
