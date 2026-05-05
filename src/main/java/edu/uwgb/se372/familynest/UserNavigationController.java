@@ -1,13 +1,17 @@
 package edu.uwgb.se372.familynest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import edu.uwgb.se372.familynest.settings.NestUserSettings;
 import edu.uwgb.se372.familynest.settings.NestUserSettingsDto;
+import edu.uwgb.se372.familynest.settings.NestUserSettingsService;
 import edu.uwgb.se372.familynest.user.NestUser;
 import edu.uwgb.se372.familynest.user.NestUserService;
 import jakarta.servlet.RequestDispatcher;
