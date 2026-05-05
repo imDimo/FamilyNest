@@ -80,7 +80,7 @@
                         </div>
 
                         <div class="calendar-day" th:each="day:${#numbers.sequence(1, numDays)}">
-                            <span id="'day-' + ${day}" class="calendar-day-label" th:text="${day}"></span>
+                            <span th:id="'day-' + ${day}" class="calendar-day-label" th:text="${day}"></span>
                         </div>
 
                     </div>
