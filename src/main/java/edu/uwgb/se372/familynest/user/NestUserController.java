@@ -54,7 +54,6 @@ public class NestUserController {
 		NestUserDto existingUserData = null;
 		
 		try {
-			existingUser = userService.loadUserById(userData.getId());
 			existingUserData = new NestUserDto(existingUser);
 		}
 		catch (Exception e) {

@@ -2,6 +2,7 @@ package edu.uwgb.se372.familynest.event;
 
 import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 
@@ -12,23 +13,23 @@ import edu.uwgb.se372.familynest.user.NestUser;
 import edu.uwgb.se372.familynest.user.NestUserRepository;
 
 @Service
-public class CalendarEventManagementService {
+public class NestEventService {
 	
 	@Autowired
-	private CalendarEventRepository calendarEventRepository;
+	private NestEventRepository calendarEventRepository;
 	
 	@Autowired
 	private NestUserRepository nestUserRepository;
 	
 	// Create event
-	public CalendarEventManagement createEvent(CalendarEventManagement event) {
+	public NestEvent create(NestEvent event) {
 		event.setCreatedAt(LocalDateTime.now());
 		event.setUpdatedAt(LocalDateTime.now());
 		return calendarEventRepository.save(event);
 	}
 	
 	// Get all events
-	public List<CalendarEventManagement> getAllEvents() {
+	public List<NestEvent> getAllEvents() {
 		return calendarEventRepository.findAll();
 	}
 	
@@ -38,7 +39,7 @@ public class CalendarEventManagementService {
 	 * @param month 1-12
 	 * @param year full year (e.g. 2026)
 	 */
-	public List<CalendarEventManagement> getEventsByMonthYear(int month, int year) {
+	public List<NestEvent> getEventsByMonthYear(int month, int year) {
 		YearMonth ym = YearMonth.of(year, month);
 		LocalDateTime startInclusive = ym.atDay(1).atStartOfDay();
 		LocalDateTime endExclusive = ym.plusMonths(1).atDay(1).atStartOfDay();
@@ -46,21 +47,37 @@ public class CalendarEventManagementService {
 	}
 	
 	// Get event by ID
-	public CalendarEventManagement getEventById(Long eventId) {
+	public NestEvent getEventById(Long eventId) {
 		return calendarEventRepository.findById(eventId).orElse(null);
 	}
 	
 	// Update event
-	public CalendarEventManagement updateEvent(Long eventId, CalendarEventManagement eventDetails) {
-		CalendarEventManagement event = calendarEventRepository.findById(eventId).orElse(null);
-		if (event != null) {
-			event.setTitle(eventDetails.getTitle());
-			event.setDescription(eventDetails.getDescription());
-			event.setEventDate(eventDetails.getEventDate());
-			event.setEventTime(eventDetails.getEventTime());
-			event.setUpdatedAt(LocalDateTime.now());
-			return calendarEventRepository.save(event);
+	public NestEvent updateEvent(Long eventId, NestEventDto eventData) {
+		NestEvent existingEvent = calendarEventRepository.findById(eventId).orElse(null);
+		
+		if (existingEvent == null) {
+			System.err.println("Error retrieving user from database");
+			return null;
 		}
+		
+		if (!eventData.getTitle().isBlank()) {
+			existingEvent.setTitle(eventData.getTitle());
+		}
+		
+		existingEvent.setDescription(eventData.getDescription());
+		
+		if (!eventData.getEventDate().isBlank()) {
+			try {
+				DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+				existingEvent.setEventDate(LocalDateTime.parse(eventData.getEventDate(), formatter));
+			} catch (Exception e) {
+				// Keep existing date if parsing fails
+			}
+		}
+		
+		existingEvent.setEventTime(eventData.getEventTime());
+		existingEvent.setUpdatedAt(LocalDateTime.now());
+		
 		return null;
 	}
 	
@@ -70,8 +87,8 @@ public class CalendarEventManagementService {
 	}
 	
 	// Add member to event
-	public CalendarEventManagement addMemberToEvent(Long eventId, Long userId) {
-		CalendarEventManagement event = calendarEventRepository.findById(eventId).orElse(null);
+	public NestEvent addMemberToEvent(Long eventId, Long userId) {
+		NestEvent event = calendarEventRepository.findById(eventId).orElse(null);
 		NestUser user = nestUserRepository.findById(userId).orElse(null);
 		
 		if (event != null && user != null) {
@@ -83,8 +100,8 @@ public class CalendarEventManagementService {
 	}
 	
 	// Remove member from event
-	public CalendarEventManagement removeMemberFromEvent(Long eventId, Long userId) {
-		CalendarEventManagement event = calendarEventRepository.findById(eventId).orElse(null);
+	public NestEvent removeMemberFromEvent(Long eventId, Long userId) {
+		NestEvent event = calendarEventRepository.findById(eventId).orElse(null);
 		NestUser user = nestUserRepository.findById(userId).orElse(null);
 		
 		if (event != null && user != null) {
@@ -96,7 +113,7 @@ public class CalendarEventManagementService {
 	}
 	
 	// Get events created by user
-	public List<CalendarEventManagement> getEventsByCreator(Long userId) {
+	public List<NestEvent> getEventsByCreator(Long userId) {
 		NestUser user = nestUserRepository.findById(userId).orElse(null);
 		if (user != null) {
 			return calendarEventRepository.findByCreator(user);
@@ -105,26 +122,26 @@ public class CalendarEventManagementService {
 	}
 	
 	// Get events where user is a member
-	public List<CalendarEventManagement> getEventsByMember(Long userId) {
-		NestUser user = nestUserRepository.findById(userId).orElse(null);
-		if (user != null) {
-			return calendarEventRepository.findEventsByMember(user);
-		}
-		return List.of();
-	}
+//	public List<NestEvent> getEventsByMember(Long userId) {
+//		NestUser user = nestUserRepository.findById(userId).orElse(null);
+//		if (user != null) {
+//			return calendarEventRepository.findEventsByMember(user);
+//		}
+//		return List.of();
+//	}
 	
 	// Get all events for a user (created or as member)
-	public List<CalendarEventManagement> getUserEvents(Long userId) {
-		NestUser user = nestUserRepository.findById(userId).orElse(null);
-		if (user != null) {
-			return calendarEventRepository.findEventsByCreatorOrMember(user, user);
-		}
-		return List.of();
-	}
+//	public List<NestEvent> getUserEvents(Long userId) {
+//		NestUser user = nestUserRepository.findById(userId).orElse(null);
+//		if (user != null) {
+//			return calendarEventRepository.findEventsByCreatorOrMember(user, user);
+//		}
+//		return List.of();
+//	}
 	
 	// Add multiple members to event
-	public CalendarEventManagement addMembersToEvent(Long eventId, Set<Long> userIds) {
-		CalendarEventManagement event = calendarEventRepository.findById(eventId).orElse(null);
+	public NestEvent addMembersToEvent(Long eventId, Set<Long> userIds) {
+		NestEvent event = calendarEventRepository.findById(eventId).orElse(null);
 		if (event != null) {
 			for (Long userId : userIds) {
 				NestUser user = nestUserRepository.findById(userId).orElse(null);

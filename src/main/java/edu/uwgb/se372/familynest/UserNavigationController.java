@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import edu.uwgb.se372.familynest.authority.NestRoleService;
+import edu.uwgb.se372.familynest.event.NestEvent;
+import edu.uwgb.se372.familynest.event.NestEventService;
 import edu.uwgb.se372.familynest.user.NestUser;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +27,9 @@ public class UserNavigationController {
     
     @Autowired
     private NestRoleService roleService;
+    
+    @Autowired
+    private NestEventService eventService;
 
     @GetMapping("/")
     public String home() {
@@ -40,16 +45,15 @@ public class UserNavigationController {
         YearMonth yearMonth = YearMonth.from(today);
         LocalDate startDay = yearMonth.atDay(1);
 
-        String monthName = yearMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.US);
-        int year = yearMonth.getYear();
+        String monthName = today.getMonth().getDisplayName(TextStyle.FULL, Locale.US);
         int daysInMonth = yearMonth.lengthOfMonth();
 
         model.addAttribute("monthName", monthName);
-        model.addAttribute("year", year);
+        model.addAttribute("year", today.getYear());
         model.addAttribute("numDays", daysInMonth);
         model.addAttribute("startDayOffset", startDay.getDayOfWeek().getValue());
         model.addAttribute("currentDay", today.getDayOfMonth());
-      
+        
         return "/calendar";
     }
 

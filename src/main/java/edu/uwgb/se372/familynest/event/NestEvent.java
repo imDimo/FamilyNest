@@ -19,8 +19,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="CALENDAR_EVENT")
-public class CalendarEventManagement {
+@Table(name="event")
+public class NestEvent {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -38,13 +38,13 @@ public class CalendarEventManagement {
 	@Column(name="event_time")
 	private String eventTime;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="creator_id", nullable=false)
 	private NestUser creator;
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(
-		name="CALENDAR_EVENT_MEMBERS",
+		name="event_members",
 		joinColumns=@JoinColumn(name="event_id"),
 		inverseJoinColumns=@JoinColumn(name="user_id")
 	)
@@ -56,9 +56,9 @@ public class CalendarEventManagement {
 	@Column(name="updated_at")
 	private LocalDateTime updatedAt = LocalDateTime.now();
 	
-	public CalendarEventManagement() {}
+	public NestEvent() {}
 	
-	public CalendarEventManagement(String title, String description, LocalDateTime eventDate, NestUser creator) {
+	public NestEvent(String title, String description, LocalDateTime eventDate, NestUser creator) {
 		this.title = title;
 		this.description = description;
 		this.eventDate = eventDate;
