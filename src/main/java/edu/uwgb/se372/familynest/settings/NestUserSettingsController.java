@@ -21,9 +21,9 @@ public class NestUserSettingsController {
 	public String saveSettings(@AuthenticationPrincipal NestUser user, 
 			@ModelAttribute("nestUserSettings") NestUserSettingsDto settingsDto, Model model) {
 	    NestUserSettings settings = user.getUserSettings();
-	    settings.setDarkMode(settingsDto.getDarkMode());
-	    settings.setAllowAnnouncements(settingsDto.isAllowAnnouncements());
-	    settings.setShowOnlineStatus(settingsDto.getShowOnlineStatus());
+	    settings.setDarkMode(settingsDto.getDarkMode() != null && settingsDto.getDarkMode());
+		settings.setAllowAnnouncements(settingsDto.isAllowAnnouncements() != null && settingsDto.isAllowAnnouncements());
+		settings.setShowOnlineStatus(settingsDto.getShowOnlineStatus() != null && settingsDto.getShowOnlineStatus());
 	    
 	    userSettingsService.updateSettings(settings.getId(), settings);
 	    
