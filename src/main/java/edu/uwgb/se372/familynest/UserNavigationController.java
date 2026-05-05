@@ -43,16 +43,28 @@ public class UserNavigationController {
     	
         LocalDate today = LocalDate.now();
         YearMonth yearMonth = YearMonth.from(today);
+        LocalDate startDay = yearMonth.atDay(1);
 
+<<<<<<< HEAD
         String monthName = today.getMonth().getDisplayName(TextStyle.FULL, Locale.US);
+=======
+        String monthName = yearMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.US);
+        int year = yearMonth.getYear();
+>>>>>>> origin
         int daysInMonth = yearMonth.lengthOfMonth();
 
-        List < Integer > days = IntStream.rangeClosed(1, daysInMonth).boxed().toList();
-
         model.addAttribute("monthName", monthName);
+<<<<<<< HEAD
         model.addAttribute("year", today.getYear());
         model.addAttribute("days", days);
         
+=======
+        model.addAttribute("year", year);
+        model.addAttribute("numDays", daysInMonth);
+        model.addAttribute("startDayOffset", startDay.getDayOfWeek().getValue());
+        model.addAttribute("currentDay", today.getDayOfMonth());
+      
+>>>>>>> origin
         return "/calendar";
     }
 

@@ -30,7 +30,7 @@
         </div>
 
         <div class="tile add-user-tile">
-            <div class="add-user-content centered">
+            <div class="add-user-content center-align">
                 <form id="add-user-form" action="#" th:action="@{/admin/users/create}" th:object="${user}" method="POST">
                     <!-- TODO: Find better way to prevent text boxes from autofilling without using readonly + onfocus -->
                     <input id="username" type="text" th:field="*{username}" placeholder="Username" autocorrect="off" spellcheck="false" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');"> 

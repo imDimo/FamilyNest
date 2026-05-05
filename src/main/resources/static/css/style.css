@@ -41,8 +41,16 @@ button:hover {
     margin-right: auto;
 }
 
+.center-align {
+    text-align: center;
+}
+
 .left-align {
     text-align: left;
+}
+
+.right-align {
+    text-align: right;
 }
 
 .login-tile {
@@ -92,6 +100,10 @@ button:hover {
     padding: 0 160px 0 86px;
 }
 
+.header button {
+    margin: 0 8px 0 8px;
+}
+
 .header ul {
     list-style: none;
     display:flex;
@@ -105,15 +117,8 @@ button:hover {
     display: inline;
 }
 
-.centered {
-    text-align: center;
-}
 .bold {
     font-weight: bold;
-}
-
-.rightalign {
-    text-align: right;
 }
 
 .flex {
